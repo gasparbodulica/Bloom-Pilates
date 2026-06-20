@@ -179,7 +179,7 @@ section {
 
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 3.5rem;
   list-style: none;
 }
 
@@ -511,6 +511,24 @@ section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
+}
+
+.pricing-note {
+  text-align: center;
+  margin-top: 2.8rem;
+  font-size: 0.92rem;
+  color: var(--primary-light);
+  letter-spacing: 0.02em;
+}
+
+.pricing-note-icon {
+  color: var(--accent);
+  margin-right: 0.35rem;
+}
+
+.pricing-note strong {
+  color: var(--primary-dark);
+  font-weight: 600;
 }
 
 .pricing-card {
