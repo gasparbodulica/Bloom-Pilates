@@ -334,6 +334,9 @@ section {
 }
 
 .hero-location {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   color: var(--accent);
