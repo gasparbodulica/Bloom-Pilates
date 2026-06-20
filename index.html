@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="hr">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/hero.png" />
@@ -16,16 +16,21 @@
         </a>
         <nav>
           <ul class="nav-links" id="nav-links-menu">
-            <li><a href="#hero" class="nav-link-item active" id="nav-home">Home</a></li>
-            <li><a href="#about" class="nav-link-item" id="nav-about">About</a></li>
-            <li><a href="#methodology" class="nav-link-item" id="nav-methodology">Methodology</a></li>
-            <li><a href="#classes" class="nav-link-item" id="nav-classes">Classes</a></li>
-            <li><a href="#schedule" class="nav-link-item" id="nav-schedule">Schedule</a></li>
-            <li><a href="#contact" class="nav-link-item" id="nav-contact">Contact</a></li>
+            <li><a href="#hero" class="nav-link-item active" id="nav-home" data-i18n="nav.home">Početna</a></li>
+            <li><a href="#about" class="nav-link-item" id="nav-about" data-i18n="nav.about">O nama</a></li>
+            <li><a href="#methodology" class="nav-link-item" id="nav-methodology" data-i18n="nav.methodology">Metodologija</a></li>
+            <li><a href="#classes" class="nav-link-item" id="nav-classes" data-i18n="nav.classes">Sati</a></li>
+            <li><a href="#schedule" class="nav-link-item" id="nav-schedule" data-i18n="nav.schedule">Raspored</a></li>
+            <li><a href="#contact" class="nav-link-item" id="nav-contact" data-i18n="nav.contact">Kontakt</a></li>
           </ul>
         </nav>
         <div class="navbar-actions">
-          <button class="btn btn-primary" id="nav-book-btn">Book Class</button>
+          <div class="lang-switcher" id="lang-switcher">
+            <button class="lang-btn active" data-lang="hr">HR</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+          <button class="btn btn-primary" id="nav-book-btn" data-i18n="nav.book">Rezerviraj sat</button>
           <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
             <span></span>
             <span></span>
@@ -127,20 +132,20 @@
           <div class="hero-content">
             <div class="hero-badge">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M5 0L5.9 4.1 10 5 5.9 5.9 5 10 4.1 5.9 0 5 4.1 4.1Z"/></svg>
-              First class complimentary
+              <span data-i18n="hero.badge">Prvi sat besplatan</span>
             </div>
-            <div class="hero-subtitle">Every beginning is a bloom</div>
-            <h1 class="hero-title">Bloom into your <span>strongest</span>, most aligned self</h1>
+            <div class="hero-subtitle" data-i18n="hero.subtitle">Svaki početak je procvat</div>
+            <h1 class="hero-title" data-i18n-html="hero.title">Procvjetajte u svoju <span>najjaču</span>, najuravnoteženiju verziju</h1>
             <p class="hero-location">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Mursko Središće's first dedicated Pilates studio
+              <span data-i18n="hero.location">Prvi posvećeni Pilates studio u Murskom Središću</span>
             </p>
-            <p class="hero-description">
-              A boutique movement space offering dedicated reformer, tower, and mat sessions. Inspired by the precise BASI® Pilates method to help you sculpt, strengthen, and align.
+            <p class="hero-description" data-i18n="hero.desc">
+              Boutique prostor za kretanje koji nudi dediciran reformer, tower i mat. Inspirirani preciznom BASI® Pilates metodom za oblikovanje, jačanje i usklađivanje tijela.
             </p>
             <div class="hero-actions">
-              <button class="btn btn-primary" id="hero-book-btn">Book A Class</button>
-              <a href="#schedule" class="btn btn-secondary" id="hero-schedule-btn">View Schedule</a>
+              <button class="btn btn-primary" id="hero-book-btn" data-i18n="hero.book">Rezerviraj sat</button>
+              <a href="#schedule" class="btn btn-secondary" id="hero-schedule-btn" data-i18n="hero.schedule">Pogledaj raspored</a>
             </div>
           </div>
           <div class="hero-image-wrapper">
@@ -156,19 +161,19 @@
           <div class="stats-grid">
             <div class="stat-item">
               <div class="stat-number" data-target="500" data-suffix="+">0</div>
-              <div class="stat-label">Happy Members</div>
+              <div class="stat-label" data-i18n="stats.members">Zadovoljnih članova</div>
             </div>
             <div class="stat-item">
               <div class="stat-number" data-target="8" data-suffix="">0</div>
-              <div class="stat-label">Premium Reformers</div>
+              <div class="stat-label" data-i18n="stats.reformers">Premium reformera</div>
             </div>
             <div class="stat-item">
               <div class="stat-number" data-target="52" data-suffix="+">0</div>
-              <div class="stat-label">Weekly Classes</div>
+              <div class="stat-label" data-i18n="stats.classes">Tjednih sati</div>
             </div>
             <div class="stat-item">
               <div class="stat-number" data-target="5" data-suffix="">0</div>
-              <div class="stat-label">BASI® Instructors</div>
+              <div class="stat-label" data-i18n="stats.instructors">BASI® instruktora</div>
             </div>
           </div>
         </div>
@@ -191,31 +196,29 @@
               </div>
               <div class="about-years-badge">
                 <div class="about-years-number">10+</div>
-                <div class="about-years-label">Years of teaching</div>
+                <div class="about-years-label" data-i18n="about.years">god. poučavanja</div>
               </div>
             </div>
 
             <!-- Content Side -->
             <div class="about-content-side">
               <div class="about-header">
-                <span class="section-subtitle">Meet the Founder</span>
+                <span class="section-subtitle" data-i18n="about.subtitle">Upoznajte osnivača</span>
                 <h2>[Your Name]</h2>
-                <div class="about-founder-role">BASI® Certified Pilates Instructor & Studio Founder</div>
+                <div class="about-founder-role" data-i18n="about.role">BASI® Certificirani Pilates instruktor i osnivač studija</div>
               </div>
 
               <div class="about-bio">
-                <p>
-                  [Your story goes here — what drew you to Pilates, your training journey, and the moment
-                  you decided to open Bloom. This is where visitors connect with the person behind the studio.]
+                <p data-i18n="about.bio1">
+                  [Vaša priča ide ovdje — što vas je privuklo Pilatesu, vaš put obuke i trenutak kada ste odlučili otvoriti Bloom. Ovdje se posjetitelji povezuju s osobom iza studija.]
                 </p>
-                <p>
-                  [A second paragraph about your philosophy, a transformative experience with Pilates,
-                  or what you believe mindful movement can do for people's lives.]
+                <p data-i18n="about.bio2">
+                  [Drugi paragraf o vašoj filozofiji, transformativnom iskustvu s Pilatesom ili što vjerujete da svjesno kretanje može učiniti za živote ljudi.]
                 </p>
               </div>
 
               <div class="about-goals">
-                <h3 class="about-goals-title">What drives me</h3>
+                <h3 class="about-goals-title" data-i18n="about.goals">Što me pokreće</h3>
                 <div class="about-goals-grid">
 
                   <div class="about-goal-item">
@@ -225,8 +228,8 @@
                       </svg>
                     </div>
                     <div>
-                      <h4>Thriving Community</h4>
-                      <p>Creating a welcoming space where every member feels seen, supported, and celebrated on their journey.</p>
+                      <h4 data-i18n="about.goal1.title">Zajednica koja cvjeta</h4>
+                      <p data-i18n="about.goal1.desc">Stvaranje dobrodošlog prostora gdje se svaki član osjeća viđenim, podržanim i slavljenim na svom putu.</p>
                     </div>
                   </div>
 
@@ -237,8 +240,8 @@
                       </svg>
                     </div>
                     <div>
-                      <h4>Spreading BASI® Pilates</h4>
-                      <p>Sharing the precision and power of Body Arts and Science International Pilates with as many people as possible.</p>
+                      <h4 data-i18n="about.goal2.title">Širenje BASI® Pilatesa</h4>
+                      <p data-i18n="about.goal2.desc">Dijeljenje preciznosti i snage Body Arts and Science International Pilatesa s što više ljudi.</p>
                     </div>
                   </div>
 
@@ -249,8 +252,8 @@
                       </svg>
                     </div>
                     <div>
-                      <h4>Healing & Strength</h4>
-                      <p>Helping every body move without pain, stand taller, and feel genuinely strong from the inside out.</p>
+                      <h4 data-i18n="about.goal3.title">Ozdravljenje i snaga</h4>
+                      <p data-i18n="about.goal3.desc">Pomaganje svakome da se kreće bez boli, stoji uspravnije i osjeća istinskus snagu iznutra prema vani.</p>
                     </div>
                   </div>
 
@@ -261,8 +264,8 @@
                       </svg>
                     </div>
                     <div>
-                      <h4>Growing the Studio</h4>
-                      <p>Building toward new locations so more communities can experience the transformative power of Bloom.</p>
+                      <h4 data-i18n="about.goal4.title">Rast studija</h4>
+                      <p data-i18n="about.goal4.desc">Gradnja prema novim lokacijama kako bi više zajednica moglo iskusiti transformativnu snagu Blooma.</p>
                     </div>
                   </div>
 
@@ -303,9 +306,9 @@
         </div>
         <div class="container">
           <div class="section-header">
-            <span class="section-subtitle">Our Philosophy</span>
-            <h2>The Bloom Methodology</h2>
-            <p>Rooted in the renowned BASI® Pilates technique, we integrate athletic form with mindful breath to cultivate deep physical awareness.</p>
+            <span class="section-subtitle" data-i18n="method.subtitle">Naša filozofija</span>
+            <h2 data-i18n="method.title">Bloom metodologija</h2>
+            <p data-i18n="method.desc">Utemeljena na renomiranoj BASI® Pilates tehnici, integriramo atletsku formu s svjesnim disanjem za razvoj duboke tjelesne svjesnosti.</p>
           </div>
           <div class="method-grid">
             <!-- Precision -->
@@ -315,8 +318,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
               </div>
-              <h3>BASI® Alignment</h3>
-              <p>Following the Body Arts and Science International method, we focus on the structural flow, proper muscle recruitment, and precise joint biomechanics.</p>
+              <h3 data-i18n="method.card1.title">BASI® Usklađenost</h3>
+              <p data-i18n="method.card1.desc">Slijedeći Body Arts and Science International metodu, fokusiramo se na strukturalni tok, ispravnu aktivaciju mišića i preciznu biomehaniku zglobova.</p>
             </div>
             <!-- Flow -->
             <div class="method-card" id="method-flow-card">
@@ -325,8 +328,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
                 </svg>
               </div>
-              <h3>Smooth Transitions</h3>
-              <p>We blend exercises into a seamless, continuous flow. This approach builds cardiorespiratory stamina and sustained muscular engagement.</p>
+              <h3 data-i18n="method.card2.title">Glatki prijelazi</h3>
+              <p data-i18n="method.card2.desc">Stapamo vježbe u besprijekorni kontinuirani tok koji gradi kardiorespiratornu izdržljivost i trajnu mišićnu aktivaciju.</p>
             </div>
             <!-- Breath -->
             <div class="method-card" id="method-breath-card">
@@ -336,8 +339,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Z" />
                 </svg>
               </div>
-              <h3>Holistic Release</h3>
-              <p>Mindful breathing is integrated into every phase. Deep breath stabilizes the transverse abdominis, releasing tension and oxygenating muscles.</p>
+              <h3 data-i18n="method.card3.title">Holistično opuštanje</h3>
+              <p data-i18n="method.card3.desc">Svjesno disanje integrirano je u svaku fazu. Duboki dah stabilizira transverzalni trbušni mišić, otpušta napetost i oksigenira mišiće.</p>
             </div>
           </div>
         </div>
@@ -347,9 +350,9 @@
       <section class="instructors-section" id="instructors">
         <div class="container">
           <div class="section-header">
-            <span class="section-subtitle">Meet the Team</span>
-            <h2>Your Guides to Movement</h2>
-            <p>Our BASI®-certified instructors bring expertise, warmth, and a deep passion for transformative movement.</p>
+            <span class="section-subtitle" data-i18n="instr.subtitle">Upoznajte tim</span>
+            <h2 data-i18n="instr.title">Vaši vodiči kroz kretanje</h2>
+            <p data-i18n="instr.desc">Naši BASI® certificirani instruktori donose stručnost, toplinu i duboku strast za transformativno kretanje.</p>
           </div>
           <div class="instructors-grid">
             <div class="instructor-card" id="instructor-sarah">
@@ -359,11 +362,11 @@
               </div>
               <div class="instructor-info">
                 <h3>Sarah Jenkins</h3>
-                <div class="instructor-role">Lead Instructor & Founder</div>
-                <p>With over 10 years of BASI® Pilates experience, Sarah brings a profound understanding of movement mechanics and personal transformation to every session.</p>
+                <div class="instructor-role" data-i18n="instr.sarah.role">Vodeći instruktor i osnivač</div>
+                <p data-i18n="instr.sarah.bio">S više od 10 godina BASI® Pilates iskustva, Sarah donosi duboko razumijevanje mehanike kretanja i osobne transformacije na svaku sesiju.</p>
                 <div class="instructor-tags">
-                  <span>Reformer Flow</span>
-                  <span>Rehabilitation</span>
+                  <span data-i18n="instr.sarah.tag1">Reformer Flow</span>
+                  <span data-i18n="instr.sarah.tag2">Rehabilitacija</span>
                 </div>
               </div>
             </div>
@@ -374,11 +377,11 @@
               </div>
               <div class="instructor-info">
                 <h3>Jessica Chang</h3>
-                <div class="instructor-role">Reformer Specialist</div>
-                <p>A certified physiotherapist turned Pilates coach, specializing in athletic performance, postural correction, and injury prevention programs.</p>
+                <div class="instructor-role" data-i18n="instr.jessica.role">Reformer specijalist</div>
+                <p data-i18n="instr.jessica.bio">Certificirana fizioterapeutkinja koja je postala Pilates trenerica, specijalizirana za atletsku izvedbu, korekciju držanja i programe prevencije ozljeda.</p>
                 <div class="instructor-tags">
-                  <span>Power Flow</span>
-                  <span>Athletic Conditioning</span>
+                  <span data-i18n="instr.jessica.tag1">Power Flow</span>
+                  <span data-i18n="instr.jessica.tag2">Atletsko kondicioniranje</span>
                 </div>
               </div>
             </div>
@@ -389,11 +392,11 @@
               </div>
               <div class="instructor-info">
                 <h3>Marcus Sterling</h3>
-                <div class="instructor-role">Tower & Mat Specialist</div>
-                <p>Former contemporary dancer with a profound understanding of alignment, breath control, and the meditative art of mindful movement practice.</p>
+                <div class="instructor-role" data-i18n="instr.marcus.role">Tower i mat specijalist</div>
+                <p data-i18n="instr.marcus.bio">Bivši suvremeni plesač s dubokim razumijevanjem usklađenosti, kontrole disanja i meditativne umjetnosti svjesnog kretanja.</p>
                 <div class="instructor-tags">
-                  <span>Tower Sculpt</span>
-                  <span>Mat Core</span>
+                  <span data-i18n="instr.marcus.tag1">Tower Sculpt</span>
+                  <span data-i18n="instr.marcus.tag2">Mat Core</span>
                 </div>
               </div>
             </div>
@@ -405,107 +408,107 @@
       <section class="classes-section" id="classes">
         <div class="container">
           <div class="section-header">
-            <span class="section-subtitle">Membership & Pricing</span>
-            <h2>Select Your Path</h2>
-            <p>From energetic group classes on our premium reformers to highly personalized private sessions tailored to your structural needs.</p>
+            <span class="section-subtitle" data-i18n="classes.subtitle">Članstvo i cijene</span>
+            <h2 data-i18n="classes.title">Odaberite svoju putanju</h2>
+            <p data-i18n="classes.desc">Od energičnih grupnih sati na našim premium reformerima do visoko personaliziranih privatnih sesija prilagođenih vašim strukturalnim potrebama.</p>
           </div>
           <div class="pricing-tabs">
-            <button class="tab-btn active" id="tab-all" data-filter="all">All Packages</button>
-            <button class="tab-btn" id="tab-group" data-filter="group">Group Classes</button>
-            <button class="tab-btn" id="tab-private" data-filter="private">Private Sessions</button>
+            <button class="tab-btn active" id="tab-all" data-filter="all" data-i18n="classes.tab.all">Svi paketi</button>
+            <button class="tab-btn" id="tab-group" data-filter="group" data-i18n="classes.tab.group">Grupni sati</button>
+            <button class="tab-btn" id="tab-private" data-filter="private" data-i18n="classes.tab.private">Privatne sesije</button>
           </div>
           <div class="pricing-grid" id="pricing-grid-container">
             <!-- Group Single -->
             <div class="pricing-card" data-category="group" id="package-group-single">
-              <h3 class="card-title">Single Class</h3>
-              <div class="card-class-info">Group Reformer</div>
-              <div class="card-price">$38<span>/ session</span></div>
+              <h3 class="card-title" data-i18n="pkg.single.title">Jedan sat</h3>
+              <div class="card-class-info" data-i18n="pkg.single.info">Grupni reformer</div>
+              <div class="card-price">$38<span data-i18n="pkg.single.unit">/ sesija</span></div>
               <ul class="card-features">
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Access to Reformer Flow & Sculpt
+                  <span data-i18n="pkg.single.f1">Pristup Reformer Flow & Sculpt satima</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Intimate group size (max 8)
+                  <span data-i18n="pkg.single.f2">Mala grupa (max 8)</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Valid for 30 days
+                  <span data-i18n="pkg.single.f3">Vrijedi 30 dana</span>
                 </li>
               </ul>
-              <button class="btn btn-secondary select-package-btn" data-package="Single Group Class" data-price="$38" id="btn-pkg-single-group">Select Package</button>
+              <button class="btn btn-secondary select-package-btn" data-package="Single Group Class" data-price="$38" id="btn-pkg-single-group" data-i18n="pkg.single.btn">Odaberi paket</button>
             </div>
             <!-- Group Pack 10 (Featured) -->
             <div class="pricing-card featured" data-category="group" id="package-group-ten">
-              <h3 class="card-title">10-Class Pack</h3>
-              <div class="card-class-info">Group Reformer</div>
-              <div class="card-price">$320<span>/ package</span></div>
+              <h3 class="card-title" data-i18n="pkg.ten.title">Paket 10 sati</h3>
+              <div class="card-class-info" data-i18n="pkg.ten.info">Grupni reformer</div>
+              <div class="card-price">$320<span data-i18n="pkg.ten.unit">/ paket</span></div>
               <ul class="card-features">
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Access to all group classes
+                  <span data-i18n="pkg.ten.f1">Pristup svim grupnim satima</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Saves $6 per session
+                  <span data-i18n="pkg.ten.f2">Uštedite $6 po sesiji</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Valid for 6 months
+                  <span data-i18n="pkg.ten.f3">Vrijedi 6 mjeseci</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Complimentary studio grip socks
+                  <span data-i18n="pkg.ten.f4">Besplatne studio čarape</span>
                 </li>
               </ul>
-              <button class="btn btn-primary select-package-btn" data-package="10-Class Pack" data-price="$320" id="btn-pkg-ten-group">Select Package</button>
+              <button class="btn btn-primary select-package-btn" data-package="10-Class Pack" data-price="$320" id="btn-pkg-ten-group" data-i18n="pkg.ten.btn">Odaberi paket</button>
             </div>
             <!-- Private Session -->
             <div class="pricing-card" data-category="private" id="package-private-single">
-              <h3 class="card-title">Private Session</h3>
-              <div class="card-class-info">One-on-One Studio</div>
-              <div class="card-price">$95<span>/ session</span></div>
+              <h3 class="card-title" data-i18n="pkg.private.title">Privatna sesija</h3>
+              <div class="card-class-info" data-i18n="pkg.private.info">Jedan na jedan u studiju</div>
+              <div class="card-price">$95<span data-i18n="pkg.private.unit">/ sesija</span></div>
               <ul class="card-features">
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Dedicated attention by BASI® coach
+                  <span data-i18n="pkg.private.f1">Posvećena pažnja BASI® trenera</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Tailored posturing & rehabilitation
+                  <span data-i18n="pkg.private.f2">Individualizirana postura i rehabilitacija</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  Full apparatus use (Reformer, Tower, Chair)
+                  <span data-i18n="pkg.private.f3">Korištenje svih aparata (Reformer, Tower, Chair)</span>
                 </li>
               </ul>
-              <button class="btn btn-secondary select-package-btn" data-package="Private Session" data-price="$95" id="btn-pkg-private-single">Select Package</button>
+              <button class="btn btn-secondary select-package-btn" data-package="Private Session" data-price="$95" id="btn-pkg-private-single" data-i18n="pkg.private.btn">Odaberi paket</button>
             </div>
           </div>
           <p class="pricing-note">
             <span class="pricing-note-icon">✦</span>
-            Your first class or private session is always <strong>complimentary</strong> — come experience the Bloom difference.
+            <span data-i18n-html="pricing.note">Vaš prvi sat ili privatna sesija uvijek je <strong>besplatna</strong> — dođite iskusiti Bloom razliku.</span>
           </p>
         </div>
       </section>
@@ -514,28 +517,28 @@
       <section class="schedule-section" id="schedule">
         <div class="container">
           <div class="section-header">
-            <span class="section-subtitle">Reserve Your Spot</span>
-            <h2>Studio Schedule</h2>
-            <p>Check daily sessions led by our BASI® training coaches and book your reformer spot instantly.</p>
+            <span class="section-subtitle" data-i18n="sched.subtitle">Rezervirajte svoje mjesto</span>
+            <h2 data-i18n="sched.title">Raspored studija</h2>
+            <p data-i18n="sched.desc">Provjerite dnevne sesije koje vode naši BASI® treneri i odmah rezervirajte svoje mjesto na reformeru.</p>
           </div>
           <!-- Day Filter Buttons -->
           <div class="day-filters" id="day-filters-container">
-            <button class="day-btn active" data-day="Mon" id="btn-day-mon">Monday</button>
-            <button class="day-btn" data-day="Tue" id="btn-day-tue">Tuesday</button>
-            <button class="day-btn" data-day="Wed" id="btn-day-wed">Wednesday</button>
-            <button class="day-btn" data-day="Thu" id="btn-day-thu">Thursday</button>
-            <button class="day-btn" data-day="Fri" id="btn-day-fri">Friday</button>
-            <button class="day-btn" data-day="Sat" id="btn-day-sat">Saturday</button>
-            <button class="day-btn" data-day="Sun" id="btn-day-sun">Sunday</button>
+            <button class="day-btn active" data-day="Mon" id="btn-day-mon" data-i18n="sched.mon">Ponedjeljak</button>
+            <button class="day-btn" data-day="Tue" id="btn-day-tue" data-i18n="sched.tue">Utorak</button>
+            <button class="day-btn" data-day="Wed" id="btn-day-wed" data-i18n="sched.wed">Srijeda</button>
+            <button class="day-btn" data-day="Thu" id="btn-day-thu" data-i18n="sched.thu">Četvrtak</button>
+            <button class="day-btn" data-day="Fri" id="btn-day-fri" data-i18n="sched.fri">Petak</button>
+            <button class="day-btn" data-day="Sat" id="btn-day-sat" data-i18n="sched.sat">Subota</button>
+            <button class="day-btn" data-day="Sun" id="btn-day-sun" data-i18n="sched.sun">Nedjelja</button>
           </div>
           <!-- Schedule Table Container -->
           <div class="schedule-container">
             <div class="schedule-header-row">
-              <div>Time</div>
-              <div>Class Name</div>
-              <div>Instructor</div>
-              <div>Availability</div>
-              <div>Action</div>
+              <div data-i18n="sched.col.time">Vrijeme</div>
+              <div data-i18n="sched.col.class">Naziv sata</div>
+              <div data-i18n="sched.col.instructor">Instruktor</div>
+              <div data-i18n="sched.col.avail">Dostupnost</div>
+              <div data-i18n="sched.col.action">Akcija</div>
             </div>
             <div class="schedule-list" id="schedule-list-board">
               <!-- Dynamically populated classes will appear here -->
@@ -548,8 +551,8 @@
       <section class="testimonials-section" id="testimonials">
         <div class="container">
           <div class="section-header">
-            <span class="section-subtitle">Reviews</span>
-            <h2>Client Experiences</h2>
+            <span class="section-subtitle" data-i18n="test.subtitle">Recenzije</span>
+            <h2 data-i18n="test.title">Iskustva klijenata</h2>
           </div>
           <div class="testimonials-slider-container">
             <button class="slider-nav slider-nav-prev" id="test-prev" aria-label="Previous Testimonial">
@@ -567,12 +570,12 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                 </div>
-                <blockquote class="testimonial-quote">
-                  "Bloom has transformed my relationship with movement. The instructors pay such close attention to detail, and the space itself feels like an absolute sanctuary."
+                <blockquote class="testimonial-quote" data-i18n="test.1.quote">
+                  "Bloom je transformirao moj odnos s kretanjem. Instruktori posvećuju toliku pažnju detaljima, a sam prostor osjeća se kao pravo utočište."
                 </blockquote>
                 <div class="testimonial-author">
-                  <div class="author-name">Eleanor Vance</div>
-                  <div class="author-title">Member since 2024</div>
+                  <div class="author-name" data-i18n="test.1.author">Eleanor Vance</div>
+                  <div class="author-title" data-i18n="test.1.role">Članica od 2024.</div>
                 </div>
               </div>
               <!-- Slide 2 -->
@@ -584,12 +587,12 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                 </div>
-                <blockquote class="testimonial-quote">
-                  "The individual focus in private sessions completely cured my lower back pain. Every exercise is customized perfectly by the team."
+                <blockquote class="testimonial-quote" data-i18n="test.2.quote">
+                  "Individualni fokus u privatnim sesijama potpuno je izliječio moju bol u donjem dijelu leđa. Svaka vježba je savršeno prilagođena od strane tima."
                 </blockquote>
                 <div class="testimonial-author">
-                  <div class="author-name">Marcus Sterling</div>
-                  <div class="author-title">Private Coaching Client</div>
+                  <div class="author-name" data-i18n="test.2.author">Marcus Sterling</div>
+                  <div class="author-title" data-i18n="test.2.role">Klijent privatnog treninga</div>
                 </div>
               </div>
               <!-- Slide 3 -->
@@ -601,12 +604,12 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                 </div>
-                <blockquote class="testimonial-quote">
-                  "I love the Reformer Flow classes. In only a few weeks I've noticed huge gains in posture, core strength, and muscle tone. The reservation system is so easy!"
+                <blockquote class="testimonial-quote" data-i18n="test.3.quote">
+                  "Volim Reformer Flow satove. Za samo nekoliko tjedana primijetila sam velika poboljšanja u držanju, snazi jezgre i mišićnom tonusu. Sustav rezervacija je toliko jednostavan!"
                 </blockquote>
                 <div class="testimonial-author">
-                  <div class="author-name">Sophia Lorenza</div>
-                  <div class="author-title">Group Member</div>
+                  <div class="author-name" data-i18n="test.3.author">Sophia Lorenza</div>
+                  <div class="author-title" data-i18n="test.3.role">Članica grupe</div>
                 </div>
               </div>
             </div>
@@ -628,14 +631,14 @@
       <section class="gallery-section" id="gallery">
         <div class="container">
           <div class="section-header">
-            <span class="section-subtitle">Studio Life</span>
-            <h2>Inside Bloom</h2>
-            <p>A sanctuary of light, movement, and intention — where every session is a step toward your strongest self.</p>
+            <span class="section-subtitle" data-i18n="gallery.subtitle">Život studija</span>
+            <h2 data-i18n="gallery.title">Unutar Blooma</h2>
+            <p data-i18n="gallery.desc">Utočište svjetla, kretanja i namjere — gdje je svaka sesija korak prema vašoj najjačoj verziji.</p>
           </div>
           <div class="gallery-grid">
             <div class="gallery-item gallery-item--tall">
               <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Pilates reformer session" loading="lazy" />
-              <div class="gallery-overlay"><div class="gallery-icon">🌸</div></div>
+              <div class="gallery-overlay"><div class="gallery-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a3 3 0 0 1 3 3c0 .55-.15 1.07-.41 1.52A3 3 0 0 1 17 9a3 3 0 0 1-1.52 2.59A3 3 0 0 1 17 14a3 3 0 0 1-3 3c-.55 0-1.07-.15-1.52-.41A3 3 0 0 1 10 19a3 3 0 0 1-2.59-1.52A3 3 0 0 1 5 14a3 3 0 0 1 1.52-2.59A3 3 0 0 1 5 9a3 3 0 0 1 2.59-1.52A3 3 0 0 1 10 6a3 3 0 0 1 2-2.83V2m0 0a3 3 0 0 0-2 2.83"/><circle cx="12" cy="11" r="2"/></svg></div></div>
             </div>
             <div class="gallery-item">
               <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80" alt="Bright studio space" loading="lazy" />
@@ -647,7 +650,7 @@
             </div>
             <div class="gallery-item gallery-item--wide">
               <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?auto=format&fit=crop&w=900&q=80" alt="Group reformer class" loading="lazy" />
-              <div class="gallery-overlay"><div class="gallery-icon">🌸</div></div>
+              <div class="gallery-overlay"><div class="gallery-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a3 3 0 0 1 3 3c0 .55-.15 1.07-.41 1.52A3 3 0 0 1 17 9a3 3 0 0 1-1.52 2.59A3 3 0 0 1 17 14a3 3 0 0 1-3 3c-.55 0-1.07-.15-1.52-.41A3 3 0 0 1 10 19a3 3 0 0 1-2.59-1.52A3 3 0 0 1 5 14a3 3 0 0 1 1.52-2.59A3 3 0 0 1 5 9a3 3 0 0 1 2.59-1.52A3 3 0 0 1 10 6a3 3 0 0 1 2-2.83V2m0 0a3 3 0 0 0-2 2.83"/><circle cx="12" cy="11" r="2"/></svg></div></div>
             </div>
             <div class="gallery-item">
               <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80" alt="Mindful breath and movement" loading="lazy" />
@@ -665,7 +668,7 @@
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
-              Follow @bloom._pilates on Instagram
+              <span data-i18n="gallery.ig">Pratite @bloom._pilates na Instagramu</span>
             </a>
           </div>
         </div>
@@ -677,9 +680,9 @@
           <div class="contact-grid">
             <div class="contact-info">
               <div>
-                <span class="section-subtitle">Get in touch</span>
-                <h2>Visit the Studio</h2>
-                <p>Located in a serene and light-filled space. Reach out to schedule a tour or discuss custom private training plans.</p>
+                <span class="section-subtitle" data-i18n="contact.subtitle">Stupite u kontakt</span>
+                <h2 data-i18n="contact.title">Posjetite studio</h2>
+                <p data-i18n="contact.desc">Smješteni u mirnom i svjetlom prostoru. Javite se za zakazivanje obilaska ili razgovor o planovima privatnog treninga.</p>
               </div>
               <div class="contact-details">
                 <!-- Location -->
@@ -691,8 +694,8 @@
                     </svg>
                   </div>
                   <div class="contact-item-text">
-                    <h4>Address</h4>
-                    <p>412 Botanical Way, Suite 100, West Bloom, CA 90210</p>
+                    <h4 data-i18n="contact.addr">Adresa</h4>
+                    <p data-i18n="contact.addr.val">412 Botanical Way, Suite 100, West Bloom, CA 90210</p>
                   </div>
                 </div>
                 <!-- Contact info -->
@@ -703,7 +706,7 @@
                     </svg>
                   </div>
                   <div class="contact-item-text">
-                    <h4>Contact</h4>
+                    <h4 data-i18n="contact.phone">Kontakt</h4>
                     <p>hello@bloompilates.com<br />(310) 555-0190</p>
                   </div>
                 </div>
@@ -715,19 +718,19 @@
                     </svg>
                   </div>
                   <div class="contact-item-text">
-                    <h4>Studio Hours</h4>
-                    <p>Mon - Fri: 6:00 AM - 8:00 PM<br />Sat - Sun: 7:00 AM - 4:00 PM</p>
+                    <h4 data-i18n="contact.hours">Radno vrijeme</h4>
+                    <p data-i18n-html="contact.hours.val">Pon - Pet: 6:00 - 20:00<br />Sub - Ned: 7:00 - 16:00</p>
                   </div>
                 </div>
               </div>
               <div class="newsletter-box">
-                <h3>Newsletter</h3>
-                <p>Subscribe to receive studio updates, schedule changes, and wellness tips.</p>
+                <h3 data-i18n="newsletter.title">Novosti</h3>
+                <p data-i18n="newsletter.desc">Pretplatite se za primanje ažuriranja studija, promjena rasporeda i savjeta o dobrobiti.</p>
                 <form class="newsletter-form" id="newsletter-subscription-form">
                   <div class="form-group">
-                    <input type="email" placeholder="Your email address" required aria-label="Email Address for newsletter" id="newsletter-email" />
+                    <input type="email" data-i18n-placeholder="newsletter.placeholder" placeholder="Vaša e-mail adresa" required aria-label="Email Address for newsletter" id="newsletter-email" />
                   </div>
-                  <button type="submit" class="btn btn-primary" id="newsletter-submit-btn">Subscribe</button>
+                  <button type="submit" class="btn btn-primary" id="newsletter-submit-btn" data-i18n="newsletter.btn">Pretplati se</button>
                 </form>
               </div>
             </div>
@@ -737,8 +740,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8m-9-3.75h.008v.008H6V11.25Zm.008 5.25h.008v.008H6v-.008Zm.008-10.5h.008v.008H6V6Zm9 0h.008v.008h-.008V6Zm0 5.25h.008v.008h-.008v-.008Zm0 5.25h.008v.008h-.008v-.008Zm-3.75-2.625h.008v.008h-.008v-.008Zm0-3.75h.008v.008h-.008v-.008Z" />
                 </svg>
-                <h3>BLOOM PILATES STUDIO</h3>
-                <p>Located on beautiful Botanical Way near Central Park.<br />Ample underground parking available.</p>
+                <h3 data-i18n="map.title">BLOOM PILATES STUDIO</h3>
+                <p data-i18n-html="map.desc">Smješten na lijepom Botanical Wayu nedaleko Central Parka.<br />Dostupan podzemni parking.</p>
               </div>
             </div>
           </div>
@@ -751,29 +754,29 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <div class="logo">BLOOM<span class="logo-dot"></span>PILATES</div>
-            <p>Sculpting alignment, balance, and core strength in a serene and premium setting. Discover the power of mindful movement.</p>
+            <div class="logo"><span class="logo-word">BLOOM</span><span class="logo-dot"></span><span class="logo-word">PILATES</span></div>
+            <p data-i18n="footer.tagline">Oblikujemo usklađenost, ravnotežu i snagu jezgre u mirnom i premium okruženju. Otkrijte snagu svjesnog kretanja.</p>
           </div>
           <div>
-            <h4 class="footer-title">Explore</h4>
+            <h4 class="footer-title" data-i18n="footer.explore">Istraži</h4>
             <ul class="footer-links">
-              <li><a href="#hero" id="foot-nav-home">Home</a></li>
-              <li><a href="#methodology" id="foot-nav-methodology">Methodology</a></li>
-              <li><a href="#classes" id="foot-nav-classes">Classes & Pricing</a></li>
-              <li><a href="#schedule" id="foot-nav-schedule">Weekly Schedule</a></li>
+              <li><a href="#hero" id="foot-nav-home" data-i18n="footer.home">Početna</a></li>
+              <li><a href="#methodology" id="foot-nav-methodology" data-i18n="footer.methodology">Metodologija</a></li>
+              <li><a href="#classes" id="foot-nav-classes" data-i18n="footer.classes">Sati i cijene</a></li>
+              <li><a href="#schedule" id="foot-nav-schedule" data-i18n="footer.schedule">Tjedni raspored</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="footer-title">Legal</h4>
+            <h4 class="footer-title" data-i18n="footer.legal">Pravno</h4>
             <ul class="footer-links">
-              <li><a href="#" id="foot-nav-privacy">Privacy Policy</a></li>
-              <li><a href="#" id="foot-nav-terms">Terms of Service</a></li>
-              <li><a href="#" id="foot-nav-liability">Liability Waiver</a></li>
+              <li><a href="#" id="foot-nav-privacy" data-i18n="footer.privacy">Politika privatnosti</a></li>
+              <li><a href="#" id="foot-nav-terms" data-i18n="footer.terms">Uvjeti korištenja</a></li>
+              <li><a href="#" id="foot-nav-liability" data-i18n="footer.liability">Odricanje od odgovornosti</a></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2026 Bloom Pilates. All rights reserved. Made for mindful movers.</p>
+          <p data-i18n="footer.copy">© 2026 Bloom Pilates. Sva prava pridržana. Napravljeno za svjesne pokretače.</p>
           <div class="social-links">
             <a href="https://www.instagram.com/bloom._pilates/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" id="social-instagram">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -802,7 +805,7 @@
       <div class="modal-backdrop" id="booking-modal-backdrop"></div>
       <div class="modal-content">
         <div class="modal-header">
-          <h3 id="modal-header-title">Book a Pilates Session</h3>
+          <h3 id="modal-header-title" data-i18n="modal.title">Rezerviraj Pilates sesiju</h3>
           <button class="modal-close" id="booking-modal-close" aria-label="Close Modal">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -813,60 +816,60 @@
           <form id="booking-wizard-form">
             <!-- Step 1: Select Class & Package -->
             <div class="modal-form-step active" data-step="1" id="booking-step-1">
-              <h4 class="modal-form-title">Step 1: Choose Your Class</h4>
-              
-              <label class="form-label" for="booking-package">Select Class / Package</label>
+              <h4 class="modal-form-title" data-i18n="modal.step1.title">Korak 1: Odaberite sat</h4>
+
+              <label class="form-label" for="booking-package" data-i18n="modal.pkg.label">Odaberite sat / paket</label>
               <select class="form-select" id="booking-package" required>
-                <option value="" disabled selected>Choose class package</option>
-                <option value="Reformer Flow Class - $38">Reformer Flow Class - $38</option>
-                <option value="Tower Sculpt Class - $38">Tower Sculpt Class - $38</option>
-                <option value="Mat Pilates Class - $30">Mat Pilates Class - $30</option>
-                <option value="Private Reformer Coaching - $95">Private Reformer Coaching - $95</option>
-                <option value="10-Class Group Pack - $320">10-Class Group Pack - $320</option>
+                <option value="" disabled selected data-i18n="modal.pkg.placeholder">Odaberite paket</option>
+                <option value="Reformer Flow Class - $38" data-i18n="modal.pkg.1">Reformer Flow sat - $38</option>
+                <option value="Tower Sculpt Class - $38" data-i18n="modal.pkg.2">Tower Sculpt sat - $38</option>
+                <option value="Mat Pilates Class - $30" data-i18n="modal.pkg.3">Mat Pilates sat - $30</option>
+                <option value="Private Reformer Coaching - $95" data-i18n="modal.pkg.4">Privatni Reformer trening - $95</option>
+                <option value="10-Class Group Pack - $320" data-i18n="modal.pkg.5">Paket 10 grupnih sati - $320</option>
               </select>
 
-              <label class="form-label" for="booking-date">Preferred Date</label>
+              <label class="form-label" for="booking-date" data-i18n="modal.date.label">Željeni datum</label>
               <input type="date" class="form-input" id="booking-date" required />
 
-              <label class="form-label" for="booking-time">Available Session Times</label>
+              <label class="form-label" for="booking-time" data-i18n="modal.time.label">Dostupni termini</label>
               <select class="form-select" id="booking-time" required>
-                <option value="" disabled selected>Select a session time</option>
-                <option value="07:00 AM - Morning Flow">07:00 AM - Morning Flow</option>
-                <option value="09:00 AM - Reformer Align">09:00 AM - Reformer Align</option>
-                <option value="12:00 PM - Lunch Express">12:00 PM - Lunch Express</option>
-                <option value="04:30 PM - Tower Sculpt">04:30 PM - Tower Sculpt</option>
-                <option value="06:00 PM - After Work Core">06:00 PM - After Work Core</option>
+                <option value="" disabled selected data-i18n="modal.time.placeholder">Odaberite termin</option>
+                <option value="07:00 AM - Morning Flow" data-i18n="modal.time.1">07:00 - Jutarnji flow</option>
+                <option value="09:00 AM - Reformer Align" data-i18n="modal.time.2">09:00 - Reformer usklađivanje</option>
+                <option value="12:00 PM - Lunch Express" data-i18n="modal.time.3">12:00 - Kratak podnevni sat</option>
+                <option value="04:30 PM - Tower Sculpt" data-i18n="modal.time.4">16:30 - Tower Sculpt</option>
+                <option value="06:00 PM - After Work Core" data-i18n="modal.time.5">18:00 - Popodnevni core</option>
               </select>
 
               <div class="step-actions">
-                <button type="button" class="btn btn-primary" id="btn-step1-next">Continue</button>
+                <button type="button" class="btn btn-primary" id="btn-step1-next" data-i18n="modal.next">Nastavi</button>
               </div>
             </div>
 
             <!-- Step 2: Contact Details -->
             <div class="modal-form-step" data-step="2" id="booking-step-2">
-              <h4 class="modal-form-title">Step 2: Your Information</h4>
+              <h4 class="modal-form-title" data-i18n="modal.step2.title">Korak 2: Vaši podaci</h4>
 
               <div class="form-row">
                 <div>
-                  <label class="form-label" for="booking-firstname">First Name</label>
-                  <input type="text" class="form-input" id="booking-firstname" placeholder="Jane" required />
+                  <label class="form-label" for="booking-firstname" data-i18n="modal.first">Ime</label>
+                  <input type="text" class="form-input" id="booking-firstname" placeholder="Ana" required />
                 </div>
                 <div>
-                  <label class="form-label" for="booking-lastname">Last Name</label>
-                  <input type="text" class="form-input" id="booking-lastname" placeholder="Doe" required />
+                  <label class="form-label" for="booking-lastname" data-i18n="modal.last">Prezime</label>
+                  <input type="text" class="form-input" id="booking-lastname" placeholder="Horvat" required />
                 </div>
               </div>
 
-              <label class="form-label" for="booking-email">Email Address</label>
-              <input type="email" class="form-input" id="booking-email" placeholder="jane.doe@example.com" required />
+              <label class="form-label" for="booking-email" data-i18n="modal.email">E-mail adresa</label>
+              <input type="email" class="form-input" id="booking-email" placeholder="ana.horvat@primjer.com" required />
 
-              <label class="form-label" for="booking-phone">Phone Number</label>
-              <input type="tel" class="form-input" id="booking-phone" placeholder="(310) 555-0199" required />
+              <label class="form-label" for="booking-phone" data-i18n="modal.phone">Broj telefona</label>
+              <input type="tel" class="form-input" id="booking-phone" placeholder="+385 91 000 0000" required />
 
               <div class="step-actions">
-                <button type="button" class="btn btn-secondary" id="btn-step2-prev">Back</button>
-                <button type="submit" class="btn btn-primary" id="btn-step2-submit">Confirm Reservation</button>
+                <button type="button" class="btn btn-secondary" id="btn-step2-prev" data-i18n="modal.back">Nazad</button>
+                <button type="submit" class="btn btn-primary" id="btn-step2-submit" data-i18n="modal.submit">Potvrdi rezervaciju</button>
               </div>
             </div>
           </form>
@@ -878,9 +881,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
               </svg>
             </div>
-            <h3>Reservation Complete!</h3>
-            <p>Thank you for booking with Bloom Pilates. A confirmation email has been sent with your appointment details and arrival instructions.</p>
-            <button class="btn btn-primary" id="success-close-btn">Done</button>
+            <h3 data-i18n="modal.success.title">Rezervacija završena!</h3>
+            <p data-i18n="modal.success.msg">Hvala vam na rezervaciji u Bloom Pilatesu. Potvrda je poslana na vaš e-mail s detaljima termina i uputama za dolazak.</p>
+            <button class="btn btn-primary" id="success-close-btn" data-i18n="modal.success.close">Gotovo</button>
           </div>
         </div>
       </div>

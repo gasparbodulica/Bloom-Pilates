@@ -164,6 +164,43 @@ section {
   margin-left: auto;
 }
 
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-light);
+  padding: 0.25rem 0.1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  transition: color 0.2s;
+}
+
+.lang-btn:hover {
+  color: var(--primary-dark);
+}
+
+.lang-btn.active {
+  color: var(--accent);
+}
+
+.lang-divider {
+  color: var(--border);
+  font-size: 0.75rem;
+  user-select: none;
+}
+
 .navbar.scrolled .container {
   height: 75px;
 }

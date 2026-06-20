@@ -1,4 +1,5 @@
 import './style.css'
+import { currentLang, setLang, t } from './i18n.js'
 
 // ==========================================
 // 1. Weekly Schedule Data
@@ -256,17 +257,17 @@ bookingWizardForm.addEventListener('submit', (e) => {
   
   // Transition to submitting state
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Reserving Spot...';
-  
+  submitBtn.textContent = t('modal.submitting');
+
   setTimeout(() => {
     // Simulate successful API response
     submitBtn.disabled = false;
     submitBtn.textContent = originalText;
-    
+
     // Hide form steps and show success
     bookingWizardForm.style.display = 'none';
     bookingSuccessState.classList.add('active');
-    modalHeaderTitle.textContent = 'Confirmation';
+    modalHeaderTitle.textContent = t('modal.confirm');
     
     // Reset form inputs
     bookingWizardForm.reset();
@@ -324,25 +325,25 @@ function renderSchedule(day) {
   const classes = scheduleData[day] || [];
   
   if (classes.length === 0) {
-    scheduleBoard.innerHTML = `<div class="schedule-no-classes">No classes scheduled for this day.</div>`;
+    scheduleBoard.innerHTML = `<div class="schedule-no-classes">${t('sched.empty')}</div>`;
     return;
   }
-  
+
   // Build and render list items
   scheduleBoard.innerHTML = classes.map(cls => {
     const isFull = cls.spots === 0;
     const isLow = cls.spots > 0 && cls.spots <= 3;
-    
-    let spotsText = `${cls.spots} spots left`;
+
+    let spotsText = t('sched.spots').replace('{n}', cls.spots);
     let spotsClass = '';
-    let btnText = 'Book Spot';
+    let btnText = t('sched.book');
     let btnClass = 'btn btn-primary';
     let btnDisabled = '';
-    
+
     if (isFull) {
-      spotsText = 'Fully Booked';
+      spotsText = t('sched.full');
       spotsClass = 'low-spots';
-      btnText = 'Waitlist';
+      btnText = t('sched.waitlist');
       btnClass = 'btn btn-secondary';
     } else if (isLow) {
       spotsClass = 'low-spots';
@@ -468,10 +469,10 @@ newsletterForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
   newsletterSubmitBtn.disabled = true;
-  newsletterSubmitBtn.textContent = 'Subscribing...';
-  
+  newsletterSubmitBtn.textContent = currentLang === 'hr' ? 'Pretplaćivanje...' : 'Subscribing...';
+
   setTimeout(() => {
-    newsletterSubmitBtn.textContent = 'Subscribed!';
+    newsletterSubmitBtn.textContent = currentLang === 'hr' ? 'Pretplaćeno!' : 'Subscribed!';
     newsletterEmail.value = '';
     newsletterEmail.disabled = true;
 
@@ -596,4 +597,20 @@ if (heroBlobs.length) {
       });
     }
   }, { passive: true });
+}
+
+// ==========================================
+// 13. Language Switcher
+// ==========================================
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    setLang(lang);
+    renderSchedule(document.querySelector('.day-btn.active')?.dataset.day || 'Mon');
+  });
+});
+
+if (currentLang !== 'hr') {
+  setLang(currentLang);
+  renderSchedule(document.querySelector('.day-btn.active')?.dataset.day || 'Mon');
 }
