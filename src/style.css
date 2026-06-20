@@ -148,10 +148,20 @@ section {
 
 .navbar .container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 100px;
+  gap: 3rem;
   transition: var(--transition-smooth);
+}
+
+.navbar nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-actions {
+  margin-left: auto;
 }
 
 .navbar.scrolled .container {
@@ -321,6 +331,14 @@ section {
 .hero-title span {
   font-style: italic;
   font-family: var(--font-serif);
+}
+
+.hero-location {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 0.9rem;
 }
 
 .hero-description {
