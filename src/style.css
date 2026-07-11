@@ -154,14 +154,22 @@ section {
   transition: var(--transition-smooth);
 }
 
-.navbar nav {
+.navbar-nav {
   flex: 1;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+#nav-book-btn {
+  white-space: nowrap;
 }
 
 .navbar-actions {
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-shrink: 0;
 }
 
 .lang-switcher {
@@ -233,8 +241,9 @@ section {
 
 .nav-links {
   display: flex;
-  gap: 3.5rem;
+  gap: 2.5rem;
   list-style: none;
+  align-items: center;
 }
 
 .nav-links a {
@@ -244,6 +253,7 @@ section {
   font-size: 0.8rem;
   text-transform: uppercase;
   color: var(--primary-light);
+  white-space: nowrap;
 }
 
 .nav-links a::after {
@@ -265,12 +275,6 @@ section {
 .nav-links a:hover::after,
 .nav-links a.active::after {
   width: 80%;
-}
-
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
 }
 
 /* Buttons */
@@ -1446,7 +1450,8 @@ footer {
     transform: translateY(0);
   }
   
-  .navbar-actions .btn-primary {
+  .navbar-nav .btn-primary,
+  .navbar-nav .lang-switcher {
     display: none;
   }
   

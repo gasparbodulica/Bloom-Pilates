@@ -14,7 +14,7 @@
         <a href="#hero" class="logo" id="logo-link">
           <span class="logo-word">BLOOM</span><span class="logo-dot"></span><span class="logo-word">PILATES</span>
         </a>
-        <nav>
+        <nav class="navbar-nav">
           <ul class="nav-links" id="nav-links-menu">
             <li><a href="#hero" class="nav-link-item active" id="nav-home" data-i18n="nav.home">Početna</a></li>
             <li><a href="#about" class="nav-link-item" id="nav-about" data-i18n="nav.about">O nama</a></li>
@@ -23,20 +23,18 @@
             <li><a href="#schedule" class="nav-link-item" id="nav-schedule" data-i18n="nav.schedule">Raspored</a></li>
             <li><a href="#contact" class="nav-link-item" id="nav-contact" data-i18n="nav.contact">Kontakt</a></li>
           </ul>
-        </nav>
-        <div class="navbar-actions">
           <div class="lang-switcher" id="lang-switcher">
             <button class="lang-btn active" data-lang="hr">HR</button>
             <span class="lang-divider">|</span>
             <button class="lang-btn" data-lang="en">EN</button>
           </div>
           <button class="btn btn-primary" id="nav-book-btn" data-i18n="nav.book">Rezerviraj sat</button>
-          <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
+        </nav>
+        <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
 
@@ -422,7 +420,7 @@
             <div class="pricing-card" data-category="group" id="package-group-single">
               <h3 class="card-title" data-i18n="pkg.single.title">Jedan sat</h3>
               <div class="card-class-info" data-i18n="pkg.single.info">Grupni reformer</div>
-              <div class="card-price">$38<span data-i18n="pkg.single.unit">/ sesija</span></div>
+              <div class="card-price">€38<span data-i18n="pkg.single.unit">/ sesija</span></div>
               <ul class="card-features">
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -443,13 +441,13 @@
                   <span data-i18n="pkg.single.f3">Vrijedi 30 dana</span>
                 </li>
               </ul>
-              <button class="btn btn-secondary select-package-btn" data-package="Single Group Class" data-price="$38" id="btn-pkg-single-group" data-i18n="pkg.single.btn">Odaberi paket</button>
+              <button class="btn btn-secondary select-package-btn" data-package="Single Group Class" data-price="€38" id="btn-pkg-single-group" data-i18n="pkg.single.btn">Odaberi paket</button>
             </div>
             <!-- Group Pack 10 (Featured) -->
             <div class="pricing-card featured" data-category="group" id="package-group-ten">
               <h3 class="card-title" data-i18n="pkg.ten.title">Paket 10 sati</h3>
               <div class="card-class-info" data-i18n="pkg.ten.info">Grupni reformer</div>
-              <div class="card-price">$320<span data-i18n="pkg.ten.unit">/ paket</span></div>
+              <div class="card-price">€320<span data-i18n="pkg.ten.unit">/ paket</span></div>
               <ul class="card-features">
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -461,7 +459,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                  <span data-i18n="pkg.ten.f2">Uštedite $6 po sesiji</span>
+                  <span data-i18n="pkg.ten.f2">Uštedite €6 po sesiji</span>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -476,13 +474,13 @@
                   <span data-i18n="pkg.ten.f4">Besplatne studio čarape</span>
                 </li>
               </ul>
-              <button class="btn btn-primary select-package-btn" data-package="10-Class Pack" data-price="$320" id="btn-pkg-ten-group" data-i18n="pkg.ten.btn">Odaberi paket</button>
+              <button class="btn btn-primary select-package-btn" data-package="10-Class Pack" data-price="€320" id="btn-pkg-ten-group" data-i18n="pkg.ten.btn">Odaberi paket</button>
             </div>
             <!-- Private Session -->
             <div class="pricing-card" data-category="private" id="package-private-single">
               <h3 class="card-title" data-i18n="pkg.private.title">Privatna sesija</h3>
               <div class="card-class-info" data-i18n="pkg.private.info">Jedan na jedan u studiju</div>
-              <div class="card-price">$95<span data-i18n="pkg.private.unit">/ sesija</span></div>
+              <div class="card-price">€95<span data-i18n="pkg.private.unit">/ sesija</span></div>
               <ul class="card-features">
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -503,7 +501,7 @@
                   <span data-i18n="pkg.private.f3">Korištenje svih aparata (Reformer, Tower, Chair)</span>
                 </li>
               </ul>
-              <button class="btn btn-secondary select-package-btn" data-package="Private Session" data-price="$95" id="btn-pkg-private-single" data-i18n="pkg.private.btn">Odaberi paket</button>
+              <button class="btn btn-secondary select-package-btn" data-package="Private Session" data-price="€95" id="btn-pkg-private-single" data-i18n="pkg.private.btn">Odaberi paket</button>
             </div>
           </div>
           <p class="pricing-note">
@@ -821,11 +819,11 @@
               <label class="form-label" for="booking-package" data-i18n="modal.pkg.label">Odaberite sat / paket</label>
               <select class="form-select" id="booking-package" required>
                 <option value="" disabled selected data-i18n="modal.pkg.placeholder">Odaberite paket</option>
-                <option value="Reformer Flow Class - $38" data-i18n="modal.pkg.1">Reformer Flow sat - $38</option>
-                <option value="Tower Sculpt Class - $38" data-i18n="modal.pkg.2">Tower Sculpt sat - $38</option>
-                <option value="Mat Pilates Class - $30" data-i18n="modal.pkg.3">Mat Pilates sat - $30</option>
-                <option value="Private Reformer Coaching - $95" data-i18n="modal.pkg.4">Privatni Reformer trening - $95</option>
-                <option value="10-Class Group Pack - $320" data-i18n="modal.pkg.5">Paket 10 grupnih sati - $320</option>
+                <option value="Reformer Flow Class - €38" data-i18n="modal.pkg.1">Reformer Flow sat - €38</option>
+                <option value="Tower Sculpt Class - €38" data-i18n="modal.pkg.2">Tower Sculpt sat - €38</option>
+                <option value="Mat Pilates Class - €30" data-i18n="modal.pkg.3">Mat Pilates sat - €30</option>
+                <option value="Private Reformer Coaching - €95" data-i18n="modal.pkg.4">Privatni Reformer trening - €95</option>
+                <option value="10-Class Group Pack - €320" data-i18n="modal.pkg.5">Paket 10 grupnih sati - €320</option>
               </select>
 
               <label class="form-label" for="booking-date" data-i18n="modal.date.label">Željeni datum</label>
