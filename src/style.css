@@ -285,6 +285,23 @@ section {
   user-select: none;
 }
 
+@media (min-width: 900px) {
+  .lang-btn {
+    color: var(--olive);
+  }
+  .lang-btn:hover {
+    color: var(--olive);
+    opacity: 0.8;
+  }
+  .lang-btn.active {
+    color: var(--olive);
+    font-weight: 700;
+  }
+  .lang-divider {
+    color: var(--olive);
+  }
+}
+
 
 /* Footer logo text (BLOOM · PILATES) */
 .logo {
