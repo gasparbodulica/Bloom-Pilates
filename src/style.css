@@ -25,6 +25,7 @@
   --olive: #484A2C;                /* LALA dark olive */
   --terracotta: #9B5E4A;           /* LALA terracotta sections */
   --terracotta-dark: #7A4535;      /* Darker terracotta hover */
+  --footer-brown: #2A1D15;         /* Deep near-black brown — footer */
 
   --border: #D4C4B0;
   --border-light: #E8E0D4;
@@ -157,25 +158,45 @@ section {
   padding: 0 2rem;
 }
 
+/* Soft scrim behind the pill so it reads against the hero photo.
+   Fades out once scrolled onto the cream sections. */
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(20, 15, 10, 0.45), rgba(20, 15, 10, 0));
+  transition: opacity 0.4s ease;
+}
+
+.navbar.scrolled::before {
+  opacity: 0;
+}
+
 .navbar .container {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   height: 70px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.46);
   backdrop-filter: blur(28px) saturate(200%);
   -webkit-backdrop-filter: blur(28px) saturate(200%);
   border-radius: 100px;
   padding: 0 2rem;
   margin-top: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 6px 34px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,0.65);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navbar.scrolled .container {
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.09), inset 0 1px 0 rgba(255,255,255,0.55);
   margin-top: 10px;
 }
 
@@ -219,15 +240,18 @@ section {
   display: block;
 }
 
-/* Right: lang + CTA */
+/* Right: CTA centred between logo and lang switcher, switcher pinned to edge */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   justify-content: flex-end;
 }
 
 #nav-book-btn {
+  /* Auto margins centre the CTA in the gap between logo and lang switcher */
+  margin-left: auto;
+  margin-right: auto;
   white-space: nowrap;
   background: var(--olive);
   border-color: var(--olive);
@@ -1336,7 +1360,7 @@ section {
 
 /* Footer styling */
 footer {
-  background-color: var(--terracotta-dark);
+  background-color: var(--footer-brown);
   color: rgba(255, 255, 255, 0.6);
   padding: 4rem 0 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
