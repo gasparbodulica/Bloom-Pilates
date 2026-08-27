@@ -19,14 +19,13 @@
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
-  --accent: #9B5E4A;               /* LALA terracotta */
+  --accent: #A15835;               /* Brand copper terracotta */
   --accent-light: #F0E4DC;
 
   --olive: #484A2C;                /* LALA dark olive */
-  --terracotta: #9B5E4A;           /* LALA terracotta sections */
-  --terracotta-dark: #7A4535;      /* Darker terracotta hover */
+  --terracotta: #A15835;           /* Brand copper terracotta — panels + buttons */
+  --terracotta-dark: #83442A;      /* Darker terracotta hover */
   --footer-brown: #2A1D15;         /* Deep near-black brown — footer */
-  --brick: #AA4A44;                /* Classic brick red — methodology panel */
 
   --border: #D4C4B0;
   --border-light: #E8E0D4;
@@ -2284,7 +2283,7 @@ footer {
 }
 
 .split-terracotta {
-  background-color: var(--brick);
+  background-color: var(--terracotta);
   color: #fff;
 }
 
