@@ -19,12 +19,12 @@
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
-  --accent: #854F46;               /* Old brick — muted weathered red-brown */
+  --accent: #A95B4F;               /* Warm brick terracotta */
   --accent-light: #F0E4DC;
 
   --olive: #484A2C;                /* LALA dark olive */
-  --terracotta: #854F46;           /* Old brick — panels + buttons */
-  --terracotta-dark: #6A3F38;      /* Darker brick hover */
+  --terracotta: #A95B4F;           /* Warm brick terracotta — panels + buttons */
+  --terracotta-dark: #87493F;      /* Darker brick hover */
   --footer-brown: #2A1D15;         /* Deep near-black brown — footer */
 
   --border: #D4C4B0;
