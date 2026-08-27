@@ -19,12 +19,12 @@
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
-  --accent: #A15835;               /* Brand copper terracotta */
+  --accent: #854F46;               /* Old brick — muted weathered red-brown */
   --accent-light: #F0E4DC;
 
   --olive: #484A2C;                /* LALA dark olive */
-  --terracotta: #A15835;           /* Brand copper terracotta — panels + buttons */
-  --terracotta-dark: #83442A;      /* Darker terracotta hover */
+  --terracotta: #854F46;           /* Old brick — panels + buttons */
+  --terracotta-dark: #6A3F38;      /* Darker brick hover */
   --footer-brown: #2A1D15;         /* Deep near-black brown — footer */
 
   --border: #D4C4B0;
