@@ -26,6 +26,7 @@
   --terracotta: #9B5E4A;           /* LALA terracotta sections */
   --terracotta-dark: #7A4535;      /* Darker terracotta hover */
   --footer-brown: #2A1D15;         /* Deep near-black brown — footer */
+  --brick: #AA4A44;                /* Classic brick red — methodology panel */
 
   --border: #D4C4B0;
   --border-light: #E8E0D4;
@@ -2283,7 +2284,7 @@ footer {
 }
 
 .split-terracotta {
-  background-color: var(--terracotta);
+  background-color: var(--brick);
   color: #fff;
 }
 
