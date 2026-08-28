@@ -26,7 +26,7 @@
   --sage: #6F7045;                 /* Spec darker end — chosen for white-text contrast */
   --sage-dark: #63643C;            /* Gradient: darker end */
   --sage-light: #888959;           /* Spec gradient: lighter end */
-  --grain: url('./assets/grain.png');  /* real plaster grain, lifted from the brand swatch */
+  --grain: url('./assets/grain.png');  /* 512px tile drawn at 256px: 2x density, finer grain */
   --terracotta: #A8653F;           /* Topla terakota — panels + buttons */
   --terracotta-dark: #8A5133;      /* Darker terracotta hover */
   --footer-brown: #3D2B1F;         /* Dark espresso / mocha — footer */
@@ -1467,7 +1467,7 @@ footer {
 
 body {
   background-image: var(--grain);
-  background-size: 512px 512px;
+  background-size: 256px 256px;
   background-repeat: repeat;
   background-blend-mode: soft-light;
 }
@@ -1482,7 +1482,7 @@ footer {
     radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.13),       rgba(0,0,0,0)       62%),
     radial-gradient(70% 60% at 62% 38%,  rgba(255,255,255,0.04), rgba(255,255,255,0) 70%),
     var(--grain);
-  background-size: cover, cover, cover, 512px 512px;
+  background-size: cover, cover, cover, 256px 256px;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-position: center, center, center, top left;
   background-blend-mode: soft-light, soft-light, soft-light, soft-light;
@@ -1496,7 +1496,7 @@ footer {
     radial-gradient(120% 90% at 12% 8%,  rgba(255,255,255,0.06), rgba(255,255,255,0) 60%),
     radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.12),       rgba(0,0,0,0)       62%),
     var(--grain);
-  background-size: cover, cover, cover, 512px 512px;
+  background-size: cover, cover, cover, 256px 256px;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, soft-light, soft-light, soft-light;
 }
