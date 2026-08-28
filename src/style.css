@@ -26,7 +26,7 @@
   --sage: #7B7C50;                 /* Topla maslinasto/kadulja zelena — About panel */
   --sage-dark: #6F7045;            /* Spec gradient: darker end */
   --sage-light: #888959;           /* Spec gradient: lighter end */
-  --grain: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url%28%23n%29' opacity='0.85'/></svg>");
+  --grain: url('./assets/grain.png');  /* real plaster grain, lifted from the brand swatch */
   --terracotta: #A8653F;           /* Topla terakota — panels + buttons */
   --terracotta-dark: #8A5133;      /* Darker terracotta hover */
   --footer-brown: #3D2B1F;         /* Dark espresso / mocha — footer */
@@ -1467,7 +1467,7 @@ footer {
 
 body {
   background-image: var(--grain);
-  background-size: 220px 220px;
+  background-size: 512px 512px;
   background-repeat: repeat;
   background-blend-mode: soft-light;
 }
@@ -1482,7 +1482,7 @@ footer {
     radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.13),       rgba(0,0,0,0)       62%),
     radial-gradient(70% 60% at 62% 38%,  rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
     var(--grain);
-  background-size: cover, cover, cover, 220px 220px;
+  background-size: cover, cover, cover, 512px 512px;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-position: center, center, center, top left;
   background-blend-mode: soft-light, soft-light, soft-light, soft-light;
@@ -1496,7 +1496,7 @@ footer {
     radial-gradient(120% 90% at 12% 8%,  rgba(255,255,255,0.10), rgba(255,255,255,0) 60%),
     radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.12),       rgba(0,0,0,0)       62%),
     var(--grain);
-  background-size: cover, cover, cover, 220px 220px;
+  background-size: cover, cover, cover, 512px 512px;
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-blend-mode: normal, soft-light, soft-light, soft-light;
 }
