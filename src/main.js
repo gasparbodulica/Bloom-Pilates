@@ -86,36 +86,78 @@ waitlistForm.addEventListener('submit', (e) => {
 // ==========================================
 // 5. Scroll Reveal Animations
 // ==========================================
-const revealSelectors = [
-  '.section-header',
-  '.prelaunch-grid-item',
-  '.method-list-item',
-  '.contact-grid > *',
-  '.split-content'
-];
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-revealSelectors.forEach(selector => {
-  document.querySelectorAll(selector).forEach(el => {
-    el.classList.add('reveal');
-    const parent = el.parentElement;
-    const revealedSiblings = Array.from(parent.children).filter(c => c.classList.contains('reveal'));
-    const index = revealedSiblings.indexOf(el);
-    if (index > 0) {
-      el.style.transitionDelay = `${index * 0.1}s`;
-    }
-  });
+// Hero copy gets a staggered entrance on load rather than on scroll
+document.querySelectorAll('.hero-content-centered > *').forEach(el => {
+  el.classList.add('hero-enter');
 });
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('is-visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+const revealSelectors = [
+  '.section-header',
+  '.prelaunch-top',
+  '.prelaunch-grid-item',
+  '.prelaunch-cta',
+  '.method-list-item',
+  '.contact-header',
+  '.contact-grid > *',
+  '.split-content',
+  '.footer-grid > *'
+];
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+if (!reduceMotion) {
+  revealSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.classList.add('reveal');
+      const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
+      const index = siblings.indexOf(el);
+      if (index > 0) el.style.transitionDelay = `${index * 0.1}s`;
+    });
+  });
+
+  // photo panels settle out of a slow push-in
+  document.querySelectorAll('.split-photo').forEach(el => el.classList.add('reveal-photo'));
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-photo').forEach(el => revealObserver.observe(el));
+}
+
+// ==========================================
+// 5b. Photo parallax — drifts the panel images as they pass
+// ==========================================
+if (!reduceMotion) {
+  const parallaxPhotos = Array.from(document.querySelectorAll('.split-photo img'));
+  if (parallaxPhotos.length) {
+    let ticking = false;
+    const updateParallax = () => {
+      const vh = window.innerHeight;
+      parallaxPhotos.forEach(img => {
+        const rect = img.parentElement.getBoundingClientRect();
+        if (rect.bottom < -200 || rect.top > vh + 200) return;
+        // -1 (below the fold) .. 1 (above it)
+        const progress = (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2);
+        img.style.setProperty('--py', `${(progress * 18).toFixed(2)}px`);
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateParallax);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateParallax, { passive: true });
+    updateParallax();
+  }
+}
 
 // ==========================================
 // 6. Language Switcher

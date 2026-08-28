@@ -2282,14 +2282,87 @@ footer {
    ========================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(26px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
+}
+
+/* ---- Photo panels: settle out of a slow push-in ---------------- */
+.split-photo img {
+  transform: translateY(var(--py, 0px)) scale(var(--ps, 1));
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 1.1s ease;
+}
+
+.split-photo.reveal-photo img {
+  opacity: 0;
+  --ps: 1.09;
+}
+
+.split-photo.reveal-photo.is-visible img {
+  opacity: 1;
+  --ps: 1;
+}
+
+/* keep the existing hover lift working on top of the reveal */
+.split-panel:hover .split-photo img {
+  --ps: 1.03;
+}
+
+/* ---- Cards inside a panel cascade after their parent ----------- */
+.split-content.reveal .about-goal-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.split-content.is-visible .about-goal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.split-content.is-visible .about-goal-item:nth-child(1) { transition-delay: 0.30s; }
+.split-content.is-visible .about-goal-item:nth-child(2) { transition-delay: 0.40s; }
+.split-content.is-visible .about-goal-item:nth-child(3) { transition-delay: 0.50s; }
+.split-content.is-visible .about-goal-item:nth-child(4) { transition-delay: 0.60s; }
+
+/* ---- Hero: staggered entrance on load, not on scroll ----------- */
+.hero-enter {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-enter:nth-child(1) { animation-delay: 0.15s; }
+.hero-enter:nth-child(2) { animation-delay: 0.28s; }
+.hero-enter:nth-child(3) { animation-delay: 0.41s; }
+.hero-enter:nth-child(4) { animation-delay: 0.56s; }
+
+@keyframes heroIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Respect the OS "reduce motion" setting -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .split-content.reveal .about-goal-item,
+  .split-photo.reveal-photo img,
+  .hero-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    transition-delay: 0s !important;
+  }
+  .split-photo img { --ps: 1; --py: 0px; }
 }
 
 /* ==========================================
@@ -2324,10 +2397,6 @@ footer {
   object-position: center top;
   display: block;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.split-panel:hover .split-photo img {
-  transform: scale(1.03);
 }
 
 .split-content {
