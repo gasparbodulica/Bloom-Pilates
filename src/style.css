@@ -39,6 +39,7 @@
   --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
 
   /* Layout Constants */
+  --navbar-gap: 14px;
   --max-width: 1100px;
   --border-radius: 20px;
   --border-radius-sm: 10px;
@@ -191,7 +192,7 @@ section {
   -webkit-backdrop-filter: blur(28px) saturate(200%);
   border-radius: 100px;
   padding: 0 2rem;
-  margin-top: 14px;
+  margin-top: var(--navbar-gap);
   border: none;
   box-shadow: 0 6px 34px rgba(0, 0, 0, 0.22);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1741,24 +1742,39 @@ footer {
     padding: 0 1.25rem;
   }
 
+  /* The pill has a backdrop-filter, which makes it the containing block
+     for fixed-position children — so this panel is positioned against the
+     pill, not the viewport. Offset back out to cover the screen, and hide
+     it outright when closed so no sliver can show above the pill. */
   .nav-links {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    top: calc(-1 * var(--navbar-gap));
+    left: 50%;
+    margin-left: -50vw;
+    width: 100vw;
+    height: calc(100vh + var(--navbar-gap));
+    height: calc(100dvh + var(--navbar-gap));
     background-color: var(--bg-main);
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2.25rem;
     transform: translateY(-100%);
-    transition: var(--transition-smooth);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                visibility 0s linear 0.5s;
     z-index: 998;
   }
 
   .nav-links.active {
     transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                visibility 0s;
   }
 
   .navbar-right .btn-primary,
@@ -2856,16 +2872,11 @@ footer {
   .prelaunch-grid-item {
     border-right: none;
     border-bottom: 1px solid var(--border-light);
-    padding: 1.75rem 0;
-  }
-
-  .prelaunch-grid-item:nth-child(odd) {
-    padding-left: 0;
+    padding: 1.75rem 1.5rem;
   }
 
   .prelaunch-grid-item:last-child {
     border-bottom: none;
-    padding-left: 0;
   }
 
   .prelaunch-cta {
