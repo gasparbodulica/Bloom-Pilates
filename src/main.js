@@ -4,6 +4,16 @@ import logoUrl from './assets/logo.jpg'
 
 document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl; })
 
+// Refresh should land at the top, not wherever the browser last remembered.
+// Left on 'auto' the page restores mid-document, which also means every
+// reveal above that point has already been passed.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+const jumpToTop = () => {
+  if (!window.location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+};
+jumpToTop();
+window.addEventListener('load', jumpToTop);
+
 // ==========================================
 // 1. DOM Elements & State
 // ==========================================
@@ -105,19 +115,19 @@ const revealSelectors = [
   '.footer-grid > *'
 ];
 
-if (!reduceMotion) {
-  revealSelectors.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      el.classList.add('reveal');
-      const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
-      const index = siblings.indexOf(el);
-      if (index > 0) el.style.transitionDelay = `${index * 0.1}s`;
-    });
+revealSelectors.forEach(selector => {
+  document.querySelectorAll(selector).forEach(el => {
+    el.classList.add('reveal');
+    const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
+    const index = siblings.indexOf(el);
+    if (index > 0) el.style.transitionDelay = `${index * 0.1}s`;
   });
+});
 
-  // photo panels settle out of a slow push-in
-  document.querySelectorAll('.split-photo').forEach(el => el.classList.add('reveal-photo'));
+// photo panels settle out of a slow push-in
+document.querySelectorAll('.split-photo').forEach(el => el.classList.add('reveal-photo'));
 
+if ('IntersectionObserver' in window) {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -128,6 +138,8 @@ if (!reduceMotion) {
   }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
   document.querySelectorAll('.reveal, .reveal-photo').forEach(el => revealObserver.observe(el));
+} else {
+  document.querySelectorAll('.reveal, .reveal-photo').forEach(el => el.classList.add('is-visible'));
 }
 
 // ==========================================

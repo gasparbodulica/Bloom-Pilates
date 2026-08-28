@@ -2352,17 +2352,26 @@ footer {
 
 /* ---- Respect the OS "reduce motion" setting -------------------- */
 @media (prefers-reduced-motion: reduce) {
+  /* Reduce motion, don't remove the reveal: keep a plain opacity fade
+     and drop every translation, scale and parallax. */
   .reveal,
   .split-content.reveal .about-goal-item,
-  .split-photo.reveal-photo img,
   .hero-enter {
-    opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
     animation: none !important;
-    transition-delay: 0s !important;
+    transition: opacity 0.5s ease !important;
   }
-  .split-photo img { --ps: 1; --py: 0px; }
+
+  .hero-enter { opacity: 1 !important; }
+
+  .split-photo img,
+  .split-photo.reveal-photo img,
+  .split-photo.reveal-photo.is-visible img,
+  .split-panel:hover .split-photo img {
+    --ps: 1 !important;
+    --py: 0px !important;
+    transition: opacity 0.5s ease !important;
+  }
 }
 
 /* ==========================================
