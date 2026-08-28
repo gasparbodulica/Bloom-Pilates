@@ -15,17 +15,21 @@
   --text-muted: #7A6558;
   --text-light: #ffffff;
 
-  --bg-main: #F2EDE4;              /* LALA warm cream */
+  --bg-main: #ECE6D8;              /* Mliječna bež / boja slonovače */
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
-  --accent: #A95B4F;               /* Warm brick terracotta */
+  --accent: #A8653F;               /* Topla terakota / boja hrđe */
   --accent-light: #F0E4DC;
 
-  --olive: #484A2C;                /* LALA dark olive */
-  --terracotta: #A95B4F;           /* Warm brick terracotta — panels + buttons */
-  --terracotta-dark: #87493F;      /* Darker brick hover */
-  --footer-brown: #2A1D15;         /* Deep near-black brown — footer */
+  --olive: #484A2C;                /* Dark olive — nav CTA, labels, buttons */
+  --sage: #7B7C50;                 /* Topla maslinasto/kadulja zelena — About panel */
+  --sage-dark: #6F7045;            /* Spec gradient: darker end */
+  --sage-light: #888959;           /* Spec gradient: lighter end */
+  --grain: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url%28%23n%29' opacity='0.85'/></svg>");
+  --terracotta: #A8653F;           /* Topla terakota — panels + buttons */
+  --terracotta-dark: #8A5133;      /* Darker terracotta hover */
+  --footer-brown: #3D2B1F;         /* Dark espresso / mocha — footer */
 
   --border: #D4C4B0;
   --border-light: #E8E0D4;
@@ -1118,7 +1122,7 @@ section {
 /* Contact & Info Section */
 /* Contact Section — LALA terracotta background */
 .contact-section {
-  background-color: var(--bg-dark);
+  background-color: var(--bg-main);
   padding: 6rem 0 7rem;
 }
 
@@ -1131,17 +1135,17 @@ section {
 .contact-header h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 0.75rem;
-  color: var(--bg-main);
+  color: var(--text-main);
 }
 
 .contact-header .section-subtitle {
-  color: rgba(242, 237, 228, 0.55);
+  color: var(--primary);
   letter-spacing: 0.18em;
 }
 
 .contact-header p {
   font-size: 1.05rem;
-  color: rgba(242, 237, 228, 0.75);
+  color: var(--primary);
   line-height: 1.7;
 }
 
@@ -1154,10 +1158,12 @@ section {
 
 /* ---- Form card floats on terracotta — LALA cream card ---- */
 .contact-form-col {
-  background: var(--bg-main);
+  background: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   border-radius: var(--border-radius);
-  border: none;
-  box-shadow: 0 24px 60px -10px rgba(26, 20, 16, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 24px 60px -18px rgba(61, 43, 31, 0.18);
   padding: 3rem 3.5rem;
 }
 
@@ -1249,7 +1255,7 @@ section {
 .contact-info-col h3 {
   font-family: var(--font-serif);
   font-size: 1.5rem;
-  color: var(--bg-main);
+  color: var(--text-main);
   letter-spacing: 0.06em;
   margin-bottom: 0;
 }
@@ -1266,18 +1272,18 @@ section {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(242,237,228,0.5);
+  color: var(--olive);
 }
 
 .contact-info-value {
   font-size: 0.95rem;
-  color: rgba(242,237,228,0.9);
+  color: var(--text-main);
   line-height: 1.6;
 }
 
 .contact-address {
   font-size: 1rem;
-  color: rgba(242,237,228,0.85);
+  color: var(--text-main);
   line-height: 1.7;
 }
 
@@ -1450,6 +1456,55 @@ footer {
   width: 16px;
   height: 16px;
 }
+
+/* ==========================================================
+   Limewash / plaster surfaces  (per "Web- boje" spec)
+   Never a flat digital slab: a fine grain like brus papir plus
+   soft micro-shading, as on a hand-troweled lime-plaster wall.
+   Painted as extra background layers above each background-color,
+   so it sits behind all content and needs no z-index juggling.
+   ========================================================== */
+
+body {
+  background-image: var(--grain);
+  background-size: 220px 220px;
+  background-repeat: repeat;
+  background-blend-mode: soft-light;
+}
+
+.prelaunch-section,
+.split-olive,
+.split-terracotta,
+.contact-section,
+footer {
+  background-image:
+    radial-gradient(120% 90% at 12% 8%,  rgba(255,255,255,0.11), rgba(255,255,255,0) 60%),
+    radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.13),       rgba(0,0,0,0)       62%),
+    radial-gradient(70% 60% at 62% 38%,  rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
+    var(--grain);
+  background-size: cover, cover, cover, 220px 220px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-position: center, center, center, top left;
+  background-blend-mode: soft-light, soft-light, soft-light, soft-light;
+}
+
+/* The About panel also carries the spec's gentle shade range
+   (#6F7045 -> #888959) as part of its limewash. */
+.split-olive {
+  background-image:
+    linear-gradient(152deg, rgba(136,137,89,0.55) 0%, rgba(123,124,80,0) 45%, rgba(111,112,69,0.6) 100%),
+    radial-gradient(120% 90% at 12% 8%,  rgba(255,255,255,0.10), rgba(255,255,255,0) 60%),
+    radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.12),       rgba(0,0,0,0)       62%),
+    var(--grain);
+  background-size: cover, cover, cover, 220px 220px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-blend-mode: normal, soft-light, soft-light, soft-light;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* grain is static; nothing to animate — kept flat on purpose */
+}
+
 
 /* Luxury Booking Modal */
 .booking-modal {
@@ -2000,7 +2055,7 @@ footer {
    PRE-LAUNCH SECTION — LALA "Why" text grid
    ========================================== */
 .prelaunch-section {
-  background-color: #F7F3ED;
+  background-color: var(--bg-main);
   color: var(--text-main);
   padding: 0;
 }
@@ -2288,7 +2343,7 @@ footer {
 }
 
 .split-olive {
-  background-color: var(--olive);
+  background-color: var(--sage);
   color: #fff;
 }
 
