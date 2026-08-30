@@ -26,7 +26,6 @@
   --sage: #6F7045;                 /* Spec darker end — chosen for white-text contrast */
   --sage-dark: #63643C;            /* Gradient: darker end */
   --sage-light: #888959;           /* Spec gradient: lighter end */
-  --grain: url('./assets/grain.png');  /* 512px tile drawn at 256px: 2x density, finer grain */
   --terracotta: #A8653F;           /* Topla terakota — panels + buttons */
   --terracotta-dark: #8A5133;      /* Darker terracotta hover */
   --footer-brown: #3D2B1F;         /* Dark espresso / mocha — footer */
@@ -1459,50 +1458,41 @@ footer {
 
 /* ==========================================================
    Limewash / plaster surfaces  (per "Web- boje" spec)
-   Never a flat digital slab: a fine grain like brus papir plus
-   soft micro-shading, as on a hand-troweled lime-plaster wall.
-   Painted as extra background layers above each background-color,
-   so it sits behind all content and needs no z-index juggling.
    ========================================================== */
 
-body {
-  background-image: var(--grain);
-  background-size: 256px 256px;
-  background-repeat: repeat;
-  background-blend-mode: soft-light;
+/* Real plaster photographs, one per brand colour. Each was shifted so
+   its average lands exactly on the spec hex, which keeps the palette
+   and the text-contrast headroom while carrying the true texture.
+   background-color stays as the fallback if an image fails to load. */
+
+.prelaunch-section,
+.contact-section {
+  background-color: var(--bg-main);
+  background-image: url('./assets/texture-cream.jpg');
+}
+
+.split-olive {
+  background-color: var(--sage);
+  background-image: url('./assets/texture-sage.jpg');
+}
+
+.split-terracotta {
+  background-color: var(--terracotta);
+  background-image: url('./assets/texture-terracotta.jpg');
+}
+
+footer {
+  background-image: url('./assets/texture-espresso.jpg');
 }
 
 .prelaunch-section,
+.contact-section,
 .split-olive,
 .split-terracotta,
-.contact-section,
 footer {
-  background-image:
-    radial-gradient(120% 90% at 12% 8%,  rgba(255,255,255,0.06), rgba(255,255,255,0) 60%),
-    radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.13),       rgba(0,0,0,0)       62%),
-    radial-gradient(70% 60% at 62% 38%,  rgba(255,255,255,0.04), rgba(255,255,255,0) 70%),
-    var(--grain);
-  background-size: cover, cover, cover, 256px 256px;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-position: center, center, center, top left;
-  background-blend-mode: soft-light, soft-light, soft-light, soft-light;
-}
-
-/* The About panel also carries the spec's gentle shade range
-   (#6F7045 -> #888959) as part of its limewash. */
-.split-olive {
-  background-image:
-    linear-gradient(152deg, rgba(136,137,89,0.55) 0%, rgba(123,124,80,0) 45%, rgba(111,112,69,0.6) 100%),
-    radial-gradient(120% 90% at 12% 8%,  rgba(255,255,255,0.06), rgba(255,255,255,0) 60%),
-    radial-gradient(110% 85% at 88% 92%, rgba(0,0,0,0.12),       rgba(0,0,0,0)       62%),
-    var(--grain);
-  background-size: cover, cover, cover, 256px 256px;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, soft-light, soft-light, soft-light;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  /* grain is static; nothing to animate — kept flat on purpose */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 

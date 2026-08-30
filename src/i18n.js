@@ -39,7 +39,7 @@ export const translations = {
     'method.card2.title': 'Evolucija',
     'method.card2.desc': 'Poštujemo klasične Pilates principe, ali trening razvijamo kroz suvremen i funkcionalan pristup prilagođen svakom tijelu i njegovim stvarnim potrebama.',
     'method.card3.title': 'Prisutnost',
-    'method.card3.desc': 'Pilates je vrijeme za povezivanje sa sobom, kroz svjesno disanje i kontroliran pokret graditi snagu, fokus i ravnotežu te s treninga odlaziti snažnija i mirnija.',
+    'method.card3.desc': 'Pilates je vrijeme za povezivanje sa sobom. Kroz svjesno disanje i kontroliran pokret gradimo snagu, fokus i ravnotežu, kako bismo s treninga odlazili snažniji, ali i mirniji.',
 
     'prelaunch.opening.label': 'Uskoro otvorenje',
     'prelaunch.headline': 'Boutique reformer pilates dolazi u Mursko Središće.',
@@ -128,7 +128,7 @@ export const translations = {
     'method.card2.title': 'Evolution',
     'method.card2.desc': 'We respect classical Pilates principles, but we develop the training through a modern and functional approach adapted to every body and its real needs.',
     'method.card3.title': 'Presence',
-    'method.card3.desc': 'Pilates is a time to connect with yourself, through mindful breathing and controlled movement to build strength, focus, and balance, and to leave the session feeling stronger and calmer.',
+    'method.card3.desc': 'Pilates is time to reconnect with yourself. Through mindful breathing and controlled movement we build strength, focus and balance, so that we leave each session stronger, but also calmer.',
 
     'prelaunch.opening.label': 'Opening Soon',
     'prelaunch.headline': 'Boutique reformer Pilates is coming to Mursko Središće.',
