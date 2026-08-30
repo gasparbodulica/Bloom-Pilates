@@ -1437,17 +1437,17 @@ footer {
 .social-link {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.14);
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-light);
-  transition: var(--transition-smooth);
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
+/* No chip behind the glyph — the icon itself carries the hover */
 .social-link:hover {
-  background-color: var(--secondary);
+  color: #fff;
   transform: translateY(-2px);
 }
 
