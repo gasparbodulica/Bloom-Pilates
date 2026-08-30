@@ -1490,9 +1490,12 @@ footer {
 .split-olive,
 .split-terracotta,
 footer {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* 900px tiles drawn at 450px: 1:1 in device pixels on a 2x screen, and
+     repeated rather than stretched — `cover` was upscaling the footer
+     roughly 3x, which is what made it look blown up and soft. */
+  background-size: 450px 450px;
+  background-repeat: repeat;
+  background-position: top left;
 }
 
 
