@@ -1,6 +1,12 @@
 import './style.css'
 import { currentLang, setLang, t } from './i18n.js'
 import logoUrl from './assets/logo.jpg'
+// Vercel Web Analytics. `inject()` is the vanilla entry point — the
+// /next, /react etc. entries expect those frameworks, which this site
+// does not use. Only reports from a Vercel deployment; a no-op locally.
+import { inject } from '@vercel/analytics'
+
+inject()
 
 document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl; })
 
