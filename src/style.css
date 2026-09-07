@@ -2064,7 +2064,7 @@ footer {
    ========================================== */
 .prelaunch-section {
   background-color: var(--bg-main);
-  color: var(--text-main);
+  color: var(--footer-brown);
   padding: 0;
 }
 
@@ -2097,7 +2097,7 @@ footer {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--footer-brown);
 }
 
 .prelaunch-opening-dot {
@@ -2115,7 +2115,7 @@ footer {
 }
 
 .prelaunch-top h2 {
-  color: var(--primary-dark);
+  color: var(--footer-brown);
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   line-height: 1.1;
   margin: 0;
@@ -2159,7 +2159,7 @@ footer {
   font-family: var(--font-serif);
   font-size: clamp(1.3rem, 2vw, 1.7rem);
   letter-spacing: 0.04em;
-  color: var(--primary-dark);
+  color: var(--footer-brown);
   margin-bottom: 1rem;
   font-weight: 400;
 }
@@ -2167,7 +2167,7 @@ footer {
 .prelaunch-grid-item p {
   font-size: 0.95rem;
   line-height: 1.8;
-  color: var(--text-muted);
+  color: var(--footer-brown);
   max-width: 38ch;
 }
 
@@ -2182,7 +2182,7 @@ footer {
 
 .prelaunch-cta p {
   font-size: 1.05rem;
-  color: var(--text-muted);
+  color: var(--footer-brown);
   font-style: italic;
   flex: 1;
 }
