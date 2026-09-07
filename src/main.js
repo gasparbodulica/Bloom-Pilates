@@ -85,21 +85,47 @@ navLinks.forEach(link => {
 // ==========================================
 // 3. Waiting List Form
 // ==========================================
-waitlistForm.addEventListener('submit', (e) => {
+// Formspree endpoint. Create the form at formspree.io, then paste its
+// id here — it looks like "xyzabcd" and the URL is shown on the form's
+// Integration tab. Until it is set, the form refuses to pretend it sent.
+const FORMSPREE_ID = 'REPLACE_ME';
+const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+
+const setSubmitState = (text, disabled) => {
+  waitlistSubmitBtn.textContent = text;
+  waitlistSubmitBtn.disabled = disabled;
+};
+
+waitlistForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  waitlistSubmitBtn.disabled = true;
-  waitlistSubmitBtn.textContent = t('newsletter.sending');
+  const note = document.getElementById('waitlist-status');
+  note.textContent = '';
+  note.classList.remove('is-error');
+  setSubmitState(t('newsletter.sending'), true);
 
-  // Simulate send — replace with real Formspree submit when ready
-  setTimeout(() => {
-    waitlistSubmitBtn.textContent = t('newsletter.sent');
+  try {
+    if (FORMSPREE_ID === 'REPLACE_ME') throw new Error('Formspree id not configured');
+
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(waitlistForm),
+    });
+    if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+
+    setSubmitState(t('newsletter.sent'), true);
     waitlistForm.reset();
     waitlistEmail.disabled = true;
-
     waitlistSubmitBtn.style.backgroundColor = 'var(--secondary-dark)';
     waitlistSubmitBtn.style.borderColor = 'var(--secondary-dark)';
-  }, 1000);
+  } catch (err) {
+    // Never show success for a signup that was not stored.
+    console.error('Waiting list submit failed:', err);
+    note.textContent = t('newsletter.error');
+    note.classList.add('is-error');
+    setSubmitState(t('newsletter.btn'), false);
+  }
 });
 
 // ==========================================

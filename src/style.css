@@ -1235,6 +1235,19 @@ section {
   border-color: #363820;
 }
 
+.form-status {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+  min-height: 1.2em;
+  color: var(--olive);
+}
+
+.form-status.is-error {
+  color: #8E2F1E;
+  font-weight: 500;
+}
+
 .form-privacy-note {
   font-size: 0.8rem;
   color: var(--text-muted);

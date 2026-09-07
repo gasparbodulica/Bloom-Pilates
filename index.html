@@ -218,7 +218,11 @@
                   <label for="waitlist-msg" data-i18n="newsletter.ph.msg">Kratka poruka (opcionalno)</label>
                   <textarea id="waitlist-msg" name="message" data-i18n-placeholder="newsletter.ph.msg" placeholder="Kratka poruka (opcionalno)"></textarea>
                 </div>
+                <!-- Spam trap: bots fill this, people never see it -->
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+                <input type="hidden" name="_subject" value="Nova prijava na listu čekanja — Bloom Pilates" />
                 <button type="submit" class="btn btn-primary contact-submit-btn" id="newsletter-submit-btn" data-i18n="newsletter.btn">Prijavi se</button>
+                <p class="form-status" id="waitlist-status" role="status" aria-live="polite"></p>
                 <p class="form-privacy-note" data-i18n="newsletter.privacy">Tvoji podaci su sigurni. Nema neželjene pošte.</p>
               </form>
             </div>
