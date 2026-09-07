@@ -88,7 +88,7 @@ navLinks.forEach(link => {
 // Formspree endpoint. Create the form at formspree.io, then paste its
 // id here — it looks like "xyzabcd" and the URL is shown on the form's
 // Integration tab. Until it is set, the form refuses to pretend it sent.
-const FORMSPREE_ID = 'REPLACE_ME';
+const FORMSPREE_ID = 'meaqrlnb';
 const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
 
 const setSubmitState = (text, disabled) => {
