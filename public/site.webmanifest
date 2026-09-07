@@ -1,0 +1,11 @@
+{
+  "name": "Bloom Pilates Studio",
+  "short_name": "Bloom Pilates",
+  "icons": [
+    { "src": "/favicon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/favicon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "theme_color": "#A8653F",
+  "background_color": "#ECE6D8",
+  "display": "standalone"
+}
