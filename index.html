@@ -20,6 +20,7 @@
           <li><a href="#hero" class="nav-link-item active" id="nav-home" data-i18n="nav.home">Početna</a></li>
           <li><a href="#about" class="nav-link-item" id="nav-about" data-i18n="nav.about">Upoznajte me</a></li>
           <li><a href="#methodology" class="nav-link-item" id="nav-methodology" data-i18n="nav.methodology">Metodologija</a></li>
+          <li><a href="#cjenik" class="nav-link-item" id="nav-pricing" data-i18n="nav.pricing">Cjenik</a></li>
           <li><a href="#contact" class="nav-link-item" id="nav-contact" data-i18n="nav.contact">Kontakt</a></li>
         </ul>
 
@@ -189,6 +190,43 @@
         </div>
       </section>
 
+      <!-- Price list (Cjenik) — legally required, rendered from src/data/pricing.json -->
+      <section class="pricing-section" id="cjenik">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle" data-i18n="pricing.subtitle">Cjenik</span>
+            <h2 data-i18n="pricing.title">Cjenik usluga</h2>
+          </div>
+
+          <div class="pricing-table-wrap">
+            <table class="pricing-table" id="pricing-table">
+              <caption class="sr-only" data-i18n="pricing.caption">Cjenik usluga Bloom Pilates Studija</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-i18n="pricing.col.service">Usluga</th>
+                  <th scope="col" data-i18n="pricing.col.detail">Trajanje</th>
+                  <th scope="col" class="pricing-col-price" data-i18n="pricing.col.price">Cijena</th>
+                </tr>
+              </thead>
+              <tbody id="pricing-rows"><!-- filled from pricing.json --></tbody>
+            </table>
+          </div>
+
+          <div class="pricing-meta">
+            <p class="pricing-note" id="pricing-vat" data-i18n="pricing.vat.tbd">Napomena o PDV-u — dopuniti.</p>
+            <p class="pricing-note" id="pricing-valid"></p>
+            <a class="pricing-download" id="pricing-download" href="/cjenik-bloom-pilates.xlsx" download>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span id="pricing-download-label" data-i18n="pricing.download">Preuzmi cjenik (Excel)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <!-- Contact Section -->
       <section class="contact-section" id="contact">
         <div class="container">
@@ -269,6 +307,7 @@
               <li><a href="#hero" id="foot-nav-home" data-i18n="footer.home">Početna</a></li>
               <li><a href="#about" id="foot-nav-about" data-i18n="footer.about">Upoznajte me</a></li>
               <li><a href="#methodology" id="foot-nav-methodology" data-i18n="footer.methodology">Metodologija</a></li>
+              <li><a href="#cjenik" id="foot-nav-pricing" data-i18n="footer.pricing">Cjenik</a></li>
               <li><a href="#contact" id="foot-nav-contact" data-i18n="footer.contact">Kontakt</a></li>
             </ul>
           </div>

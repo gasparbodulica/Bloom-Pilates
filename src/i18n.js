@@ -87,6 +87,23 @@ export const translations = {
     'footer.privacy': 'Politika privatnosti',
     'footer.terms': 'Uvjeti korištenja',
     'footer.liability': 'Odricanje od odgovornosti',
+
+    'nav.pricing': 'Cjenik',
+    'footer.pricing': 'Cjenik',
+    'pricing.subtitle': 'Cjenik',
+    'pricing.title': 'Cjenik usluga',
+    'pricing.caption': 'Cjenik usluga Bloom Pilates Studija',
+    'pricing.col.service': 'Usluga',
+    'pricing.col.detail': 'Trajanje',
+    'pricing.col.price': 'Cijena',
+    'pricing.vat.included': 'Cijene su izražene u EUR s uključenim PDV-om.',
+    'pricing.vat.exempt': 'Cijene su izražene u EUR. Bloom Pilates Studio nije u sustavu PDV-a.',
+    'pricing.vat.tbd': 'Napomena o PDV-u — dopuniti prije objave.',
+    'pricing.validFrom': 'Cjenik vrijedi od',
+    'pricing.tbd': 'u pripremi',
+    'pricing.free': 'Besplatno',
+    'pricing.download': 'Preuzmi cjenik (Excel)',
+    'pricing.download.tbd': 'Cjenik uskoro dostupan',
     'footer.copy': '© 2026 Bloom Pilates. Sva prava pridržana.',
   },
   en: {
@@ -177,6 +194,23 @@ export const translations = {
     'footer.privacy': 'Privacy Policy',
     'footer.terms': 'Terms of Service',
     'footer.liability': 'Liability Waiver',
+
+    'nav.pricing': 'Price list',
+    'footer.pricing': 'Price list',
+    'pricing.subtitle': 'Price list',
+    'pricing.title': 'Service price list',
+    'pricing.caption': 'Bloom Pilates Studio service price list',
+    'pricing.col.service': 'Service',
+    'pricing.col.detail': 'Duration',
+    'pricing.col.price': 'Price',
+    'pricing.vat.included': 'Prices are in EUR, VAT included.',
+    'pricing.vat.exempt': 'Prices are in EUR. Bloom Pilates Studio is not registered for VAT.',
+    'pricing.vat.tbd': 'VAT note — to be completed before publishing.',
+    'pricing.validFrom': 'Price list valid from',
+    'pricing.tbd': 'coming soon',
+    'pricing.free': 'Free',
+    'pricing.download': 'Download price list (Excel)',
+    'pricing.download.tbd': 'Price list coming soon',
     'footer.copy': '© 2026 Bloom Pilates. All rights reserved.',
   }
 };
@@ -209,4 +243,7 @@ export function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+
+  // let non-i18n renderers (the price table) re-draw in the new language
+  document.dispatchEvent(new CustomEvent('bloom:langchange', { detail: { lang } }));
 }

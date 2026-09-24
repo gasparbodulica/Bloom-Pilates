@@ -192,6 +192,7 @@ section {
   border-radius: 100px;
   padding: 0 2rem;
   margin-top: var(--navbar-gap);
+  max-width: 1280px;   /* wider than --max-width: five links + the CTA need it */
   border: none;
   box-shadow: 0 6px 34px rgba(0, 0, 0, 0.22);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -359,15 +360,17 @@ section {
 
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 1.5rem;
   list-style: none;
   align-items: center;
+  min-width: 0;        /* never let the links push the centred logo off-axis */
+  padding-right: 1rem; /* guaranteed gutter before the logo */
 }
 
 .nav-links a {
   position: relative;
   font-weight: 300;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   font-size: 0.72rem;
   text-transform: uppercase;
   font-family: var(--font-sans);
@@ -1484,7 +1487,8 @@ footer {
   background-image: url('./assets/texture-cream.jpg');
 }
 
-.split-olive {
+.split-olive,
+.pricing-section {
   background-color: var(--sage);
   background-image: url('./assets/texture-sage.jpg');
 }
@@ -1502,6 +1506,7 @@ footer {
 .contact-section,
 .split-olive,
 .split-terracotta,
+.pricing-section,
 footer {
   /* 900px tiles drawn at 450px: 1:1 in device pixels on a 2x screen, and
      repeated rather than stretched — `cover` was upscaling the footer
@@ -1509,6 +1514,151 @@ footer {
   background-size: 450px 450px;
   background-repeat: repeat;
   background-position: top left;
+}
+
+
+/* ==========================================================
+   Price list (Cjenik) — sage panel, so everything is white-on-colour
+   and the contrast headroom is small (white on --sage is 5.15:1).
+   ========================================================== */
+.pricing-section {
+  color: #fff;
+  padding: 6rem 0;
+}
+
+.pricing-section .section-header h2 { color: #fff; }
+.pricing-section .section-subtitle  { color: rgba(255,255,255,0.95); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pricing-table-wrap {
+  overflow-x: auto;              /* never let the table break the page on a phone */
+  -webkit-overflow-scrolling: touch;
+  margin-top: 2.5rem;
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255,255,255,0.07);
+}
+
+.pricing-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+}
+
+.pricing-table thead th {
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+}
+
+.pricing-table tbody th {
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #fff;
+  padding: 1.1rem 1.5rem;
+}
+
+.pricing-table tbody td {
+  padding: 1.1rem 1.5rem;
+  color: #fff;
+  vertical-align: middle;
+}
+
+.pricing-table tbody tr + tr th,
+.pricing-table tbody tr + tr td {
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.pricing-col-price {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.pricing-col-price.is-tbd { color: rgba(255,255,255,0.72); }
+
+.pricing-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 1.75rem;
+}
+
+.pricing-meta .pricing-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.92);
+}
+
+/* Sits on sage, so it reads as a light button */
+.pricing-download {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--bg-main);
+  color: var(--footer-brown);
+  border: 1.5px solid var(--bg-main);
+  padding: 0.95rem 2.2rem;
+  border-radius: 100px;
+  letter-spacing: 0.07em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.pricing-download:hover {
+  background: #fff;
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.pricing-download svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* There is no sheet to hand over until real prices exist — keep the
+   button visible but inert rather than offering a download that 404s. */
+.pricing-download[aria-disabled='true'] {
+  background: transparent;
+  color: rgba(255,255,255,0.75);
+  border-color: rgba(255,255,255,0.4);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .pricing-section { padding: 4rem 0; }
+  .pricing-table thead th,
+  .pricing-table tbody th,
+  .pricing-table tbody td { padding: 0.9rem 1rem; }
+  .pricing-meta .pricing-download { margin-left: 0; width: 100%; justify-content: center; }
 }
 
 
@@ -1741,7 +1891,11 @@ footer {
   }
 }
 
-@media (max-width: 768px) {
+/* Five nav links plus the CTA no longer fit beside the centred logo, so
+   the menu collapses at 1200px rather than 768px. Below that the links
+   overflowed their 1fr column and shoved the logo off-centre. */
+@media (max-width: 1200px) {
+
   /* Navigation — mobile: collapse nav links, show toggle */
   .navbar .container {
     grid-template-columns: auto 1fr auto;
@@ -1805,7 +1959,9 @@ footer {
   .mobile-nav-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(4px, -5px);
   }
-  
+}
+
+@media (max-width: 768px) {
   /* Schedule Table Responsive Cards */
   .schedule-header-row {
     display: none;

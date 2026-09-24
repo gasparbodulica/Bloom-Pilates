@@ -1,0 +1,44 @@
+{
+  "_comment": "SINGLE SOURCE OF TRUTH for the price list. The page table and the .xlsx are both generated from this file. Replace the placeholder rows and set validFrom before publishing. vatNote is \"included\" — PDV is in the price.",
+  "placeholder": true,
+  "validFrom": "TBD",
+  "currency": "EUR",
+  "vatNote": "included",
+  "rows": [
+    {
+      "service": "Individualni trening",
+      "detail": "50 min",
+      "price": null
+    },
+    {
+      "service": "Individualni trening — paket 5",
+      "detail": "5 dolazaka",
+      "price": null
+    },
+    {
+      "service": "Individualni trening — paket 10",
+      "detail": "10 dolazaka",
+      "price": null
+    },
+    {
+      "service": "Grupni trening (do 3 osobe)",
+      "detail": "50 min",
+      "price": null
+    },
+    {
+      "service": "Grupni trening — paket 5",
+      "detail": "5 dolazaka",
+      "price": null
+    },
+    {
+      "service": "Grupni trening — paket 10",
+      "detail": "10 dolazaka",
+      "price": null
+    },
+    {
+      "service": "Prvi individualni sat",
+      "detail": "za nove polaznice",
+      "price": 0
+    }
+  ]
+}
