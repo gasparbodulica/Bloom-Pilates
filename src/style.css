@@ -14,7 +14,7 @@
   --text-muted: #7A6558;
   --text-light: #ffffff;
 
-  --bg-main: #E6DBCF;              /* Upper area of the cjenik sheet (7d0fd173) */
+  --bg-main: #EDE4D7;              /* Light end of the cjenik sheet's gradient */
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
@@ -1490,14 +1490,19 @@ body > footer {
    and the text-contrast headroom while carrying the true texture.
    background-color stays as the fallback if an image fails to load. */
 
-/* Flat, exactly the beige from the upper-left corner of the brand
-   background artwork. No plaster tile here — that corner is smooth, and
-   the grain was the only thing making these read differently. */
+/* The cjenik sheet is not flat: it carries a warm falloff from the
+   top-right corner, fading to light at the left and bottom. Sampled
+   across the artwork and reproduced here. */
 .prelaunch-section,
 .contact-section,
 .split-cjenik {
   background-color: var(--bg-main);
-  background-image: none;
+  background-image: radial-gradient(135% 115% at 100% 0%,
+      #D5C0A8 0%,
+      #DECDBB 20%,
+      #E5D8C9 44%,
+      #EBE2D6 72%,
+      #EDE4D7 100%);
 }
 
 .split-olive {
