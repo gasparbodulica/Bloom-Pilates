@@ -14,7 +14,7 @@
   --text-muted: #7A6558;
   --text-light: #ffffff;
 
-  --bg-main: #ECE4D8;              /* Beige sampled from the brand background */
+  --bg-main: #EDE4D8;              /* Upper-left corner of the brand background artwork */
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
@@ -149,6 +149,7 @@ section {
 }
 
 /* Sections that use split panels or full-bleed layouts — no default padding */
+.pricing-section,
 .hero-section,
 .about-section,
 .methodology,
@@ -1385,7 +1386,7 @@ section {
 
 /* Footer styling */
 footer {
-  background-color: var(--text-main);
+  background-color: var(--footer-brown);
   color: rgba(255, 255, 255, 0.6);
   padding: 4rem 0 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
@@ -1487,7 +1488,7 @@ footer {
 
 .prelaunch-section,
 .contact-section,
-.pricing-section {
+.split-cjenik {
   background-color: var(--bg-main);
   background-image: url('./assets/texture-cream.jpg');
 }
@@ -1512,7 +1513,7 @@ footer {
 .contact-section,
 .split-olive,
 .split-terracotta,
-.pricing-section,
+.split-cjenik,
 footer {
   /* 900px tiles drawn at 450px: 1:1 in device pixels on a 2x screen, and
      repeated rather than stretched — `cover` was upscaling the footer
@@ -1527,14 +1528,12 @@ footer {
    Price list (Cjenik) — typography and colour taken from the
    studio's own printed cjenik so the two read as one document.
    ========================================================== */
-.pricing-section {
+.split-cjenik {
   color: var(--cjenik-body);
-  padding: 6rem 0;
 }
 
 .pricing-sheet {
-  max-width: 760px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .pricing-heading {
@@ -1617,7 +1616,6 @@ footer {
 .pricing-legal em     { font-style: italic; }
 
 @media (max-width: 768px) {
-  .pricing-section { padding: 4rem 0; }
   .pricing-heading { margin-bottom: 1.75rem; }
   .pricing-group-title { margin-top: 2.25rem; }
   .pricing-list dt,
@@ -1832,6 +1830,7 @@ footer {
   }
 
   /* Sections that use split panels or custom inner padding — reset section padding */
+  .pricing-section,
   .hero-section,
   .about-section,
   .methodology,
@@ -2432,6 +2431,13 @@ footer {
   opacity: 1;
   transform: translateY(0);
   will-change: auto;
+}
+
+/* .split-content paints its panel's background colour, so translating it
+   slides the whole colour block and opens a strip of page background
+   between two stacked panels. Fade these in place instead. */
+.split-content.reveal {
+  transform: none;
 }
 
 /* ---- Photo panels: settle out of a slow push-in ---------------- */
@@ -3054,3 +3060,4 @@ footer {
     align-items: center;
   }
 }
+
