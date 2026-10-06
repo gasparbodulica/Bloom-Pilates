@@ -130,60 +130,67 @@ waitlistForm.addEventListener('submit', async (e) => {
 });
 
 // ==========================================
-// 4b. Price list — rendered from src/data/pricing.json so the page
-//     table and the downloadable .xlsx can never disagree.
+// 4b. Price list — rendered from src/data/pricing.json so the page and
+//     the studio's printed cjenik stay in step.
 // ==========================================
-const pricingBody = document.getElementById('pricing-rows');
+const pricingGroups = document.getElementById('pricing-groups');
 
-if (pricingBody) {
-  const fmtPrice = (value) => {
-    if (value === null || value === undefined) return '—';
-    if (value === 0) return t('pricing.free');
-    return new Intl.NumberFormat(currentLang === 'en' ? 'en-GB' : 'hr-HR', {
-      style: 'currency', currency: pricing.currency, minimumFractionDigits: 2,
-    }).format(value);
-  };
+if (pricingGroups) {
+  const isEn = () => currentLang === 'en';
+
+  const fmtPrice = (value) =>
+    value === 0
+      ? t('pricing.free')
+      : new Intl.NumberFormat(isEn() ? 'en-GB' : 'hr-HR', {
+          style: 'currency', currency: pricing.currency, maximumFractionDigits: 0,
+        }).format(value);
 
   const renderPricing = () => {
-    pricingBody.innerHTML = '';
-    pricing.rows.forEach(row => {
-      const tr = document.createElement('tr');
-      const service = document.createElement('th');
-      service.scope = 'row';
-      service.textContent = row.service;
-      const detail = document.createElement('td');
-      detail.textContent = row.detail ?? '';
-      const price = document.createElement('td');
-      price.className = 'pricing-col-price';
-      price.textContent = fmtPrice(row.price);
-      if (row.price === null) price.classList.add('is-tbd');
-      tr.append(service, detail, price);
-      pricingBody.appendChild(tr);
+    pricingGroups.innerHTML = '';
+
+    pricing.groups.forEach(group => {
+      const title = document.createElement('h3');
+      title.className = 'pricing-group-title';
+      title.textContent = isEn() ? group.title_en : group.title;
+
+      const rule = document.createElement('div');
+      rule.className = 'pricing-rule';
+
+      const list = document.createElement('dl');
+      list.className = 'pricing-list';
+      group.rows.forEach(row => {
+        const dt = document.createElement('dt');
+        dt.textContent = isEn() ? row.service_en : row.service;
+        const dd = document.createElement('dd');
+        dd.textContent = fmtPrice(row.price);
+        list.append(dt, dd);
+      });
+
+      pricingGroups.append(title, rule, list);
     });
 
-    const vat = document.getElementById('pricing-vat');
-    vat.dataset.i18n = `pricing.vat.${pricing.vatNote}`;
-    vat.textContent = t(vat.dataset.i18n);
+    const info = document.getElementById('pricing-info');
+    info.innerHTML = '';
+    pricing.info.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = isEn() ? item.en : item.hr;
+      info.appendChild(li);
+    });
 
-    const valid = document.getElementById('pricing-valid');
-    const when = pricing.validFrom === 'TBD' ? t('pricing.tbd') : pricing.validFrom;
-    valid.textContent = `${t('pricing.validFrom')}: ${when}`;
-
-    // The button always shows, but it only offers a real download once the
-    // sheet has been generated — otherwise it would 404.
-    const dl = document.getElementById('pricing-download');
-    const label = document.getElementById('pricing-download-label');
-    const ready = pricing.placeholder !== true;
-    dl.setAttribute('aria-disabled', String(!ready));
-    label.dataset.i18n = ready ? 'pricing.download' : 'pricing.download.tbd';
-    label.textContent = t(label.dataset.i18n);
-    if (ready) {
-      dl.setAttribute('href', '/cjenik-bloom-pilates.xlsx');
-      dl.setAttribute('download', '');
-    } else {
-      dl.removeAttribute('href');
-      dl.removeAttribute('download');
-    }
+    const legal = document.getElementById('pricing-legal');
+    const l = pricing.legal;
+    legal.innerHTML = '';
+    const name = document.createElement('strong');
+    name.textContent = l.name;
+    legal.appendChild(name);
+    [l.owner, l.address].forEach(line => {
+      legal.appendChild(document.createElement('br'));
+      legal.appendChild(document.createTextNode(line));
+    });
+    legal.appendChild(document.createElement('br'));
+    const vat = document.createElement('em');
+    vat.textContent = isEn() ? l.vat_en : l.vat_hr;
+    legal.appendChild(vat);
   };
 
   renderPricing();

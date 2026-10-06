@@ -7,6 +7,11 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#A8653F" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@300,400,500,600,700&display=swap" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bloom Pilates | Boutique BASI® Reformer & Movement Studio</title>
     <meta name="description" content="Every beginning is a bloom. Experience premium Pilates classes in a serene, sun-drenched reformer studio led by BASI® training instructors. Book your class online today." />
@@ -190,39 +195,19 @@
         </div>
       </section>
 
-      <!-- Price list (Cjenik) — legally required, rendered from src/data/pricing.json -->
+      <!-- Price list (Cjenik) — rendered from src/data/pricing.json,
+           styled to match the studio's own cjenik artwork -->
       <section class="pricing-section" id="cjenik">
         <div class="container">
-          <div class="section-header">
-            <span class="section-subtitle" data-i18n="pricing.subtitle">Cjenik</span>
-            <h2 data-i18n="pricing.title">Cjenik usluga</h2>
-          </div>
+          <div class="pricing-sheet">
+            <h2 class="pricing-heading" data-i18n="pricing.title">cjenik</h2>
+            <div id="pricing-groups"><!-- filled from pricing.json --></div>
 
-          <div class="pricing-table-wrap">
-            <table class="pricing-table" id="pricing-table">
-              <caption class="sr-only" data-i18n="pricing.caption">Cjenik usluga Bloom Pilates Studija</caption>
-              <thead>
-                <tr>
-                  <th scope="col" data-i18n="pricing.col.service">Usluga</th>
-                  <th scope="col" data-i18n="pricing.col.detail">Trajanje</th>
-                  <th scope="col" class="pricing-col-price" data-i18n="pricing.col.price">Cijena</th>
-                </tr>
-              </thead>
-              <tbody id="pricing-rows"><!-- filled from pricing.json --></tbody>
-            </table>
-          </div>
+            <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
+            <div class="pricing-rule"></div>
+            <ul class="pricing-info" id="pricing-info"><!-- filled from pricing.json --></ul>
 
-          <div class="pricing-meta">
-            <p class="pricing-note" id="pricing-vat" data-i18n="pricing.vat.tbd">Napomena o PDV-u — dopuniti.</p>
-            <p class="pricing-note" id="pricing-valid"></p>
-            <a class="pricing-download" id="pricing-download" href="/cjenik-bloom-pilates.xlsx" download>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              <span id="pricing-download-label" data-i18n="pricing.download">Preuzmi cjenik (Excel)</span>
-            </a>
+            <footer class="pricing-legal" id="pricing-legal"><!-- filled from pricing.json --></footer>
           </div>
         </div>
       </section>

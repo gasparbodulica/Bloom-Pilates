@@ -1,21 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap');
 
 :root {
   /* LALA-inspired Warm Earth Palette — Bloom Pilates */
   --primary: #5A3B2E;              /* Dark Walnut (kept for brand continuity) */
   --primary-light: #8C6B5C;
   --primary-xlight: #F0EBE3;
-  --primary-dark: #1A1410;         /* Warm near-black */
+  --primary-dark: #5A3B2E;         /* Brand brown — headings */
 
   --secondary: #D4C4B0;
   --secondary-light: #EDE8DF;      /* LALA cream */
   --secondary-dark: #B8A898;
 
-  --text-main: #1A1410;            /* Warm near-black */
+  --text-main: #5A3B2E;            /* Brand brown — body copy */
   --text-muted: #7A6558;
   --text-light: #ffffff;
 
-  --bg-main: #ECE6D8;              /* Mliječna bež / boja slonovače */
+  --bg-main: #ECE4D8;              /* Beige sampled from the brand background */
   --bg-card: #F8F4EE;
   --bg-dark: #1A1410;
 
@@ -28,14 +27,19 @@
   --sage-light: #888959;           /* Spec gradient: lighter end */
   --terracotta: #A8653F;           /* Topla terakota — panels + buttons */
   --terracotta-dark: #8A5133;      /* Darker terracotta hover */
+  --cjenik-ink: #5A3B2E;           /* cjenik headings — brand brown */
+  --cjenik-body: #5A3B2E;          /* cjenik body copy — brand brown */
+  --cjenik-rule: #8A6B57;          /* cjenik hairlines */
   --footer-brown: #3D2B1F;         /* Dark espresso / mocha — footer */
 
   --border: #AC9A7C;
   --border-light: #B3A17E;
 
   /* Fonts — matching LALA Lagree */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  /* Neue Montreal is commercial and has no free webfont host; Switzer is
+     the closest free neo-grotesque. Swap in licensed files when available. */
+  --font-sans: 'Switzer', 'Neue Montreal', system-ui, -apple-system, sans-serif;
 
   /* Layout Constants */
   --navbar-gap: 14px;
@@ -1381,7 +1385,7 @@ section {
 
 /* Footer styling */
 footer {
-  background-color: var(--footer-brown);
+  background-color: var(--text-main);
   color: rgba(255, 255, 255, 0.6);
   padding: 4rem 0 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
@@ -1482,16 +1486,18 @@ footer {
    background-color stays as the fallback if an image fails to load. */
 
 .prelaunch-section,
-.contact-section {
+.contact-section,
+.pricing-section {
   background-color: var(--bg-main);
   background-image: url('./assets/texture-cream.jpg');
 }
 
-.split-olive,
-.pricing-section {
+.split-olive {
   background-color: var(--sage);
   background-image: url('./assets/texture-sage.jpg');
 }
+
+
 
 .split-terracotta {
   background-color: var(--terracotta);
@@ -1518,147 +1524,104 @@ footer {
 
 
 /* ==========================================================
-   Price list (Cjenik) — sage panel, so everything is white-on-colour
-   and the contrast headroom is small (white on --sage is 5.15:1).
+   Price list (Cjenik) — typography and colour taken from the
+   studio's own printed cjenik so the two read as one document.
    ========================================================== */
 .pricing-section {
-  color: #fff;
+  color: var(--cjenik-body);
   padding: 6rem 0;
 }
 
-.pricing-section .section-header h2 { color: #fff; }
-.pricing-section .section-subtitle  { color: rgba(255,255,255,0.95); }
-
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+.pricing-sheet {
+  max-width: 760px;
+  margin: 0 auto;
 }
 
-.pricing-table-wrap {
-  overflow-x: auto;              /* never let the table break the page on a phone */
-  -webkit-overflow-scrolling: touch;
-  margin-top: 2.5rem;
-  border: 1px solid rgba(255,255,255,0.28);
-  border-radius: var(--border-radius-sm);
-  background: rgba(255,255,255,0.07);
-}
-
-.pricing-table {
-  width: 100%;
-  min-width: 480px;
-  border-collapse: collapse;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-}
-
-.pricing-table thead th {
-  text-align: left;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.95);
-  padding: 1.1rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.35);
-}
-
-.pricing-table tbody th {
-  text-align: left;
+.pricing-heading {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
-  font-weight: 400;
-  color: #fff;
-  padding: 1.1rem 1.5rem;
+  font-size: clamp(3.2rem, 9vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: lowercase;   /* the artwork sets it lowercase */
+  color: var(--cjenik-ink);
+  margin: 0 0 2.5rem;
 }
 
-.pricing-table tbody td {
-  padding: 1.1rem 1.5rem;
-  color: #fff;
-  vertical-align: middle;
+.pricing-group-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  color: var(--cjenik-ink);
+  margin: 2.75rem 0 0.6rem;
 }
 
-.pricing-table tbody tr + tr th,
-.pricing-table tbody tr + tr td {
-  border-top: 1px solid rgba(255,255,255,0.2);
+.pricing-rule {
+  height: 1px;
+  background: var(--cjenik-rule);
+  opacity: 0.55;
+  margin-bottom: 0.35rem;
 }
 
-.pricing-col-price {
+/* Service on the left, price hard right — as on the sheet */
+.pricing-list {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1.5rem;
+  margin: 0;
+}
+
+.pricing-list dt,
+.pricing-list dd {
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  padding: 0.5rem 0;
+  margin: 0;
+  color: var(--cjenik-body);
+}
+
+.pricing-list dd {
   text-align: right;
+  font-weight: 700;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
-  font-weight: 500;
 }
 
-.pricing-col-price.is-tbd { color: rgba(255,255,255,0.72); }
-
-.pricing-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 2rem;
-  margin-top: 1.75rem;
+.pricing-info {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
 }
 
-.pricing-meta .pricing-note {
-  margin: 0;
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.92);
-}
-
-/* Sits on sage, so it reads as a light button */
-.pricing-download {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  background: var(--bg-main);
-  color: var(--footer-brown);
-  border: 1.5px solid var(--bg-main);
-  padding: 0.95rem 2.2rem;
-  border-radius: 100px;
-  letter-spacing: 0.07em;
-  font-size: 0.82rem;
-  font-weight: 600;
-  text-transform: uppercase;
+.pricing-info li {
   font-family: var(--font-sans);
-  text-decoration: none;
-  cursor: pointer;
-  transition: var(--transition-smooth);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--cjenik-body);
+  padding: 0.45rem 0;
 }
 
-.pricing-download:hover {
-  background: #fff;
-  border-color: #fff;
-  transform: translateY(-2px);
+.pricing-legal {
+  margin-top: 3.5rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--cjenik-body);
 }
 
-.pricing-download svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
-
-/* There is no sheet to hand over until real prices exist — keep the
-   button visible but inert rather than offering a download that 404s. */
-.pricing-download[aria-disabled='true'] {
-  background: transparent;
-  color: rgba(255,255,255,0.75);
-  border-color: rgba(255,255,255,0.4);
-  cursor: not-allowed;
-  pointer-events: none;
-}
+.pricing-legal strong { font-weight: 700; }
+.pricing-legal em     { font-style: italic; }
 
 @media (max-width: 768px) {
   .pricing-section { padding: 4rem 0; }
-  .pricing-table thead th,
-  .pricing-table tbody th,
-  .pricing-table tbody td { padding: 0.9rem 1rem; }
-  .pricing-meta .pricing-download { margin-left: 0; width: 100%; justify-content: center; }
+  .pricing-heading { margin-bottom: 1.75rem; }
+  .pricing-group-title { margin-top: 2.25rem; }
+  .pricing-list dt,
+  .pricing-list dd { font-size: 0.95rem; }
 }
 
 
@@ -2233,7 +2196,7 @@ footer {
    ========================================== */
 .prelaunch-section {
   background-color: var(--bg-main);
-  color: var(--footer-brown);
+  color: var(--text-main);
   padding: 0;
 }
 
@@ -2266,7 +2229,7 @@ footer {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--footer-brown);
+  color: var(--text-main);
 }
 
 .prelaunch-opening-dot {
@@ -2284,7 +2247,7 @@ footer {
 }
 
 .prelaunch-top h2 {
-  color: var(--footer-brown);
+  color: var(--text-main);
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   line-height: 1.1;
   margin: 0;
@@ -2328,7 +2291,7 @@ footer {
   font-family: var(--font-serif);
   font-size: clamp(1.3rem, 2vw, 1.7rem);
   letter-spacing: 0.04em;
-  color: var(--footer-brown);
+  color: var(--text-main);
   margin-bottom: 1rem;
   font-weight: 400;
 }
@@ -2336,7 +2299,7 @@ footer {
 .prelaunch-grid-item p {
   font-size: 0.95rem;
   line-height: 1.8;
-  color: var(--footer-brown);
+  color: var(--text-main);
   max-width: 38ch;
 }
 
@@ -2351,7 +2314,7 @@ footer {
 
 .prelaunch-cta p {
   font-size: 1.05rem;
-  color: var(--footer-brown);
+  color: var(--text-main);
   font-style: italic;
   flex: 1;
 }

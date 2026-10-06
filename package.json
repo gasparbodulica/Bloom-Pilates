@@ -8,11 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "build:pages": "GITHUB_PAGES=1 vite build",
-    "deploy:pages": "GITHUB_PAGES=1 vite build && gh-pages -d dist",
-    "build:cjenik": "node scripts/build-cjenik.mjs"
+    "deploy:pages": "GITHUB_PAGES=1 vite build && gh-pages -d dist"
   },
   "devDependencies": {
-    "exceljs": "^4.4.0",
     "vite": "^8.0.12"
   },
   "dependencies": {

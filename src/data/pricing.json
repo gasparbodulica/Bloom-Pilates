@@ -1,44 +1,49 @@
 {
-  "_comment": "SINGLE SOURCE OF TRUTH for the price list. The page table and the .xlsx are both generated from this file. Replace the placeholder rows and set validFrom before publishing. vatNote is \"included\" — PDV is in the price.",
-  "placeholder": true,
-  "validFrom": "TBD",
+  "_comment": "Transcribed from the studio's own cjenik artwork (public/7d0fd173-...JPG). Keep this file and that artwork in step.",
+  "validFrom": "",
   "currency": "EUR",
-  "vatNote": "included",
-  "rows": [
+  "groups": [
     {
-      "service": "Individualni trening",
-      "detail": "50 min",
-      "price": null
+      "title": "probni trening",
+      "title_en": "trial session",
+      "rows": [
+        { "service": "uvodni individualni sat", "service_en": "introductory one-to-one session", "price": 0 }
+      ]
     },
     {
-      "service": "Individualni trening — paket 5",
-      "detail": "5 dolazaka",
-      "price": null
+      "title": "grupni trening",
+      "title_en": "group training",
+      "rows": [
+        { "service": "paket 4 treninga (1x tjedno)",  "service_en": "4-session package (1x weekly)",  "price": 75 },
+        { "service": "paket 8 treninga (2x tjedno)",  "service_en": "8-session package (2x weekly)",  "price": 130 },
+        { "service": "paket 12 treninga (3x tjedno)", "service_en": "12-session package (3x weekly)", "price": 170 }
+      ]
     },
     {
-      "service": "Individualni trening — paket 10",
-      "detail": "10 dolazaka",
-      "price": null
-    },
-    {
-      "service": "Grupni trening (do 3 osobe)",
-      "detail": "50 min",
-      "price": null
-    },
-    {
-      "service": "Grupni trening — paket 5",
-      "detail": "5 dolazaka",
-      "price": null
-    },
-    {
-      "service": "Grupni trening — paket 10",
-      "detail": "10 dolazaka",
-      "price": null
-    },
-    {
-      "service": "Prvi individualni sat",
-      "detail": "za nove polaznice",
-      "price": 0
+      "title": "individualni trening",
+      "title_en": "individual training",
+      "rows": [
+        { "service": "pojedinačni 1:1 trening", "service_en": "single 1:1 session", "price": 40 }
+      ]
     }
-  ]
+  ],
+  "info": [
+    { "hr": "Trening traje 50-60 minuta.",
+      "en": "A session lasts 50-60 minutes." },
+    { "hr": "Treninzi se održavaju isključivo prema prethodno dogovorenom terminu. Za svaki trening potrebna je obavezna rezervacija termina.",
+      "en": "Sessions are held by prior appointment only. Every session requires a booking." },
+    { "hr": "Paket vrijedi 5 tjedana od datuma uplate.",
+      "en": "A package is valid for 5 weeks from the date of payment." },
+    { "hr": "Rezervirani termin potrebno je otkazati ili promijeniti najkasnije 24 sata prije održavanja treninga.",
+      "en": "A booked session must be cancelled or rescheduled at least 24 hours in advance." },
+    { "hr": "U slučaju otkazivanja unutar 24 sata ili nedolaska, termin se smatra iskorištenim.",
+      "en": "If cancelled within 24 hours, or missed, the session counts as used." }
+  ],
+  "legal": {
+    "name": "Bloom Pilates Studio",
+    "owner": "vl. Doris Petković, obrt za usluge",
+    "address": "Istarsko Naselje 3A, 40315 Mursko Središće",
+    "vat_hr": "Obrt nije u sustavu PDV-a prema čl. 90. st. 2. Zakona o PDV-u.",
+    "vat_en": "The business is not registered for VAT under Art. 90(2) of the Croatian VAT Act."
+  }
 }
