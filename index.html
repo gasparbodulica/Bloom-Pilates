@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" />
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@300,400,500,600,700&display=swap" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bloom Pilates | Boutique BASI® Reformer & Movement Studio</title>
-    <meta name="description" content="Every beginning is a bloom. Experience premium Pilates classes in a serene, sun-drenched reformer studio led by BASI® training instructors. Book your class online today." />
+    <title>Bloom Pilates Studio | Boutique reformer pilates, Mursko Središće</title>
+    <meta name="description" content="Boutique reformer pilates studio u Murskom Središću. Male grupe do 3 osobe, stručno vodstvo i svjesni pokret koji jača tijelo i smiruje um. Prijavi se na listu čekanja." />
   </head>
   <body>
     <!-- Navigation Navbar -->
@@ -113,6 +113,9 @@
       <!-- About Section — LALA split panel: photo | terracotta -->
       <section class="about-section" id="about">
         <div class="split-panel">
+          <!-- PLACEHOLDER: awaiting Doris's own photo. This is currently the
+               same image as the Cjenik panel, so the two sections duplicate
+               until it is swapped in. -->
           <div class="split-photo">
             <img
               src="/media__1787757739255.jpg"
@@ -137,7 +140,7 @@
                 </div>
                 <div class="about-goal-item">
                   <h4 data-i18n="about.goal2.title">Kontinuirano učenje</h4>
-                  <p data-i18n="about.goal2.desc">Svoje znanje kontinuirano nadograđujem kroz edukacije i usavršavanja kako bih svaki trening vodila sigurno, precizno i s jasnim razlogom za svaki pokret. Uz završenu Pilates edukaciju i stečeni certifikat, trenutno dodatno usavršavam svoje znanje kroz BASI® Pilates edukacijski program. Vjerujem da se dobar instruktor nikada ne prestaje razvijati.</p>
+                  <p data-i18n="about.goal2.desc">Svoje znanje kontinuirano nadograđujem kroz edukacije i usavršavanja kako bih svaki trening mogla voditi sigurno, precizno i s jasnim razlogom za svaki pokret. Uz završenu Pilates edukaciju i stečeni certifikat, kontinuirano se dodatno usavršavam. Vjerujem da se dobar instruktor nikada ne prestaje razvijati.</p>
                 </div>
                 <div class="about-goal-item">
                   <h4 data-i18n="about.goal3.title">Snaga za život</h4>
@@ -160,7 +163,7 @@
             <div class="section-header-left">
               <span class="section-subtitle-light" data-i18n="method.subtitle">Naša filozofija</span>
               <h2 data-i18n="method.title">Bloom metodologija</h2>
-              <p class="method-intro" data-i18n="method.desc">Temelji se na BASI® Pilates principima preciznosti, kontrole i kvalitetnog pokreta, uz suvremen i funkcionalan pristup prilagođen svakom tijelu. Ovdje svaki pokret ima svoju svrhu: za više snage, stabilnosti i bolja kretanja dugoročno.</p>
+              <p class="method-intro" data-i18n="method.desc">Temelji se na principima preciznosti, kontrole i kvalitetnog pokreta, uz suvremen i funkcionalan pristup prilagođen svakom tijelu. Ovdje svaki pokret ima svoju svrhu: za više snage, stabilnosti i bolja kretanja dugoročno.</p>
             </div>
             <div class="method-list">
               <div class="method-list-item">
@@ -195,19 +198,27 @@
         </div>
       </section>
 
-      <!-- Price list (Cjenik) — rendered from src/data/pricing.json,
-           styled to match the studio's own cjenik artwork -->
+      <!-- Price list (Cjenik) — photo left, price list right.
+           Content rendered from src/data/pricing.json -->
       <section class="pricing-section" id="cjenik">
-        <div class="container">
-          <div class="pricing-sheet">
-            <h2 class="pricing-heading" data-i18n="pricing.title">cjenik</h2>
-            <div id="pricing-groups"><!-- filled from pricing.json --></div>
+        <div class="split-panel">
+          <div class="split-photo">
+            <img
+              src="/media__1787757739255.jpg"
+              alt="Bloom Pilates Studio"
+            />
+          </div>
+          <div class="split-content split-cjenik">
+            <div class="pricing-sheet">
+              <h2 class="pricing-heading" data-i18n="pricing.title">cjenik</h2>
+              <div id="pricing-groups"><!-- filled from pricing.json --></div>
 
-            <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
-            <div class="pricing-rule"></div>
-            <ul class="pricing-info" id="pricing-info"><!-- filled from pricing.json --></ul>
+              <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
+              <div class="pricing-rule"></div>
+              <ul class="pricing-info" id="pricing-info"><!-- filled from pricing.json --></ul>
 
-            <footer class="pricing-legal" id="pricing-legal"><!-- filled from pricing.json --></footer>
+              <footer class="pricing-legal" id="pricing-legal"><!-- filled from pricing.json --></footer>
+            </div>
           </div>
         </div>
       </section>
