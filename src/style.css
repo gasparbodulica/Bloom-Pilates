@@ -1500,12 +1500,21 @@ body > footer {
 .prelaunch-section,
 .beige-flow {
   background-color: var(--bg-main);
-  background-image: radial-gradient(135% 115% at 100% 0%,
+  /* Paper grain over the gradient. The tile is neutral grey (mean 128),
+     so soft-light contributes only its texture and leaves the gradient's
+     colour exactly as sampled from the cjenik sheet. */
+  background-image:
+    url('./assets/texture-paper.jpg'),
+    radial-gradient(135% 115% at 100% 0%,
       #D5C0A8 0%,
       #DECDBB 20%,
       #E5D8C9 44%,
       #EBE2D6 72%,
       #EDE4D7 100%);
+  background-size: 450px 450px, cover;
+  background-repeat: repeat, no-repeat;
+  background-position: top left, center;
+  background-blend-mode: soft-light, normal;
 }
 
 /* Let the shared gradient show through */
