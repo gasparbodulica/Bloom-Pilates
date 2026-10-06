@@ -1385,7 +1385,9 @@ section {
 }
 
 /* Footer styling */
-footer {
+/* Scoped: a bare `footer` selector also matches nested <footer> elements,
+   such as the legal block inside the cjenik sheet. */
+body > footer {
   background-color: var(--footer-brown);
   color: rgba(255, 255, 255, 0.6);
   padding: 4rem 0 2rem;
@@ -1505,7 +1507,7 @@ footer {
   background-image: url('./assets/texture-terracotta.jpg');
 }
 
-footer {
+body > footer {
   background-image: url('./assets/texture-espresso.jpg');
 }
 
@@ -1514,7 +1516,7 @@ footer {
 .split-olive,
 .split-terracotta,
 .split-cjenik,
-footer {
+body > footer {
   /* 900px tiles drawn at 450px: 1:1 in device pixels on a 2x screen, and
      repeated rather than stretched — `cover` was upscaling the footer
      roughly 3x, which is what made it look blown up and soft. */
@@ -1604,12 +1606,15 @@ footer {
 }
 
 .pricing-legal {
-  margin-top: 3.5rem;
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--cjenik-rule);
   text-align: center;
   font-family: var(--font-sans);
-  font-size: 0.88rem;
-  line-height: 1.7;
+  font-size: 0.95rem;
+  line-height: 1.8;
   color: var(--cjenik-body);
+  background: none;
 }
 
 .pricing-legal strong { font-weight: 700; }
