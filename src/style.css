@@ -1490,11 +1490,14 @@ body > footer {
    and the text-contrast headroom while carrying the true texture.
    background-color stays as the fallback if an image fails to load. */
 
+/* Flat, exactly the beige from the upper-left corner of the brand
+   background artwork. No plaster tile here — that corner is smooth, and
+   the grain was the only thing making these read differently. */
 .prelaunch-section,
 .contact-section,
 .split-cjenik {
   background-color: var(--bg-main);
-  background-image: url('./assets/texture-cream.jpg');
+  background-image: none;
 }
 
 .split-olive {
@@ -1513,11 +1516,8 @@ body > footer {
   background-image: url('./assets/texture-espresso.jpg');
 }
 
-.prelaunch-section,
-.contact-section,
 .split-olive,
 .split-terracotta,
-.split-cjenik,
 body > footer {
   /* 900px tiles drawn at 450px: 1:1 in device pixels on a 2x screen, and
      repeated rather than stretched — `cover` was upscaling the footer
