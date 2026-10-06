@@ -1492,10 +1492,13 @@ body > footer {
 
 /* The cjenik sheet is not flat: it carries a warm falloff from the
    top-right corner, fading to light at the left and bottom. Sampled
-   across the artwork and reproduced here. */
+   across the artwork and reproduced here.
+
+   .beige-flow wraps the Cjenik and Kontakt sections so they share ONE
+   gradient across their combined height — painting it per-section made
+   it restart at the boundary, which read as a visible edge. */
 .prelaunch-section,
-.contact-section,
-.split-cjenik {
+.beige-flow {
   background-color: var(--bg-main);
   background-image: radial-gradient(135% 115% at 100% 0%,
       #D5C0A8 0%,
@@ -1503,6 +1506,13 @@ body > footer {
       #E5D8C9 44%,
       #EBE2D6 72%,
       #EDE4D7 100%);
+}
+
+/* Let the shared gradient show through */
+.split-cjenik,
+.contact-section {
+  background-color: transparent;
+  background-image: none;
 }
 
 .split-olive {

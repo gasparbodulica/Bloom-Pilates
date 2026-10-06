@@ -198,95 +198,100 @@
         </div>
       </section>
 
-      <!-- Price list (Cjenik) — photo left, price list right.
-           Content rendered from src/data/pricing.json -->
-      <section class="pricing-section" id="cjenik">
-        <div class="split-panel">
-          <div class="split-photo">
-            <img
-              src="/media__1787757739255.jpg"
-              alt="Bloom Pilates Studio"
-            />
-          </div>
-          <div class="split-content split-cjenik">
-            <div class="pricing-sheet">
-              <h2 class="pricing-heading" data-i18n="pricing.title">cjenik</h2>
-              <div id="pricing-groups"><!-- filled from pricing.json --></div>
+      <!-- Cjenik and Kontakt share one continuous beige gradient, so the
+           boundary between them does not show as an edge -->
+      <div class="beige-flow">
+        <!-- Price list (Cjenik) — photo left, price list right.
+             Content rendered from src/data/pricing.json -->
+        <section class="pricing-section" id="cjenik">
+          <div class="split-panel">
+            <div class="split-photo">
+              <img
+                src="/media__1787757739255.jpg"
+                alt="Bloom Pilates Studio"
+              />
+            </div>
+            <div class="split-content split-cjenik">
+              <div class="pricing-sheet">
+                <h2 class="pricing-heading" data-i18n="pricing.title">cjenik</h2>
+                <div id="pricing-groups"><!-- filled from pricing.json --></div>
 
-              <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
-              <div class="pricing-rule"></div>
-              <ul class="pricing-info" id="pricing-info"><!-- filled from pricing.json --></ul>
+                <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
+                <div class="pricing-rule"></div>
+                <ul class="pricing-info" id="pricing-info"><!-- filled from pricing.json --></ul>
 
-              <footer class="pricing-legal" id="pricing-legal"><!-- filled from pricing.json --></footer>
+                <footer class="pricing-legal" id="pricing-legal"><!-- filled from pricing.json --></footer>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Contact Section -->
-      <section class="contact-section" id="contact">
-        <div class="container">
-          <div class="contact-header">
-            <span class="section-subtitle" data-i18n="contact.subtitle">Uskoro otvorenje</span>
-            <h2 data-i18n="contact.title">Prijavi se na listu čekanja</h2>
-          </div>
-          <div class="contact-grid">
-            <!-- Form column -->
-            <div class="contact-form-col">
-              <form class="newsletter-form" id="newsletter-subscription-form">
-                <div class="waitlist-name-row">
-                  <div class="form-group">
-                    <label for="waitlist-first" data-i18n="newsletter.ph.first">Ime</label>
-                    <input type="text" id="waitlist-first" name="first_name" autocomplete="given-name" data-i18n-placeholder="newsletter.ph.first" placeholder="Ime" required />
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+          <div class="container">
+            <div class="contact-header">
+              <span class="section-subtitle" data-i18n="contact.subtitle">Uskoro otvorenje</span>
+              <h2 data-i18n="contact.title">Prijavi se na listu čekanja</h2>
+            </div>
+            <div class="contact-grid">
+              <!-- Form column -->
+              <div class="contact-form-col">
+                <form class="newsletter-form" id="newsletter-subscription-form">
+                  <div class="waitlist-name-row">
+                    <div class="form-group">
+                      <label for="waitlist-first" data-i18n="newsletter.ph.first">Ime</label>
+                      <input type="text" id="waitlist-first" name="first_name" autocomplete="given-name" data-i18n-placeholder="newsletter.ph.first" placeholder="Ime" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="waitlist-last" data-i18n="newsletter.ph.last">Prezime</label>
+                      <input type="text" id="waitlist-last" name="last_name" autocomplete="family-name" data-i18n-placeholder="newsletter.ph.last" placeholder="Prezime" required />
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label for="waitlist-last" data-i18n="newsletter.ph.last">Prezime</label>
-                    <input type="text" id="waitlist-last" name="last_name" autocomplete="family-name" data-i18n-placeholder="newsletter.ph.last" placeholder="Prezime" required />
+                    <label for="newsletter-email" data-i18n="newsletter.ph.email">E-mail adresa</label>
+                    <input type="email" id="newsletter-email" name="email" autocomplete="email" data-i18n-placeholder="newsletter.ph.email" placeholder="E-mail adresa" required />
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="newsletter-email" data-i18n="newsletter.ph.email">E-mail adresa</label>
-                  <input type="email" id="newsletter-email" name="email" autocomplete="email" data-i18n-placeholder="newsletter.ph.email" placeholder="E-mail adresa" required />
-                </div>
-                <div class="form-group">
-                  <label for="waitlist-msg" data-i18n="newsletter.ph.msg">Kratka poruka (opcionalno)</label>
-                  <textarea id="waitlist-msg" name="message" data-i18n-placeholder="newsletter.ph.msg" placeholder="Kratka poruka (opcionalno)"></textarea>
-                </div>
-                <!-- Spam trap: bots fill this, people never see it -->
-                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
-                <input type="hidden" name="_subject" value="Nova prijava na listu čekanja — Bloom Pilates" />
-                <button type="submit" class="btn btn-primary contact-submit-btn" id="newsletter-submit-btn" data-i18n="newsletter.btn">Prijavi se</button>
-                <p class="form-status" id="waitlist-status" role="status" aria-live="polite"></p>
-                <p class="form-privacy-note" data-i18n="newsletter.privacy">Tvoji podaci su sigurni. Nema neželjene pošte.</p>
-              </form>
-            </div>
-            <!-- Map column -->
-            <div class="contact-info-col">
-              <h3 data-i18n="map.title">BLOOM PILATES STUDIO</h3>
-              <div class="contact-info-detail">
-                <span class="contact-info-label" data-i18n="contact.addr">Adresa</span>
-                <span class="contact-info-value" data-i18n="contact.addr.val">Istarsko naselje 3a, Mursko Središće</span>
+                  <div class="form-group">
+                    <label for="waitlist-msg" data-i18n="newsletter.ph.msg">Kratka poruka (opcionalno)</label>
+                    <textarea id="waitlist-msg" name="message" data-i18n-placeholder="newsletter.ph.msg" placeholder="Kratka poruka (opcionalno)"></textarea>
+                  </div>
+                  <!-- Spam trap: bots fill this, people never see it -->
+                  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+                  <input type="hidden" name="_subject" value="Nova prijava na listu čekanja — Bloom Pilates" />
+                  <button type="submit" class="btn btn-primary contact-submit-btn" id="newsletter-submit-btn" data-i18n="newsletter.btn">Prijavi se</button>
+                  <p class="form-status" id="waitlist-status" role="status" aria-live="polite"></p>
+                  <p class="form-privacy-note" data-i18n="newsletter.privacy">Tvoji podaci su sigurni. Nema neželjene pošte.</p>
+                </form>
               </div>
-              <div class="contact-info-detail">
-                <span class="contact-info-label" data-i18n="contact.phone">E-mail</span>
-                <a href="mailto:pilatesstudiobloom@gmail.com" class="contact-info-value" data-i18n="contact.email.val">pilatesstudiobloom@gmail.com</a>
-              </div>
-              <div class="contact-map">
-                <iframe
-                  src="https://www.google.com/maps?q=Istarsko+naselje+3a,+Mursko+Središće&output=embed"
-                  width="100%"
-                  height="280"
-                  style="border:0; border-radius: 12px;"
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  title="Bloom Pilates Studio location"
-                ></iframe>
+              <!-- Map column -->
+              <div class="contact-info-col">
+                <h3 data-i18n="map.title">BLOOM PILATES STUDIO</h3>
+                <div class="contact-info-detail">
+                  <span class="contact-info-label" data-i18n="contact.addr">Adresa</span>
+                  <span class="contact-info-value" data-i18n="contact.addr.val">Istarsko naselje 3a, Mursko Središće</span>
+                </div>
+                <div class="contact-info-detail">
+                  <span class="contact-info-label" data-i18n="contact.phone">E-mail</span>
+                  <a href="mailto:pilatesstudiobloom@gmail.com" class="contact-info-value" data-i18n="contact.email.val">pilatesstudiobloom@gmail.com</a>
+                </div>
+                <div class="contact-map">
+                  <iframe
+                    src="https://www.google.com/maps?q=Istarsko+naselje+3a,+Mursko+Središće&output=embed"
+                    width="100%"
+                    height="280"
+                    style="border:0; border-radius: 12px;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Bloom Pilates Studio location"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+
     </main>
 
     <!-- Footer -->
