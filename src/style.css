@@ -44,6 +44,7 @@
   /* Layout Constants */
   --navbar-gap: 14px;
   --max-width: 1100px;
+  --wide-width: 1400px;
   --border-radius: 20px;
   --border-radius-sm: 10px;
   --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -70,7 +71,7 @@ body {
   color: var(--text-main);
   line-height: 1.65;
   overflow-x: hidden;
-  font-size: 16px;
+  font-size: 1rem;      /* follows the root size, which scales on large displays */
   letter-spacing: -0.01em;
 }
 
@@ -1654,6 +1655,34 @@ body > footer {
 }
 
 
+/* ==========================================================
+   Large desktop displays (Apple Studio Display and similar)
+
+   At 2560px the design kept a 16px base and a 1400px column, so the
+   page filled barely half the screen and the type read as tiny. Scaling
+   the root font size moves every rem-based size, spacing included, so
+   the whole design grows together rather than just the text.
+   ========================================================== */
+@media (min-width: 1700px) {
+  html { font-size: 17.5px; }
+  :root {
+    --max-width: 1280px;
+    --wide-width: 1600px;
+  }
+  /* the pill would otherwise sit small against the wider content below */
+  .navbar .container { max-width: 1500px; }
+}
+
+@media (min-width: 2200px) {
+  html { font-size: 19px; }
+  :root {
+    --max-width: 1420px;
+    --wide-width: 1820px;
+  }
+  .navbar .container { max-width: 1720px; }
+}
+
+
 /* Luxury Booking Modal */
 .booking-modal {
   position: fixed;
@@ -2231,7 +2260,7 @@ body > footer {
 }
 
 .prelaunch-inner {
-  max-width: 1400px;
+  max-width: var(--wide-width);
   margin: 0 auto;
   padding: 3.5rem 5rem;
 }
