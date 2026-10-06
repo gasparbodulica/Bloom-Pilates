@@ -7,10 +7,10 @@ export const translations = {
     'nav.book': 'Prijavi se na listu čekanja',
 
     'hero.badge': 'Prvi individualni sat besplatan',
-    'hero.subtitle': 'Boutique reformer pilates studio',
+    'hero.subtitle': 'Boutique reformer Pilates studio',
     'hero.title': 'Procvjetajte u svoju <span>najjaču</span> verziju',
     'hero.location': 'Prvi posvećeni Pilates studio u Murskom Središću',
-    'hero.desc': 'Boutique reformer pilates studio u Murskom Središću. Mala grupa do 3 osobe, stručno vodstvo i svjesni pokret koji jača tijelo, smiruje um i vraća te sebi.',
+    'hero.desc': 'Boutique reformer Pilates studio u Murskom Središću. Mala grupa do 3 osobe, stručno vodstvo i svjesni pokret koji jača tijelo, smiruje um i vraća te sebi.',
     'hero.book': 'Prijavi se na listu čekanja',
     'hero.schedule': 'Saznaj više',
 
@@ -42,7 +42,7 @@ export const translations = {
     'method.card3.desc': 'Pilates je vrijeme za povezivanje sa sobom. Kroz svjesno disanje i kontroliran pokret gradimo snagu, fokus i ravnotežu, kako bismo s treninga odlazili snažniji, ali i mirniji.',
 
     'prelaunch.opening.label': 'Uskoro otvorenje',
-    'prelaunch.headline': 'Boutique reformer pilates dolazi u Mursko Središće.',
+    'prelaunch.headline': 'Boutique reformer Pilates dolazi u Mursko Središće.',
     'prelaunch.subline': 'Mala grupa do 3 osobe, stručno vodstvo i svjesni pokret koji jača tijelo, smiruje um i vraća te sebi.',
     'prelaunch.free.label': 'Posebna ponuda za prve',
     'prelaunch.free.title': 'Prvi individualni sat besplatan',
@@ -74,7 +74,7 @@ export const translations = {
     'newsletter.error': 'Slanje nije uspjelo. Pokušaj ponovno ili nam piši na pilatesstudiobloom@gmail.com.',
     'newsletter.privacy': 'Tvoji podaci su sigurni. Nema neželjene pošte.',
     'contact.email.val': 'pilatesstudiobloom@gmail.com',
-    'map.title': 'BLOOM PILATES STUDIO',
+    'map.title': 'Bloom Pilates Studio',
     'map.desc': 'Istarsko naselje 3a<br />Mursko Središće',
 
     'footer.tagline': '<strong>bloom your body. bloom your mind.</strong><br>Boutique Pilates studio uskoro u Murskom Središću. Svjesno kretanje za tijelo i um.',
@@ -170,7 +170,7 @@ export const translations = {
     'newsletter.error': 'That didn\'t send. Please try again, or email us at pilatesstudiobloom@gmail.com.',
     'newsletter.privacy': 'Your data is safe. No spam.',
     'contact.email.val': 'pilatesstudiobloom@gmail.com',
-    'map.title': 'BLOOM PILATES STUDIO',
+    'map.title': 'Bloom Pilates Studio',
     'map.desc': 'Istarsko naselje 3a<br />Mursko Središće',
 
     'footer.tagline': '<strong>bloom your body. bloom your mind.</strong><br>Boutique Pilates studio opening soon in Mursko Središće. Mindful movement for body and mind.',
