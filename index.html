@@ -26,7 +26,6 @@
           <li><a href="#about" class="nav-link-item" id="nav-about" data-i18n="nav.about">Upoznajte me</a></li>
           <li><a href="#methodology" class="nav-link-item" id="nav-methodology" data-i18n="nav.methodology">Metodologija</a></li>
           <li><a href="#cjenik" class="nav-link-item" id="nav-pricing" data-i18n="nav.pricing">Cjenik</a></li>
-          <li><a href="#paketi" class="nav-link-item" id="nav-packages" data-i18n="nav.packages">Paketi</a></li>
           <li><a href="#contact" class="nav-link-item" id="nav-contact" data-i18n="nav.contact">Kontakt</a></li>
         </ul>
 
@@ -198,27 +197,6 @@
 
       <!-- Cjenik and Kontakt share one continuous beige gradient, so the
            boundary between them does not show as an edge -->
-      <!-- Package checkout — cards rendered from src/data/pricing.json.
-           Each button points at that package's Stripe Payment Link. -->
-      <section class="packages-section" id="paketi">
-        <div class="container">
-          <div class="section-header">
-            <span class="section-subtitle" data-i18n="packages.subtitle">Rezervacija</span>
-            <h2 data-i18n="packages.title">Odaberi svoj paket</h2>
-            <p data-i18n="packages.lead">Odaberi paket koji ti odgovara i plati online. Nakon uplate javljam ti se kako bismo dogovorili termine.</p>
-          </div>
-
-          <div class="package-grid" id="package-grid"><!-- filled from pricing.json --></div>
-
-          <p class="package-note" data-i18n="packages.note">Paket vrijedi 5 tjedana od datuma uplate. Plaćanje je sigurno — kartični podaci obrađuju se kod Stripea i ne pohranjuju se na ovoj stranici.</p>
-
-          <div class="package-trial">
-            <p data-i18n="packages.trial">Prvi put u Bloomu? Uvodni individualni sat je besplatan.</p>
-            <a href="#contact" class="btn btn-primary" data-i18n="packages.trial.cta">Prijavi se na listu čekanja</a>
-          </div>
-        </div>
-      </section>
-
       <div class="beige-flow">
         <!-- Price list (Cjenik) — photo left, price list right.
              Content rendered from src/data/pricing.json -->
@@ -235,7 +213,14 @@
                 <h2 class="pricing-heading" data-i18n="pricing.title">cjenik</h2>
                 <div id="pricing-groups"><!-- filled from pricing.json --></div>
 
-                <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
+                <a class="pricing-cta" href="/paketi.html">
+                <span data-i18n="pricing.cta">Odaberi svoj paket</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+
+              <h3 class="pricing-group-title" data-i18n="pricing.info">važne informacije</h3>
                 <div class="pricing-rule"></div>
                 <ul class="pricing-info" id="pricing-info"><!-- filled from pricing.json --></ul>
 
