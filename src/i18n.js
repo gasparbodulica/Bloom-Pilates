@@ -93,6 +93,17 @@ export const translations = {
     'pricing.title': 'cjenik',
     'pricing.info': 'važne informacije',
     'pricing.free': 'besplatno',
+    'nav.packages': 'Paketi',
+    'packages.subtitle': 'Rezervacija',
+    'packages.title': 'Odaberi svoj paket',
+    'packages.lead': 'Odaberi paket koji ti odgovara i plati online. Nakon uplate javljam ti se kako bismo dogovorili termine.',
+    'packages.note': 'Paket vrijedi 5 tjedana od datuma uplate. Plaćanje je sigurno — kartični podaci obrađuju se kod Stripea i ne pohranjuju se na ovoj stranici.',
+    'packages.trial': 'Prvi put u Bloomu? Uvodni individualni sat je besplatan.',
+    'packages.trial.cta': 'Prijavi se na listu čekanja',
+    'packages.buy': 'Odaberi i plati',
+    'packages.soon': 'Uskoro dostupno',
+    'packages.perSession': 'po treningu',
+
     'footer.copy': '© 2026 Bloom Pilates. Sva prava pridržana.',
   },
   en: {
@@ -189,6 +200,17 @@ export const translations = {
     'pricing.title': 'price list',
     'pricing.info': 'important information',
     'pricing.free': 'free',
+    'nav.packages': 'Packages',
+    'packages.subtitle': 'Booking',
+    'packages.title': 'Choose your package',
+    'packages.lead': 'Pick the package that suits you and pay online. I will be in touch afterwards to arrange your times.',
+    'packages.note': 'A package is valid for 5 weeks from the date of payment. Payment is secure — card details are handled by Stripe and never stored on this site.',
+    'packages.trial': 'First time at Bloom? Your introductory one-to-one session is free.',
+    'packages.trial.cta': 'Join the waiting list',
+    'packages.buy': 'Choose and pay',
+    'packages.soon': 'Coming soon',
+    'packages.perSession': 'per session',
+
     'footer.copy': '© 2026 Bloom Pilates. All rights reserved.',
   }
 };

@@ -26,6 +26,7 @@
           <li><a href="#about" class="nav-link-item" id="nav-about" data-i18n="nav.about">Upoznajte me</a></li>
           <li><a href="#methodology" class="nav-link-item" id="nav-methodology" data-i18n="nav.methodology">Metodologija</a></li>
           <li><a href="#cjenik" class="nav-link-item" id="nav-pricing" data-i18n="nav.pricing">Cjenik</a></li>
+          <li><a href="#paketi" class="nav-link-item" id="nav-packages" data-i18n="nav.packages">Paketi</a></li>
           <li><a href="#contact" class="nav-link-item" id="nav-contact" data-i18n="nav.contact">Kontakt</a></li>
         </ul>
 
@@ -197,6 +198,27 @@
 
       <!-- Cjenik and Kontakt share one continuous beige gradient, so the
            boundary between them does not show as an edge -->
+      <!-- Package checkout — cards rendered from src/data/pricing.json.
+           Each button points at that package's Stripe Payment Link. -->
+      <section class="packages-section" id="paketi">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-subtitle" data-i18n="packages.subtitle">Rezervacija</span>
+            <h2 data-i18n="packages.title">Odaberi svoj paket</h2>
+            <p data-i18n="packages.lead">Odaberi paket koji ti odgovara i plati online. Nakon uplate javljam ti se kako bismo dogovorili termine.</p>
+          </div>
+
+          <div class="package-grid" id="package-grid"><!-- filled from pricing.json --></div>
+
+          <p class="package-note" data-i18n="packages.note">Paket vrijedi 5 tjedana od datuma uplate. Plaćanje je sigurno — kartični podaci obrađuju se kod Stripea i ne pohranjuju se na ovoj stranici.</p>
+
+          <div class="package-trial">
+            <p data-i18n="packages.trial">Prvi put u Bloomu? Uvodni individualni sat je besplatan.</p>
+            <a href="#contact" class="btn btn-primary" data-i18n="packages.trial.cta">Prijavi se na listu čekanja</a>
+          </div>
+        </div>
+      </section>
+
       <div class="beige-flow">
         <!-- Price list (Cjenik) — photo left, price list right.
              Content rendered from src/data/pricing.json -->

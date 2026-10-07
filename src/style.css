@@ -1685,6 +1685,134 @@ body > footer {
 }
 
 
+/* ==========================================================
+   Package checkout
+   ========================================================== */
+.packages-section {
+  background-color: var(--bg-main);
+  background-image:
+    url('./assets/texture-paper.jpg'),
+    radial-gradient(135% 115% at 100% 0%,
+      #D5C0A8 0%, #DECDBB 20%, #E5D8C9 44%, #EBE2D6 72%, #EDE4D7 100%);
+  background-size: 450px 450px, cover;
+  background-repeat: repeat, no-repeat;
+  background-position: top left, center;
+  background-blend-mode: soft-light, normal;
+  color: var(--text-main);
+}
+
+.packages-section .section-header { max-width: 680px; margin-bottom: 3.5rem; }
+.packages-section .section-header p {
+  margin-top: 1rem;
+  color: var(--text-main);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.package-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2rem 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.34);
+  transition: var(--transition-smooth);
+}
+
+.package-card:hover {
+  background: rgba(255, 255, 255, 0.55);
+  transform: translateY(-3px);
+}
+
+.package-group {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.package-card h3 {
+  font-size: 1.15rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.package-price {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--text-main);
+  margin: 0.25rem 0 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.package-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.4rem;
+  border-radius: 100px;
+  background: var(--olive);
+  border: 1.5px solid var(--olive);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.package-cta:hover { background: #363820; border-color: #363820; }
+
+/* No Payment Link yet — show the button, but never link to nowhere */
+.package-cta[aria-disabled='true'] {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.package-note {
+  margin-top: 1.75rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 720px;
+}
+
+.package-trial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.package-trial p { margin: 0; font-style: italic; color: var(--text-main); }
+
+@media (max-width: 768px) {
+  .package-grid { grid-template-columns: 1fr; }
+  .package-trial .btn { width: 100%; text-align: center; }
+}
+
+
 /* Luxury Booking Modal */
 .booking-modal {
   position: fixed;

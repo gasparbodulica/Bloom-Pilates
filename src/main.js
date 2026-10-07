@@ -198,6 +198,62 @@ if (pricingGroups) {
 }
 
 // ==========================================
+// 4c. Package checkout — cards from src/data/pricing.json. Each button
+//     is a Stripe Payment Link, so no card data and no secret key ever
+//     touches this site; a package without a link stays disabled rather
+//     than leading nowhere.
+// ==========================================
+const packageGrid = document.getElementById('package-grid');
+
+if (packageGrid) {
+  const isEn = () => currentLang === 'en';
+
+  const money = (v) => new Intl.NumberFormat(isEn() ? 'en-GB' : 'hr-HR', {
+    style: 'currency', currency: pricing.currency, maximumFractionDigits: 0,
+  }).format(v);
+
+  const buyable = pricing.groups
+    .flatMap(g => g.rows.map(r => ({ ...r, group: isEn() ? g.title_en : g.title })))
+    .filter(r => r.price > 0);
+
+  const renderPackages = () => {
+    packageGrid.innerHTML = '';
+    buyable.forEach(row => {
+      const card = document.createElement('article');
+      card.className = 'package-card';
+
+      const group = document.createElement('span');
+      group.className = 'package-group';
+      group.textContent = row.group;
+
+      const name = document.createElement('h3');
+      name.textContent = isEn() ? row.service_en : row.service;
+
+      const price = document.createElement('div');
+      price.className = 'package-price';
+      price.textContent = money(row.price);
+
+      const cta = document.createElement('a');
+      cta.className = 'package-cta';
+      if (row.checkout) {
+        cta.href = row.checkout;
+        cta.rel = 'noopener';
+        cta.textContent = t('packages.buy');
+      } else {
+        cta.setAttribute('aria-disabled', 'true');
+        cta.textContent = t('packages.soon');
+      }
+
+      card.append(group, name, price, cta);
+      packageGrid.appendChild(card);
+    });
+  };
+
+  renderPackages();
+  document.addEventListener('bloom:langchange', renderPackages);
+}
+
+// ==========================================
 // 5. Scroll Reveal Animations
 // ==========================================
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

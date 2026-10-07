@@ -1,5 +1,5 @@
 {
-  "_comment": "Transcribed from the studio's own cjenik artwork (public/7d0fd173-...JPG). Keep this file and that artwork in step. No 'vrijedi od' date by design.",
+  "_comment": "Transcribed from the studio's own cjenik artwork (public/7d0fd173-...JPG). Keep this file and that artwork in step. No 'vrijedi od' date by design. 'checkout' holds each package's Stripe Payment Link; null disables its buy button.",
   "currency": "EUR",
   "groups": [
     {
@@ -20,17 +20,20 @@
         {
           "service": "paket 4 treninga (1x tjedno)",
           "service_en": "4-session package (1x weekly)",
-          "price": 75
+          "price": 75,
+          "checkout": null
         },
         {
           "service": "paket 8 treninga (2x tjedno)",
           "service_en": "8-session package (2x weekly)",
-          "price": 130
+          "price": 130,
+          "checkout": null
         },
         {
           "service": "paket 12 treninga (3x tjedno)",
           "service_en": "12-session package (3x weekly)",
-          "price": 170
+          "price": 170,
+          "checkout": null
         }
       ]
     },
@@ -41,7 +44,8 @@
         {
           "service": "pojedinačni 1:1 trening",
           "service_en": "single 1:1 session",
-          "price": 40
+          "price": 40,
+          "checkout": null
         }
       ]
     }
