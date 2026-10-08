@@ -22,9 +22,12 @@ const startOfWeek = (d) => {
   return x
 }
 
-// Build the 5 bookable weeks from the pack's start date
+// Doris's availability is stored as a weekly PATTERN (weekday + time), never as
+// fixed dates — so it never goes stale. Concrete dates are generated on every
+// load, anchored to the week the client bought in, which is what makes their
+// 5-week window roll forward on its own as real weeks pass.
 const buildSlots = () => {
-  const base = startOfWeek(new Date())
+  const base = startOfWeek(PURCHASED_AT)
   const slots = []
   for (let w = 0; w < demo.weeks; w++) {
     for (const a of demo.availability) {
@@ -51,6 +54,10 @@ const buildSlots = () => {
 const params = new URLSearchParams(location.search)
 const TOKEN = params.get('k') || 'demo-a7f3c91e0b24'
 
+// Purchase date anchors the whole window. ?d=YYYY-MM-DD simulates buying earlier,
+// so you can see weeks fall off the top as they pass.
+const PURCHASED_AT = params.get('d') ? new Date(params.get('d') + 'T12:00:00') : new Date()
+
 const state = {
   packKey: params.get('p') || 'paket8',
   slots: buildSlots(),
@@ -61,9 +68,15 @@ const pack = () => demo.packs[state.packKey]
 const used = () => state.mine.length
 const left = () => pack().sessions - used()
 const expiry = () => {
-  const d = startOfWeek(new Date())
+  const d = startOfWeek(PURCHASED_AT)
   d.setDate(d.getDate() + demo.weeks * 7 - 1)
   return d
+}
+// a week is spent once its last slot is in the past
+const weekIsPast = (w) => {
+  const end = startOfWeek(PURCHASED_AT)
+  end.setDate(end.getDate() + w * 7 + 7)
+  return end < new Date()
 }
 const bookedInWeek = (w) =>
   state.mine.filter(id => state.slots.find(s => s.id === id)?.week === w).length
@@ -105,14 +118,17 @@ const render = () => {
   // weeks
   const wrap = document.getElementById('bk-weeks')
   wrap.innerHTML = ''
+  let shown = 0
   for (let w = 0; w < demo.weeks; w++) {
+    if (weekIsPast(w)) continue              // that week is gone, drop it
+    shown++
     const week = document.createElement('section')
     week.className = 'bk-week'
 
     const head = document.createElement('div')
     head.className = 'bk-week-head'
     const n = document.createElement('h2')
-    n.textContent = `${w + 1}. tjedan`
+    n.textContent = `${w + 1}. tjedan od ${demo.weeks}`
     const c = document.createElement('span')
     const inWeek = bookedInWeek(w)
     c.className = 'bk-week-count' + (inWeek >= p.perWeek ? ' is-full' : '')
@@ -163,6 +179,9 @@ const render = () => {
     week.append(head, grid)
     wrap.appendChild(week)
   }
+
+  document.getElementById('bk-weeks-left').textContent =
+    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${demo.weeks} tjedana`
 
   // my bookings
   const list = document.getElementById('bk-mine')
