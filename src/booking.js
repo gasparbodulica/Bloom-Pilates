@@ -45,8 +45,14 @@ const buildSlots = () => {
   return slots
 }
 
+// The token identifies the buyer. Stripe's webhook creates the row and emails
+// this link; the server reads sessions used and weekly counts from that row, so
+// the limits cannot be bypassed by clearing the browser.
+const params = new URLSearchParams(location.search)
+const TOKEN = params.get('k') || 'demo-a7f3c91e0b24'
+
 const state = {
-  packKey: 'paket8',
+  packKey: params.get('p') || 'paket8',
   slots: buildSlots(),
   mine: [],                                    // slot ids this client booked
 }
@@ -81,6 +87,13 @@ const fmtTime = (d) =>
 
 const render = () => {
   const p = pack()
+
+  document.getElementById('bk-token').textContent = TOKEN
+  document.getElementById('bk-link').textContent =
+    `bloompilates.studio/rezervacija.html?k=${TOKEN}`
+
+  const done = left() <= 0
+  document.getElementById('bk-done').hidden = !done
 
   // summary
   document.getElementById('bk-pack').textContent = p.label
