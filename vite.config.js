@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         main:       resolve(__dirname, 'index.html'),
         paketi:     resolve(__dirname, 'paketi.html'),
+        rezervacija: resolve(__dirname, 'rezervacija.html'),
         uvjeti:     resolve(__dirname, 'uvjeti.html'),
         privatnost: resolve(__dirname, 'privatnost.html'),
         odricanje:  resolve(__dirname, 'odricanje.html'),

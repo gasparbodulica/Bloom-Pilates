@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@300,400,500,600,700&display=swap" />
+    <title>Rezervacija termina | Bloom Pilates Studio</title>
+  </head>
+  <body>
+    <main class="packages-page">
+      <div class="bk-inner">
+
+        <div class="bk-demo">
+          <strong>DEMO</strong>
+          <span>Termini i paket su izmišljeni radi prikaza toka. Pravi podaci dolaze iz Stripea i Doris&nbsp;inog Google kalendara.</span>
+          <label>Simuliraj paket:
+            <select id="bk-pack-select">
+              <option value="paket4">Paket 4 (1x tjedno)</option>
+              <option value="paket8" selected>Paket 8 (2x tjedno)</option>
+              <option value="paket12">Paket 12 (3x tjedno)</option>
+              <option value="pojedinacni">Pojedinačni 1:1</option>
+            </select>
+          </label>
+          <button type="button" id="bk-reset">Počni ispočetka</button>
+        </div>
+
+        <a class="legal-back" href="/paketi.html">&larr; Natrag na pakete</a>
+
+        <header class="bk-head">
+          <img class="logo-img packages-logo" alt="Bloom Pilates Studio" />
+          <h1>Odaberi svoje termine</h1>
+          <p>Hvala na uplati! Odaberi termine koji ti odgovaraju — svaki rezervirani termin automatski se upisuje u kalendar studija.</p>
+        </header>
+
+        <div class="bk-summary">
+          <div><span class="bk-label">Tvoj paket</span><strong id="bk-pack">—</strong></div>
+          <div><span class="bk-label">Preostalo treninga</span><strong id="bk-left">—</strong></div>
+          <div><span class="bk-label">Ograničenje</span><strong id="bk-rule">—</strong></div>
+          <div><span class="bk-label">Paket vrijedi do</span><strong id="bk-expiry">—</strong></div>
+        </div>
+
+        <div class="bk-layout">
+          <div id="bk-weeks"></div>
+
+          <aside class="bk-side">
+            <h2>Moji termini</h2>
+            <ul id="bk-mine"></ul>
+            <p class="bk-sync" id="bk-sync" hidden>
+              Svaki termin upisuje se u Google kalendar studija, a tvoji podaci u evidenciju polaznika.
+            </p>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+    <script type="module" src="/src/booking.js"></script>
+  </body>
+</html>
