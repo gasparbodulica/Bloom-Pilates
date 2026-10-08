@@ -38,6 +38,7 @@ const buildSlots = () => {
         week: w, date, type: a.type,
         capacity: a.capacity,
         taken: pre ? pre.count : 0,
+        people: pre ? [...pre.people] : [],
       })
     }
   }
@@ -134,10 +135,12 @@ const render = () => {
         if (mine) {                            // cancel
           state.mine = state.mine.filter(id => id !== slot.id)
           slot.taken--
+          slot.people = slot.people.filter(n => !n.startsWith('Ti —'))
         } else {
           if (!why(slot).ok) return
           state.mine.push(slot.id)
           slot.taken++
+          slot.people.push(`Ti — ${pack().label}`)
         }
         render()
       })
@@ -166,6 +169,43 @@ const render = () => {
     list.appendChild(li)
   })
   document.getElementById('bk-sync').hidden = mineSlots.length === 0
+
+  // --- what lands in Doris's Google Calendar ---
+  const cal = document.getElementById('bk-calendar')
+  cal.innerHTML = ''
+  const booked = state.slots
+    .filter(s => s.people.length > 0 && s.date >= new Date())
+    .sort((a, b) => a.date - b.date)
+    .slice(0, 6)
+
+  booked.forEach(s => {
+    const ev = document.createElement('article')
+    ev.className = 'bk-event' + (s.taken >= s.capacity ? ' is-full' : '')
+
+    const title = document.createElement('h3')
+    title.textContent = s.type === 'individualni'
+      ? `Individualni trening — ${s.taken}/${s.capacity}`
+      : `Grupni trening — ${s.taken}/${s.capacity}`
+
+    const when = document.createElement('p')
+    when.className = 'bk-event-when'
+    const end = new Date(s.date.getTime() + 60 * 60 * 1000)
+    when.textContent = `${DAYS[s.date.getDay()]} ${s.date.getDate()}.${s.date.getMonth() + 1}.${s.date.getFullYear()}. · ${fmtTime(s.date)}–${fmtTime(end)}`
+
+    const who = document.createElement('ul')
+    who.className = 'bk-event-who'
+    s.people.forEach(n => {
+      const li = document.createElement('li')
+      li.textContent = n
+      if (n.startsWith('Ti —')) li.className = 'is-me'
+      who.appendChild(li)
+    })
+
+    ev.append(title, when, who)
+    cal.appendChild(ev)
+  })
+
+  document.getElementById('bk-cal-empty').hidden = booked.length > 0
 }
 
 // demo controls

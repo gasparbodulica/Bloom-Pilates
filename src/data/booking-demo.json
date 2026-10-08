@@ -1,25 +1,115 @@
 {
-  "_comment": "DEMO availability. Later this comes from Doris's Google Calendar — she marks free slots there and the API reads them. Shape stays the same.",
+  "_comment": "DEMO availability and bookings. Later: availability is read from Doris's Google Calendar and bookings are written back to it with the client's name, so one calendar entry shows what, when and who. Shape stays the same.",
   "weeks": 5,
   "availability": [
-    { "day": 1, "time": "09:00", "type": "grupni",       "capacity": 3 },
-    { "day": 1, "time": "18:30", "type": "grupni",       "capacity": 3 },
-    { "day": 2, "time": "17:00", "type": "individualni", "capacity": 1 },
-    { "day": 3, "time": "09:00", "type": "grupni",       "capacity": 3 },
-    { "day": 3, "time": "18:30", "type": "grupni",       "capacity": 3 },
-    { "day": 4, "time": "17:00", "type": "individualni", "capacity": 1 },
-    { "day": 5, "time": "08:00", "type": "grupni",       "capacity": 3 }
+    {
+      "day": 1,
+      "time": "09:00",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 1,
+      "time": "18:30",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 2,
+      "time": "17:00",
+      "type": "individualni",
+      "capacity": 1
+    },
+    {
+      "day": 3,
+      "time": "09:00",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 3,
+      "time": "18:30",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 4,
+      "time": "17:00",
+      "type": "individualni",
+      "capacity": 1
+    },
+    {
+      "day": 5,
+      "time": "08:00",
+      "type": "grupni",
+      "capacity": 3
+    }
   ],
   "packs": {
-    "paket4":  { "label": "Paket 4 treninga (1x tjedno)",  "sessions": 4,  "perWeek": 1, "type": "grupni" },
-    "paket8":  { "label": "Paket 8 treninga (2x tjedno)",  "sessions": 8,  "perWeek": 2, "type": "grupni" },
-    "paket12": { "label": "Paket 12 treninga (3x tjedno)", "sessions": 12, "perWeek": 3, "type": "grupni" },
-    "pojedinacni": { "label": "Pojedinačni 1:1 trening", "sessions": 1, "perWeek": 1, "type": "individualni" }
+    "paket4": {
+      "label": "Paket 4 treninga (1x tjedno)",
+      "sessions": 4,
+      "perWeek": 1,
+      "type": "grupni"
+    },
+    "paket8": {
+      "label": "Paket 8 treninga (2x tjedno)",
+      "sessions": 8,
+      "perWeek": 2,
+      "type": "grupni"
+    },
+    "paket12": {
+      "label": "Paket 12 treninga (3x tjedno)",
+      "sessions": 12,
+      "perWeek": 3,
+      "type": "grupni"
+    },
+    "pojedinacni": {
+      "label": "Pojedinačni 1:1 trening",
+      "sessions": 1,
+      "perWeek": 1,
+      "type": "individualni"
+    }
   },
   "preBooked": [
-    { "week": 0, "day": 1, "time": "09:00", "count": 2 },
-    { "week": 0, "day": 3, "time": "18:30", "count": 3 },
-    { "week": 1, "day": 5, "time": "08:00", "count": 1 },
-    { "week": 1, "day": 2, "time": "17:00", "count": 1 }
+    {
+      "week": 0,
+      "day": 1,
+      "time": "09:00",
+      "count": 2,
+      "people": [
+        "Ana Horvat — Paket 8",
+        "Marija Novak — Paket 4"
+      ]
+    },
+    {
+      "week": 0,
+      "day": 3,
+      "time": "18:30",
+      "count": 3,
+      "people": [
+        "Ivana Kos — Paket 12",
+        "Lucija Babić — Paket 8",
+        "Petra Jurić — Paket 4"
+      ]
+    },
+    {
+      "week": 1,
+      "day": 5,
+      "time": "08:00",
+      "count": 1,
+      "people": [
+        "Ana Horvat — Paket 8"
+      ]
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "time": "17:00",
+      "count": 1,
+      "people": [
+        "Sara Vidović — Pojedinačni 1:1"
+      ]
+    }
   ]
 }

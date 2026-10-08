@@ -2083,6 +2083,48 @@ body > footer {
 }
 
 
+/* Doris's calendar preview */
+.bk-calendar-wrap {
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+.bk-calendar-wrap h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+.bk-calendar-lead {
+  font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.7;
+  color: var(--text-muted); max-width: 640px; margin-bottom: 1.5rem;
+}
+.bk-calendar {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;
+}
+.bk-event {
+  border-left: 4px solid var(--olive);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.55);
+  padding: 1rem 1.1rem;
+}
+.bk-event.is-full { border-left-color: var(--terracotta); }
+.bk-event h3 {
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--olive); margin: 0 0 0.3rem;
+}
+.bk-event.is-full h3 { color: var(--terracotta); }
+.bk-event-when {
+  font-family: var(--font-sans); font-size: 0.86rem;
+  color: var(--text-main); margin: 0 0 0.6rem;
+}
+.bk-event-who { list-style: none; padding: 0; margin: 0; }
+.bk-event-who li {
+  font-family: var(--font-sans); font-size: 0.82rem; line-height: 1.6;
+  color: var(--text-muted); padding-left: 0.9rem; position: relative;
+}
+.bk-event-who li::before {
+  content: '•'; position: absolute; left: 0; color: var(--border);
+}
+.bk-event-who li.is-me { color: var(--text-main); font-weight: 600; }
+
+
 /* Luxury Booking Modal */
 .booking-modal {
   position: fixed;
