@@ -338,12 +338,24 @@ const pushToServer = async (slot, action) =>
     }),
   })
 
+// The browser fallback exists so the draft is usable under `vite dev`, where no
+// serverless function runs. It must NEVER apply in production: a booking the
+// server never saw would leave someone turning up without a place. There, a
+// failed API is an error, not a quieter mode.
+const IS_DEV = ['localhost', '127.0.0.1', '::1'].includes(location.hostname)
+
 const setMode = () => {
   const el = document.getElementById('bk-mode')
-  el.textContent = online
-    ? 'Povezano sa zajedničkom pohranom — isti termini na svim uređajima.'
-    : 'Lokalni demo — termini se pamte samo u ovom pregledniku. Zajednička pohrana radi tek uz /api.'
-  el.className = 'bk-mode ' + (online ? 'is-online' : 'is-local')
+  if (online) {
+    el.textContent = 'Povezano sa zajedničkom pohranom — isti termini na svim uređajima.'
+    el.className = 'bk-mode is-online'
+  } else if (IS_DEV) {
+    el.textContent = 'Lokalni demo — /api ne radi pod `vite dev`, pa se termini pamte samo u ovom pregledniku.'
+    el.className = 'bk-mode is-local'
+  } else {
+    el.textContent = 'Rezervacije trenutno nisu dostupne. Pokušaj za koji trenutak ili nam piši na pilatesstudiobloom@gmail.com.'
+    el.className = 'bk-mode is-down'
+  }
 }
 
 document.getElementById('bk-pack-select').value = state.packKey
@@ -352,12 +364,18 @@ const start = async () => {
   try {
     await pullFromServer()
     online = true
-  } catch {
+  } catch (err) {
     online = false
-    restore()                                   // fall back to this browser only
+    if (IS_DEV) {
+      restore()                                 // dev only: this browser's memory
+    } else {
+      console.error('booking API unreachable', err)
+      document.querySelector('.bk-layout').hidden = true
+      document.querySelector('.bk-summary').hidden = true
+    }
   }
   setMode()
-  render()
+  if (online || IS_DEV) render()
 }
 start()
 

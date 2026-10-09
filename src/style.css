@@ -2123,6 +2123,7 @@ body > footer {
 }
 .bk-mode.is-online { background: rgba(72,74,44,0.12); color: var(--olive); }
 .bk-mode.is-local  { background: #FFE9A8; color: #6B4A00; }
+.bk-mode.is-down   { background: #8E2F1E; color: #fff; font-weight: 600; }
 
 .bk-identity {
   border: 1px dashed var(--border);
