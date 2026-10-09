@@ -1,6 +1,9 @@
 import './style.css'
 import logoUrl from './assets/logo.jpg'
 import demo from './data/booking-demo.json'
+// The same module the server validates against, so the page cannot offer a
+// session the server will refuse.
+import { WEEKS, AVAILABILITY } from '../api/_schedule.js'
 
 document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl })
 
@@ -29,8 +32,8 @@ const startOfWeek = (d) => {
 const buildSlots = () => {
   const base = startOfWeek(PURCHASED_AT)
   const slots = []
-  for (let w = 0; w < demo.weeks; w++) {
-    for (const a of demo.availability) {
+  for (let w = 0; w < WEEKS; w++) {
+    for (const a of AVAILABILITY) {
       const date = new Date(base)
       date.setDate(base.getDate() + w * 7 + (a.day - 1))
       const [h, m] = a.time.split(':').map(Number)
@@ -116,7 +119,7 @@ const left = () => pack().sessions - used()
 const expiry = () => {
   if (state.serverClient?.expires) return new Date(state.serverClient.expires)
   const d = startOfWeek(PURCHASED_AT)
-  d.setDate(d.getDate() + demo.weeks * 7 - 1)
+  d.setDate(d.getDate() + WEEKS * 7 - 1)
   return d
 }
 // a week is spent once its last slot is in the past
@@ -176,7 +179,7 @@ const render = () => {
   const wrap = document.getElementById('bk-weeks')
   wrap.innerHTML = ''
   let shown = 0
-  for (let w = 0; w < demo.weeks; w++) {
+  for (let w = 0; w < WEEKS; w++) {
     if (weekIsPast(w)) continue              // that week is gone, drop it
     shown++
     const week = document.createElement('section')
@@ -185,7 +188,7 @@ const render = () => {
     const head = document.createElement('div')
     head.className = 'bk-week-head'
     const n = document.createElement('h2')
-    n.textContent = `${w + 1}. tjedan od ${demo.weeks}`
+    n.textContent = `${w + 1}. tjedan od ${WEEKS}`
     const c = document.createElement('span')
     const inWeek = bookedInWeek(w)
     c.className = 'bk-week-count'
@@ -276,7 +279,7 @@ const render = () => {
   }
 
   document.getElementById('bk-weeks-left').textContent =
-    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${demo.weeks} tjedana`
+    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${WEEKS} tjedana`
 
   // my bookings
   const list = document.getElementById('bk-mine')

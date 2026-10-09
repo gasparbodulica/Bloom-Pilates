@@ -1,7 +1,8 @@
 import { randomBytes } from 'node:crypto'
 import { redis, slotKey, json, storeReady } from './_store.js'
-import { packByKey, capacityFor } from './_packs.js'
+import { packByKey } from './_packs.js'
 import { readSlot, holdValue, holdKey, HOLD_MINUTES } from './_slots.js'
+import { findSlot } from './_schedule.js'
 
 // POST /api/hold  { pack: 'paket8', slots: [{ id, type, startISO, endISO, week }] }
 //
@@ -14,9 +15,43 @@ import { readSlot, holdValue, holdKey, HOLD_MINUTES } from './_slots.js'
 // no name to write and nothing worth her seeing.
 const newId = () => randomBytes(12).toString('hex')
 
+const clientIp = (req) =>
+  String(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '')
+    .split(',')[0].trim() || 'unknown'
+
+const ipHoldKey = (ip) => `holdip:${ip}`
+const ipRateKey = (ip) => `holdrate:${ip}`
+const MAX_ATTEMPTS = 6
+const RATE_WINDOW_S = 600
+
+// Release a hold's places. Used when the same person starts over — otherwise
+// going back and picking different dates would leave the first set blocked for
+// half an hour, by them, against themselves.
+const releaseHold = async (id) => {
+  if (!id) return
+  try {
+    const raw = await redis.get(holdKey(id))
+    const hold = typeof raw === 'string' ? JSON.parse(raw) : raw
+    for (const slot of hold?.slots || []) {
+      await redis.hdel(slotKey(slot.id), id).catch(() => {})
+    }
+    await redis.del(holdKey(id)).catch(() => {})
+  } catch (err) {
+    console.error('could not release previous hold', id, err)
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return json(res, 405, { error: 'method not allowed' })
   if (!storeReady()) return json(res, 503, { error: 'rezervacije trenutno nisu dostupne' })
+
+  // No payment is required to reach this endpoint, so without a limit someone
+  // could hold every place in the schedule on repeat and nobody could book.
+  const ip = clientIp(req)
+  const attempts = await redis.incr(ipRateKey(ip))
+  if (attempts === 1) await redis.expire(ipRateKey(ip), RATE_WINDOW_S)
+  if (attempts > MAX_ATTEMPTS)
+    return json(res, 429, { error: 'previše pokušaja — pokušaj za nekoliko minuta' })
 
   const { pack: packKey, slots } = req.body || {}
   const pack = packByKey(packKey)
@@ -29,6 +64,9 @@ export default async function handler(req, res) {
   const ids = slots.map(s => String(s.id))
   if (new Set(ids).size !== ids.length)
     return json(res, 400, { error: 'isti termin odabran dva puta' })
+
+  // One live hold per person: starting over releases the previous set.
+  await releaseHold(await redis.get(ipHoldKey(ip)))
 
   const id = newId()
   const until = Date.now() + HOLD_MINUTES * 60_000
@@ -51,7 +89,15 @@ export default async function handler(req, res) {
         return json(res, 409, { error: 'termin je prošao' })
       }
 
-      const capacity = capacityFor(slot.type || pack.type)
+      // The session has to actually exist in Doris's week. The page sends what
+      // it likes; this is what makes it true.
+      const real = findSlot({ id: sid, type: slot.type || pack.type, startISO: slot.startISO })
+      if (!real.ok) {
+        await rollback()
+        return json(res, 400, { error: real.reason })
+      }
+
+      const capacity = real.slot.capacity
 
       // Atomic: HSETNX cannot overwrite someone else, and the count afterwards
       // is what decides, so two people racing for the last place cannot both win.
@@ -80,6 +126,8 @@ export default async function handler(req, res) {
     }), { ex: HOLD_MINUTES * 60 })
 
     // client_reference_id is how the payment finds its way back to these places.
+    await redis.set(ipHoldKey(ip), id, { ex: HOLD_MINUTES * 60 })
+
     const checkout = `${pack.checkout}?client_reference_id=${id}`
     return json(res, 200, { hold: id, checkout, holdMinutes: HOLD_MINUTES, expiresAt: until })
   } catch (err) {

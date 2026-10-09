@@ -2,7 +2,7 @@ import { redis, slotKey, clientKey, json, storeReady } from './_store.js'
 import { appendSheetRow } from './_google.js'
 import { sendMail, wrap } from './_email.js'
 import { readSlot, paidValue, syncSlot } from './_slots.js'
-import { capacityFor } from './_packs.js'
+import { findSlot } from './_schedule.js'
 
 // POST /api/book  { token, slotId, slotType, weekIndex, action: 'book' | 'cancel' }
 //
@@ -50,10 +50,15 @@ export default async function handler(req, res) {
     // No weekly cap by design — the package total is the only session limit, so
     // a client may book all of them in one week. weekIndex is kept for grouping.
 
+    // The session has to exist in the schedule — a paid client can tamper with
+    // the page just as easily as anyone else.
+    const real = findSlot({ id: slotId, type: slotType, startISO })
+    if (!real.ok) return json(res, 400, { error: real.reason })
+
     // Capacity, checked atomically. HSETNX only writes if this token is not
     // already in the slot, so a retry cannot double-count the same person. The
     // count that follows ignores expired holds.
-    const capacity = capacityFor(slotType)
+    const capacity = real.slot.capacity
     const added = await redis.hsetnx(slotKey(slotId), token, paidValue(`${client.name} — ${client.pack}`))
     const taken = Object.keys(await readSlot(slotId)).length
 
