@@ -86,6 +86,7 @@ const why = (slot) => {
   if (state.mine.includes(slot.id)) return { ok: false, reason: 'booked' }
   if (left() <= 0) return { ok: false, reason: 'Potrošila si sve treninge iz paketa' }
   if (slot.date < new Date()) return { ok: false, reason: 'Termin je prošao' }
+  // still checked here because the server must re-check it; the UI already filters
   if (slot.type !== pack().type) return { ok: false, reason: `Tvoj paket vrijedi za ${pack().type} trening` }
   if (slot.taken >= slot.capacity) return { ok: false, reason: 'Termin je popunjen' }
   if (bookedInWeek(slot.week) >= pack().perWeek)
@@ -112,6 +113,8 @@ const render = () => {
   document.getElementById('bk-pack').textContent = p.label
   document.getElementById('bk-left').textContent = `${left()} / ${p.sessions}`
   document.getElementById('bk-rule').textContent = `najviše ${p.perWeek}x tjedno`
+  document.getElementById('bk-caltype').textContent =
+    p.type === 'grupni' ? 'Raspored grupnih treninga' : 'Raspored individualnih treninga'
   document.getElementById('bk-expiry').textContent =
     expiry().toLocaleDateString('hr-HR', { day: 'numeric', month: 'long', year: 'numeric' })
 
@@ -138,7 +141,9 @@ const render = () => {
     const grid = document.createElement('div')
     grid.className = 'bk-slots'
 
-    state.slots.filter(s => s.week === w).forEach(slot => {
+    state.slots
+      .filter(s => s.week === w && s.type === p.type)   // their pack's calendar only
+      .forEach(slot => {
       const v = why(slot)
       const mine = state.mine.includes(slot.id)
       const btn = document.createElement('button')

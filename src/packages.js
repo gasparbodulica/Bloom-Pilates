@@ -37,10 +37,12 @@ const render = () => {
     cta.className = 'package-cta'
     if (row.checkout) {
       // Stripe Payment Link — Stripe hosts the checkout, so no card data
-      // and no secret key ever touches this site.
-      cta.href = row.checkout
+      // and no secret key ever touches this site. The href is only attached
+      // once the cancellation policy is accepted.
+      cta.dataset.href = row.checkout
       cta.rel = 'noopener'
-      cta.textContent = t('packages.buy')
+      cta.setAttribute('aria-disabled', 'true')
+      cta.textContent = t('packages.consentFirst')
     } else {
       cta.setAttribute('aria-disabled', 'true')
       cta.textContent = t('packages.soon')
@@ -51,7 +53,27 @@ const render = () => {
   })
 }
 
+// Payment is gated on accepting the 24-hour cancellation policy. Checked again
+// server-side at checkout, since a checkbox in the page proves nothing on its own.
+const consent = document.getElementById('consent')
+
+const applyConsent = () => {
+  const ok = consent.checked
+  document.querySelectorAll('.package-cta').forEach(a => {
+    if (a.dataset.href) {                       // has a real Payment Link
+      a.setAttribute('aria-disabled', String(!ok))
+      if (ok) a.setAttribute('href', a.dataset.href)
+      else a.removeAttribute('href')
+      a.textContent = ok ? t('packages.buy') : t('packages.consentFirst')
+    }
+  })
+  document.querySelector('.package-consent').classList.toggle('is-on', ok)
+}
+
+consent.addEventListener('change', applyConsent)
+
 // pick up whichever language was chosen on the main site
 setLang(currentLang)
 render()
-document.addEventListener('bloom:langchange', render)
+applyConsent()
+document.addEventListener('bloom:langchange', () => { render(); applyConsent() })

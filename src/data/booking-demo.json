@@ -1,48 +1,120 @@
 {
-  "_comment": "DEMO availability and bookings. Later: availability is read from Doris's Google Calendar and bookings are written back to it with the client's name, so one calendar entry shows what, when and who. Shape stays the same.",
+  "_comment": "Doris's real weekly schedule, stored as a pattern (weekday + time) so dates never go stale. Group slots hold 3, individual hold 1. Later this is read from her Google Calendar; bookings are written back to ONE calendar of hers, while the site shows group and individual as separate calendars depending on the pack bought.",
   "weeks": 5,
   "availability": [
     {
       "day": 1,
-      "time": "09:00",
+      "time": "08:15",
       "type": "grupni",
       "capacity": 3
     },
     {
       "day": 1,
-      "time": "18:30",
+      "time": "09:15",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 1,
+      "time": "16:00",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 1,
+      "time": "17:00",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 1,
+      "time": "18:00",
+      "type": "individualni",
+      "capacity": 1
+    },
+    {
+      "day": 2,
+      "time": "08:15",
       "type": "grupni",
       "capacity": 3
     },
     {
       "day": 2,
-      "time": "17:00",
+      "time": "09:15",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 2,
+      "time": "10:15",
       "type": "individualni",
       "capacity": 1
     },
     {
-      "day": 3,
-      "time": "09:00",
+      "day": 2,
+      "time": "17:00",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 2,
+      "time": "18:00",
       "type": "grupni",
       "capacity": 3
     },
     {
       "day": 3,
-      "time": "18:30",
+      "time": "08:15",
       "type": "grupni",
       "capacity": 3
+    },
+    {
+      "day": 3,
+      "time": "09:15",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 3,
+      "time": "17:00",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 3,
+      "time": "18:00",
+      "type": "individualni",
+      "capacity": 1
+    },
+    {
+      "day": 4,
+      "time": "16:00",
+      "type": "individualni",
+      "capacity": 1
     },
     {
       "day": 4,
       "time": "17:00",
-      "type": "individualni",
-      "capacity": 1
+      "type": "grupni",
+      "capacity": 3
     },
     {
       "day": 5,
-      "time": "08:00",
+      "time": "09:15",
       "type": "grupni",
       "capacity": 3
+    },
+    {
+      "day": 5,
+      "time": "10:15",
+      "type": "grupni",
+      "capacity": 3
+    },
+    {
+      "day": 5,
+      "time": "11:15",
+      "type": "individualni",
+      "capacity": 1
     }
   ],
   "packs": {
@@ -75,7 +147,7 @@
     {
       "week": 0,
       "day": 1,
-      "time": "09:00",
+      "time": "09:15",
       "count": 2,
       "people": [
         "Ana Horvat — Paket 8",
@@ -85,7 +157,7 @@
     {
       "week": 0,
       "day": 3,
-      "time": "18:30",
+      "time": "17:00",
       "count": 3,
       "people": [
         "Ivana Kos — Paket 12",
@@ -96,7 +168,7 @@
     {
       "week": 1,
       "day": 5,
-      "time": "08:00",
+      "time": "09:15",
       "count": 1,
       "people": [
         "Ana Horvat — Paket 8"
@@ -105,7 +177,7 @@
     {
       "week": 1,
       "day": 2,
-      "time": "17:00",
+      "time": "10:15",
       "count": 1,
       "people": [
         "Sara Vidović — Pojedinačni 1:1"
