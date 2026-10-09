@@ -182,13 +182,20 @@ const render = () => {
       when.className = 'bk-when'
       when.textContent = `${fmtDate(slot.date)} ${fmtTime(slot.date)}`
 
+      // "2 od 3 mjesta slobodna" reads unambiguously; a bare "2 od 3" was being
+      // taken to mean places already filled. The adjective follows Croatian
+      // agreement — one mjesto is slobodno, two or three are slobodna.
+      const freeLabel = (free, cap) =>
+        free === 0 ? 'popunjeno'
+                   : `${free} od ${cap} mjesta ${free === 1 ? 'slobodno' : 'slobodna'}`
+
       const meta = document.createElement('span')
       meta.className = 'bk-meta'
       meta.textContent = mine
         ? 'rezervirano ✓'
         : slot.type === 'individualni'
-          ? (slot.taken >= slot.capacity ? 'zauzeto' : '1:1 slobodno')
-          : `${slot.capacity - slot.taken} od ${slot.capacity} mjesta`
+          ? (slot.taken >= slot.capacity ? 'popunjeno' : '1:1 slobodno')
+          : freeLabel(slot.capacity - slot.taken, slot.capacity)
 
       btn.append(when, meta)
       if (!v.ok && !mine && v.reason !== 'booked') btn.title = v.reason
