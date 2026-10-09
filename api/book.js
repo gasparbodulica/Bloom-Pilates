@@ -45,6 +45,8 @@ export default async function handler(req, res) {
       return json(res, 409, { error: 'potrošeni su svi treninzi iz paketa' })
     if (new Date() > expires)
       return json(res, 409, { error: 'paket je istekao' })
+    if (startISO && new Date(startISO) > expires)
+      return json(res, 409, { error: 'termin je nakon isteka paketa' })
     if (slotType && client.type && slotType !== client.type)
       return json(res, 409, { error: 'paket ne vrijedi za ovu vrstu treninga' })
     // No weekly cap by design — the package total is the only session limit, so

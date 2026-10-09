@@ -2,7 +2,7 @@ import { randomBytes } from 'node:crypto'
 import { redis, slotKey, json, storeReady } from './_store.js'
 import { packByKey } from './_packs.js'
 import { readSlot, holdValue, holdKey, HOLD_MINUTES } from './_slots.js'
-import { findSlot } from './_schedule.js'
+import { findSlot, expiryFrom } from './_schedule.js'
 
 // POST /api/hold  { pack: 'paket8', slots: [{ id, type, startISO, endISO, week }] }
 //
@@ -21,7 +21,11 @@ const clientIp = (req) =>
 
 const ipHoldKey = (ip) => `holdip:${ip}`
 const ipRateKey = (ip) => `holdrate:${ip}`
-const MAX_HOLDS = 5
+// Generous on purpose. A household, an office or a café share one address, so
+// a tight count locks out real people; the real cap on damage is the one live
+// hold per address below, which limits anyone to a single package's worth of
+// places at a time.
+const MAX_HOLDS = 30
 const RATE_WINDOW_S = 600
 
 // Release a hold's places. Used when the same person starts over — otherwise
@@ -89,6 +93,12 @@ export default async function handler(req, res) {
       if (slot.startISO && new Date(slot.startISO) < new Date()) {
         await rollback()
         return json(res, 409, { error: 'termin je prošao' })
+      }
+      // The package will run from the moment she pays, so anything beyond that
+      // window cannot be held now either.
+      if (slot.startISO && new Date(slot.startISO) > expiryFrom(Date.now())) {
+        await rollback()
+        return json(res, 409, { error: 'termin je nakon isteka paketa' })
       }
 
       // The session has to actually exist in Doris's week. The page sends what

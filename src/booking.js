@@ -3,7 +3,7 @@ import logoUrl from './assets/logo.jpg'
 import demo from './data/booking-demo.json'
 // The same module the server validates against, so the page cannot offer a
 // session the server will refuse.
-import { WEEKS, AVAILABILITY } from '../api/_schedule.js'
+import { AVAILABILITY, MAX_WEEKS, expiryFrom } from '../api/_schedule.js'
 
 document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl })
 
@@ -25,6 +25,23 @@ const startOfWeek = (d) => {
   return x
 }
 
+// What the server knows about this client, kept outside `state` because the
+// window has to be computed while `state` itself is still being built.
+let serverClient = null
+
+// The last day the package can be used. The server's value wins once known,
+// because that is the one it enforces.
+const expiryDate = () =>
+  serverClient?.expires ? new Date(serverClient.expires) : expiryFrom(PURCHASED_AT)
+
+// However many calendar weeks those 35 days touch — five if bought on a
+// Monday, six otherwise. Showing a fixed five cut days off the end of the
+// package that the client had paid for.
+const weekCount = () => {
+  const span = expiryDate() - startOfWeek(PURCHASED_AT)
+  return Math.min(MAX_WEEKS, Math.max(1, Math.ceil(span / (7 * 86400000))))
+}
+
 // Doris's availability is stored as a weekly PATTERN (weekday + time), never as
 // fixed dates — so it never goes stale. Concrete dates are generated on every
 // load, anchored to the week the client bought in, which is what makes their
@@ -32,7 +49,7 @@ const startOfWeek = (d) => {
 const buildSlots = () => {
   const base = startOfWeek(PURCHASED_AT)
   const slots = []
-  for (let w = 0; w < WEEKS; w++) {
+  for (let w = 0; w < weekCount(); w++) {
     for (const a of AVAILABILITY) {
       const date = new Date(base)
       date.setDate(base.getDate() + w * 7 + (a.day - 1))
@@ -116,12 +133,7 @@ const restore = () => {
 const pack = () => demo.packs[state.packKey]
 const used = () => state.mine.length
 const left = () => pack().sessions - used()
-const expiry = () => {
-  if (state.serverClient?.expires) return new Date(state.serverClient.expires)
-  const d = startOfWeek(PURCHASED_AT)
-  d.setDate(d.getDate() + WEEKS * 7 - 1)
-  return d
-}
+const expiry = expiryDate
 // a week is spent once its last slot is in the past
 const weekIsPast = (w) => {
   const end = startOfWeek(PURCHASED_AT)
@@ -142,6 +154,7 @@ const why = (slot) => {
   // still checked here because the server must re-check it; the UI already filters
   if (slot.type !== pack().type) return { ok: false, reason: `Tvoj paket vrijedi za ${pack().type} trening` }
   if (slot.taken >= slot.capacity) return { ok: false, reason: 'Termin je popunjen' }
+  if (slot.date > expiryDate()) return { ok: false, reason: 'Termin je nakon isteka paketa' }
   return { ok: true }
 }
 
@@ -179,7 +192,7 @@ const render = () => {
   const wrap = document.getElementById('bk-weeks')
   wrap.innerHTML = ''
   let shown = 0
-  for (let w = 0; w < WEEKS; w++) {
+  for (let w = 0; w < weekCount(); w++) {
     if (weekIsPast(w)) continue              // that week is gone, drop it
     shown++
     const week = document.createElement('section')
@@ -188,7 +201,7 @@ const render = () => {
     const head = document.createElement('div')
     head.className = 'bk-week-head'
     const n = document.createElement('h2')
-    n.textContent = `${w + 1}. tjedan od ${WEEKS}`
+    n.textContent = `${w + 1}. tjedan od ${weekCount()}`
     const c = document.createElement('span')
     const inWeek = bookedInWeek(w)
     c.className = 'bk-week-count'
@@ -279,7 +292,7 @@ const render = () => {
   }
 
   document.getElementById('bk-weeks-left').textContent =
-    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${WEEKS} tjedana`
+    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${weekCount()} tjedana`
 
   // my bookings
   const list = document.getElementById('bk-mine')
@@ -384,6 +397,7 @@ const pullFromServer = async () => {
   if (!PREPAY) state.mine = state.slots.filter(s => data.slots[s.id]?.mine).map(s => s.id)
   if (data.client) {
     state.serverClient = data.client
+    serverClient = data.client
     const match = Object.entries(demo.packs).find(([, v]) => v.label === data.client.pack)
     if (match) state.packKey = match[0]
   }

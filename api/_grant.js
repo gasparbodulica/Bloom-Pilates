@@ -4,6 +4,7 @@ import { appendSheetRow } from './_google.js'
 import { sendMail, wrap } from './_email.js'
 import { packByProductName } from './_packs.js'
 import { readSlot, holdKey, paidValue, syncSlot } from './_slots.js'
+import { expiryFrom } from './_schedule.js'
 
 // A paid Stripe session has to become an entitlement, and two things race to do
 // it: the webhook, and the buyer landing back on the site from the redirect.
@@ -95,8 +96,7 @@ export const grantForSession = async (stripe, session) => {
   if (holdId) await redis.del(holdKey(holdId)).catch(() => {})
 
   const purchasedAt = new Date()
-  const expires = new Date(purchasedAt)
-  expires.setDate(expires.getDate() + 35)             // the 5-week window
+  const expires = expiryFrom(purchasedAt)             // the 5-week window
 
   await redis.hset(clientKey(k), {
     name, email, phone,

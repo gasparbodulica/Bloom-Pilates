@@ -5,7 +5,28 @@
 // Deliberately free of imports and of anything Node-only, so bundling it into
 // the client stays harmless: it is public information either way, since the
 // schedule is on the page.
-export const WEEKS = 5
+// A package is valid for five weeks from the day it is paid for, which is what
+// the cjenik and the terms say. Counted from the purchase *day*, not from the
+// Monday of that week — a Friday buyer is entitled to the same 35 days as a
+// Monday one.
+export const VALID_DAYS = 35
+
+// Five weeks from a purchase part-way through a week can reach into a sixth
+// calendar week, so slot ids may legitimately carry week index 5.
+export const MAX_WEEKS = 6
+
+// The one definition of when a package runs out, used by the page, by the hold
+// and by the grant — three places that each had their own arithmetic and so
+// could disagree, which meant the page offering a late session the server would
+// then refuse. End of the 35th day, in UTC so that browser and server agree
+// exactly; the last session of any day starts at 18:00, so the few hours of
+// slack never matter in practice.
+export const expiryFrom = (from) => {
+  const d = new Date(from)
+  d.setUTCDate(d.getUTCDate() + VALID_DAYS)
+  d.setUTCHours(23, 59, 59, 999)
+  return d
+}
 
 // day: 1 = Monday. capacity: group sessions hold 3, one-to-one holds 1.
 export const AVAILABILITY = [
@@ -56,7 +77,7 @@ const localParts = (iso) => {
 export const findSlot = ({ id, type, startISO } = {}) => {
   const parsed = parseSlotId(id)
   if (!parsed) return { ok: false, reason: 'neispravan termin' }
-  if (parsed.week < 0 || parsed.week >= WEEKS) return { ok: false, reason: 'termin je izvan razdoblja paketa' }
+  if (parsed.week < 0 || parsed.week >= MAX_WEEKS) return { ok: false, reason: 'termin je izvan razdoblja paketa' }
 
   const slot = AVAILABILITY.find(a => a.day === parsed.day && a.time === parsed.time)
   if (!slot) return { ok: false, reason: 'taj termin ne postoji u rasporedu' }
