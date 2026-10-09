@@ -1718,13 +1718,6 @@ body > footer {
   font-size: 1rem; line-height: 1.75; color: var(--text-main);
 }
 
-.packages-demo-link {
-  text-align: center;
-  margin-top: 2rem;
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-}
-.packages-demo-link a { color: var(--olive); }
 
 .packages-steps {
   max-width: 620px;
