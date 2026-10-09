@@ -333,6 +333,8 @@ const pushToServer = async (slot, action) =>
     body: JSON.stringify({
       token: TOKEN, slotId: slot.id, slotType: slot.type,
       weekIndex: slot.week, action,
+      startISO: slot.date.toISOString(),
+      endISO: new Date(slot.date.getTime() + 60 * 60 * 1000).toISOString(),
     }),
   })
 
