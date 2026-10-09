@@ -2151,8 +2151,11 @@ body > footer {
 }
 .bk-pay .pricing-cta { width: 100%; text-align: center; }
 .bk-pay .pricing-cta[disabled] { opacity: 0.45; pointer-events: none; }
-/* `hidden` must win over .pricing-cta's own display */
-.pricing-cta[hidden] { display: none; }
+/* The `hidden` attribute loses to any `display` rule, which made hiding things
+   from script silently do nothing wherever one was set — a whole page of
+   post-payment chrome stayed on screen behind a "hidden" attribute. Said once,
+   with !important, so it holds everywhere. */
+[hidden] { display: none !important; }
 
 .my-booking {
   margin: 0 0 1.25rem;

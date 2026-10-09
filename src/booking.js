@@ -489,10 +489,30 @@ const applyPrepayChrome = () => {
 }
 
 const hideBooking = () => {
-  document.querySelector('.bk-layout').hidden = true
-  document.querySelector('.bk-summary').hidden = true
-  document.querySelector('.bk-caltype').hidden = true
-  document.querySelector('.bk-identity').hidden = true
+  for (const sel of ['.bk-layout', '.bk-summary', '.bk-caltype', '.bk-identity', '.bk-done']) {
+    const el = document.querySelector(sel)
+    if (el) el.hidden = true
+  }
+}
+
+// Someone who arrives without a link came here to find their reservations, not
+// to be thanked for a payment they have not made.
+const showNoLink = () => {
+  hideBooking()
+  const h1 = document.querySelector('.bk-head h1')
+  const lead = document.querySelector('.bk-head p')
+  if (h1) h1.textContent = 'Moje rezervacije'
+  if (lead) lead.textContent =
+    'Svoje termine otvaraš preko osobnog linka koji si dobila e-mailom nakon uplate.'
+  // The notice carries its own link to the packages, so the page's back link is
+  // redundant here. Scoped to a direct child, or it matches the one inside the
+  // notice instead and hides the wrong one.
+  for (const sel of ['.bk-suggest', '.bk-inner > .legal-back']) {
+    const el = document.querySelector(sel)
+    if (el) el.hidden = true
+  }
+  document.getElementById('bk-nolink').hidden = false
+  document.getElementById('bk-mode').hidden = true
 }
 
 // Stripe sends the buyer back with ?s=<session>. Trading it for their own token
@@ -524,10 +544,8 @@ const start = async () => {
     }
   }
 
-  if (!TOKEN && !PREPAY) {                      // production, arrived with no link
-    hideBooking()
-    document.getElementById('bk-nolink').hidden = false
-    document.getElementById('bk-mode').hidden = true
+  if (!TOKEN && !PREPAY) {                      // arrived with no link
+    showNoLink()
     return
   }
 
