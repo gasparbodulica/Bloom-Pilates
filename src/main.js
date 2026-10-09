@@ -292,3 +292,11 @@ if (currentLang !== 'hr') {
 
 // Offer the way back to one's own reservation, if this browser made one.
 showMyBooking(document.getElementById('my-booking'))
+
+// Selling is switched off until the studio opens: the cjenik still shows the
+// prices, which the law requires, but there is no way to start buying. Flip
+// salesOpen to true in src/data/pricing.json to put the button back — nothing
+// else changes, and the whole flow behind it is untouched and still works.
+if (!pricing.salesOpen) {
+  document.querySelector('a.pricing-cta[href="/paketi.html"]')?.remove()
+}

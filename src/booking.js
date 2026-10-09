@@ -307,42 +307,6 @@ const render = () => {
   })
   document.getElementById('bk-sync').hidden = mineSlots.length === 0
 
-  // --- what lands in Doris's Google Calendar ---
-  const cal = document.getElementById('bk-calendar')
-  cal.innerHTML = ''
-  const booked = state.slots
-    .filter(s => s.people.length > 0 && s.date >= new Date())
-    .sort((a, b) => a.date - b.date)
-    .slice(0, 6)
-
-  booked.forEach(s => {
-    const ev = document.createElement('article')
-    ev.className = 'bk-event' + (s.taken >= s.capacity ? ' is-full' : '')
-
-    const title = document.createElement('h3')
-    title.textContent = s.type === 'individualni'
-      ? `Individualni trening — ${s.taken}/${s.capacity}`
-      : `Grupni trening — ${s.taken}/${s.capacity}`
-
-    const when = document.createElement('p')
-    when.className = 'bk-event-when'
-    const end = new Date(s.date.getTime() + 60 * 60 * 1000)
-    when.textContent = `${DAYS[s.date.getDay()]} ${s.date.getDate()}.${s.date.getMonth() + 1}.${s.date.getFullYear()}. · ${fmtTime(s.date)}–${fmtTime(end)}`
-
-    const who = document.createElement('ul')
-    who.className = 'bk-event-who'
-    s.people.forEach(n => {
-      const li = document.createElement('li')
-      li.textContent = n
-      if (n.startsWith('Ti —')) li.className = 'is-me'
-      who.appendChild(li)
-    })
-
-    ev.append(title, when, who)
-    cal.appendChild(ev)
-  })
-
-  document.getElementById('bk-cal-empty').hidden = booked.length > 0
 }
 
 // Demo controls. Removed from the live page, kept working here so the draft
@@ -384,7 +348,6 @@ const pullFromServer = async () => {
     const row = data.slots[slot.id]
     if (!row) return
     slot.taken = row.taken
-    slot.people = row.people
   })
   // Before payment the server has no idea who she is, so her staged picks
   // live only here and must not be wiped by what it reports.

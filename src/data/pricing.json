@@ -1,4 +1,5 @@
 {
+  "salesOpen": false,
   "_comment": "Transcribed from the studio's own cjenik artwork (public/7d0fd173-...JPG). Keep this file and that artwork in step. No 'vrijedi od' date by design. 'checkout' holds each package's Stripe Payment Link; null disables its buy button.",
   "currency": "EUR",
   "groups": [

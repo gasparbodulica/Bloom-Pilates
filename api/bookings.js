@@ -32,15 +32,18 @@ export default async function handler(req, res) {
 
     ids.forEach((id, i) => {
       const hash = results[i] || {}
-      const people = []
+      // Counts only. Who is in a session is nobody else's business: this
+      // endpoint needs no identity to answer, so anything it returns is
+      // readable by anyone who asks.
+      let taken = 0
       let mine = false
       for (const [field, raw] of Object.entries(hash)) {
         const entry = parseEntry(String(raw))
         if (!isLive(entry, now)) { sweep.push([id, field]); continue }
-        people.push(entry.label)
+        taken++
         if (token && field === token) mine = true
       }
-      slots[id] = { taken: people.length, people, mine }
+      slots[id] = { taken, mine }
     })
 
     // One round trip for everything that has expired, and never blocking the
