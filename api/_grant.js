@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto'
-import { redis, clientKey } from './_store.js'
+import { redis, clientKey, storeReady, storeSource } from './_store.js'
 import { appendSheetRow } from './_google.js'
 import { sendMail, wrap } from './_email.js'
 
@@ -37,6 +37,10 @@ export const loadSession = (stripe, id) =>
   stripe.checkout.sessions.retrieve(id, { expand: ['line_items'] })
 
 export const grantForSession = async (stripe, session) => {
+  // Thrown, not returned: the payment already happened, so the caller must fail
+  // loudly and let Stripe retry rather than quietly dropping the purchase.
+  if (!storeReady()) throw new Error(`redis not configured — found: ${storeSource()}`)
+
   const existing = await redis.get(sessKey(session.id))
   if (existing) return { token: existing, created: false }
 

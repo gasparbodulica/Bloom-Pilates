@@ -1,4 +1,4 @@
-import { redis, slotKey, clientKey, json } from './_store.js'
+import { redis, slotKey, clientKey, json, storeReady } from './_store.js'
 import { upsertSlotEvent, appendSheetRow } from './_google.js'
 import { sendMail, wrap } from './_email.js'
 
@@ -25,6 +25,8 @@ const syncSlot = async ({ slotId, slotType, startISO, endISO }) => {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return json(res, 405, { error: 'method not allowed' })
+
+  if (!storeReady()) return json(res, 503, { error: 'rezervacije trenutno nisu dostupne' })
 
   const { token, slotId, slotType, weekIndex, startISO, endISO, action = 'book' } = req.body || {}
   if (!token || !slotId) return json(res, 400, { error: 'token and slotId required' })

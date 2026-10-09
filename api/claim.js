@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { json } from './_store.js'
+import { json, storeReady } from './_store.js'
 import { grantForSession, loadSession, tokenForSession } from './_grant.js'
 
 // GET /api/claim?s=<checkout_session_id>
@@ -14,6 +14,8 @@ import { grantForSession, loadSession, tokenForSession } from './_grant.js'
 // buyer is handed it — the same trust model as the emailed link.
 export default async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { error: 'method not allowed' })
+
+  if (!storeReady()) return json(res, 503, { error: 'rezervacije trenutno nisu dostupne' })
 
   const id = String(req.query.s || '')
   if (!/^cs_[A-Za-z0-9_]+$/.test(id)) return json(res, 400, { error: 'neispravan id' })

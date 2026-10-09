@@ -1,10 +1,15 @@
-import { redis, slotKey, clientKey, json } from './_store.js'
+import { redis, slotKey, clientKey, json, storeReady, storeSource } from './_store.js'
 
 // GET /api/bookings?k=<token>&ids=w0-d1-08:15,w0-d1-09:15
 // Returns who is in each slot plus this client's entitlement, so every device
 // renders from the same truth rather than from its own memory.
 export default async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { error: 'method not allowed' })
+
+  if (!storeReady()) {
+    console.error('redis not configured — found:', storeSource())
+    return json(res, 503, { error: 'storage not configured' })
+  }
 
   const token = String(req.query.k || '')
   const ids = String(req.query.ids || '').split(',').filter(Boolean).slice(0, 400)
