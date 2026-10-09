@@ -21,19 +21,19 @@
           "service": "paket 4 treninga (1x tjedno)",
           "service_en": "4-session package (1x weekly)",
           "price": 75,
-          "checkout": null
+          "checkout": "https://buy.stripe.com/fZu3cva0T5VE5lI5tacwg00"
         },
         {
           "service": "paket 8 treninga (2x tjedno)",
           "service_en": "8-session package (2x weekly)",
           "price": 130,
-          "checkout": null
+          "checkout": "https://buy.stripe.com/7sY8wPc910BkcOa2gYcwg01"
         },
         {
           "service": "paket 12 treninga (3x tjedno)",
           "service_en": "12-session package (3x weekly)",
           "price": 170,
-          "checkout": null
+          "checkout": "https://buy.stripe.com/7sY3cvgph1Fo9BYf3Kcwg02"
         }
       ]
     },
@@ -45,7 +45,7 @@
           "service": "pojedinačni 1:1 trening",
           "service_en": "single 1:1 session",
           "price": 40,
-          "checkout": null
+          "checkout": "https://buy.stripe.com/aFa5kD1unck28xUf3Kcwg03"
         }
       ]
     }
