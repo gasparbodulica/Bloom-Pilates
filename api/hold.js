@@ -21,7 +21,7 @@ const clientIp = (req) =>
 
 const ipHoldKey = (ip) => `holdip:${ip}`
 const ipRateKey = (ip) => `holdrate:${ip}`
-const MAX_ATTEMPTS = 6
+const MAX_HOLDS = 5
 const RATE_WINDOW_S = 600
 
 // Release a hold's places. Used when the same person starts over — otherwise
@@ -47,11 +47,13 @@ export default async function handler(req, res) {
 
   // No payment is required to reach this endpoint, so without a limit someone
   // could hold every place in the schedule on repeat and nobody could book.
+  // The count is of holds actually taken, not of attempts: refused attempts
+  // occupy nothing, and counting them locked out anyone who simply retried
+  // after picking a place that had just gone.
   const ip = clientIp(req)
-  const attempts = await redis.incr(ipRateKey(ip))
-  if (attempts === 1) await redis.expire(ipRateKey(ip), RATE_WINDOW_S)
-  if (attempts > MAX_ATTEMPTS)
-    return json(res, 429, { error: 'previše pokušaja — pokušaj za nekoliko minuta' })
+  const held = Number(await redis.get(ipRateKey(ip))) || 0
+  if (held >= MAX_HOLDS)
+    return json(res, 429, { error: 'previše rezervacija s ove veze — pokušaj za nekoliko minuta' })
 
   const { pack: packKey, slots } = req.body || {}
   const pack = packByKey(packKey)
@@ -127,6 +129,8 @@ export default async function handler(req, res) {
 
     // client_reference_id is how the payment finds its way back to these places.
     await redis.set(ipHoldKey(ip), id, { ex: HOLD_MINUTES * 60 })
+    const n = await redis.incr(ipRateKey(ip))
+    if (n === 1) await redis.expire(ipRateKey(ip), RATE_WINDOW_S)
 
     const checkout = `${pack.checkout}?client_reference_id=${id}`
     return json(res, 200, { hold: id, checkout, holdMinutes: HOLD_MINUTES, expiresAt: until })

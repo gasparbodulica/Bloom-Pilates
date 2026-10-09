@@ -360,7 +360,13 @@ let online = false
 
 const api = async (path, opts) => {
   const res = await fetch(path, opts)
-  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.statusText)
+  if (!res.ok) {
+    // Fall back to our own words, never to res.statusText — a deploy in
+    // progress answers 404, and "Not Found" is not a message for someone
+    // trying to book a pilates class.
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.error || 'Nešto nije u redu. Osvježi stranicu i pokušaj ponovno.')
+  }
   return res.json()
 }
 
