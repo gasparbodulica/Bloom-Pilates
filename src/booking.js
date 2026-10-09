@@ -58,10 +58,10 @@ const TOKEN = params.get('k') || 'demo-a7f3c91e0b24'
 // so you can see weeks fall off the top as they pass.
 const PURCHASED_AT = params.get('d') ? new Date(params.get('d') + 'T12:00:00') : new Date()
 
-// DRAFT PERSISTENCE. Bookings survive a reload so the "it remembers" behaviour is
-// visible. This is localStorage, so it only remembers in THIS browser — the real
-// version keeps state on the server, which is what makes a place taken by one
-// person show as taken to everyone else.
+// Storage. The server is the source of truth — that is what makes a place taken
+// by one person show as taken on every other device. localStorage is only a
+// fallback for running the draft under `vite dev`, where /api is not served; the
+// page says so out loud rather than pretending the state is shared.
 const STORE = `bloom-booking-${TOKEN}`
 const load = () => {
   try { return JSON.parse(localStorage.getItem(STORE)) || [] } catch { return [] }
@@ -189,13 +189,28 @@ const render = () => {
 
       btn.append(when, meta)
       if (!v.ok && !mine && v.reason !== 'booked') btn.title = v.reason
-      btn.addEventListener('click', () => {
-        if (mine) {                            // cancel
+      btn.addEventListener('click', async () => {
+        const action = mine ? 'cancel' : 'book'
+        if (!mine && !why(slot).ok) return
+
+        if (online) {
+          btn.disabled = true
+          try {
+            await pushToServer(slot, action)
+            await pullFromServer()              // re-read, never assume
+          } catch (err) {
+            alert(err.message)                  // e.g. "termin je upravo popunjen"
+            await pullFromServer().catch(() => {})
+          }
+          render()
+          return
+        }
+
+        if (mine) {
           state.mine = state.mine.filter(id => id !== slot.id)
           slot.taken--
           slot.people = slot.people.filter(n => !n.startsWith('Ti —'))
         } else {
-          if (!why(slot).ok) return
           state.mine.push(slot.id)
           slot.taken++
           slot.people.push(`Ti — ${pack().label}`)
@@ -285,9 +300,64 @@ document.getElementById('bk-reset').addEventListener('click', () => {
   render()
 })
 
+// --- server-backed state -------------------------------------------------
+let online = false
+
+const api = async (path, opts) => {
+  const res = await fetch(path, opts)
+  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.statusText)
+  return res.json()
+}
+
+const pullFromServer = async () => {
+  const ids = state.slots.map(s => s.id).join(',')
+  const data = await api(`/api/bookings?k=${encodeURIComponent(TOKEN)}&ids=${encodeURIComponent(ids)}`)
+  state.slots.forEach(slot => {
+    const row = data.slots[slot.id]
+    if (!row) return
+    slot.taken = row.taken
+    slot.people = row.people
+  })
+  state.mine = state.slots.filter(s => data.slots[s.id]?.mine).map(s => s.id)
+  if (data.client) {
+    state.serverClient = data.client
+    const match = Object.entries(demo.packs).find(([, v]) => v.label === data.client.pack)
+    if (match) state.packKey = match[0]
+  }
+}
+
+const pushToServer = async (slot, action) =>
+  api('/api/book', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      token: TOKEN, slotId: slot.id, slotType: slot.type,
+      weekIndex: slot.week, action,
+    }),
+  })
+
+const setMode = () => {
+  const el = document.getElementById('bk-mode')
+  el.textContent = online
+    ? 'Povezano sa zajedničkom pohranom — isti termini na svim uređajima.'
+    : 'Lokalni demo — termini se pamte samo u ovom pregledniku. Zajednička pohrana radi tek uz /api.'
+  el.className = 'bk-mode ' + (online ? 'is-online' : 'is-local')
+}
+
 document.getElementById('bk-pack-select').value = state.packKey
-restore()
-render()
+
+const start = async () => {
+  try {
+    await pullFromServer()
+    online = true
+  } catch {
+    online = false
+    restore()                                   // fall back to this browser only
+  }
+  setMode()
+  render()
+}
+start()
 
 // ---------------------------------------------------------------------------
 // "None of these times suit me" — goes to the same Formspree endpoint as the

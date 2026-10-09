@@ -2117,6 +2117,13 @@ body > footer {
 }
 
 
+.bk-mode {
+  font-family: var(--font-sans); font-size: 0.78rem; line-height: 1.5;
+  padding: 0.6rem 0.9rem; border-radius: 6px; margin-bottom: 1.25rem;
+}
+.bk-mode.is-online { background: rgba(72,74,44,0.12); color: var(--olive); }
+.bk-mode.is-local  { background: #FFE9A8; color: #6B4A00; }
+
 .bk-identity {
   border: 1px dashed var(--border);
   border-radius: var(--border-radius-sm);
