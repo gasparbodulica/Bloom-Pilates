@@ -297,6 +297,10 @@ showMyBooking(document.getElementById('my-booking'))
 // prices, which the law requires, but there is no way to start buying. Flip
 // salesOpen to true in src/data/pricing.json to put the button back — nothing
 // else changes, and the whole flow behind it is untouched and still works.
-if (!pricing.salesOpen) {
-  document.querySelector('a.pricing-cta[href="/paketi.html"]')?.remove()
+//
+// The button ships hidden and is revealed, rather than shipped and removed: a
+// script that fails then leaves it away instead of leaving a live way to pay.
+if (pricing.salesOpen) {
+  const cta = document.querySelector('a.pricing-cta[href="/paketi.html"]')
+  if (cta) cta.hidden = false
 }

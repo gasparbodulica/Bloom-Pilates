@@ -2151,6 +2151,9 @@ body > footer {
 }
 .bk-pay .pricing-cta { width: 100%; text-align: center; }
 .bk-pay .pricing-cta[disabled] { opacity: 0.45; pointer-events: none; }
+/* `hidden` must win over .pricing-cta's own display */
+.pricing-cta[hidden] { display: none; }
+
 .my-booking {
   margin: 0 0 1.25rem;
   font-size: 0.9rem;
