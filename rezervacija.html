@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@300,400,500,600,700&display=swap" />
+    <title>Rezervacija termina | Bloom Pilates Studio</title>
+  </head>
+  <body>
+    <main class="packages-page">
+      <div class="bk-inner">
+
+        <p class="bk-mode is-local" id="bk-mode">—</p>
+
+        <div class="bk-nolink" id="bk-nolink" hidden>
+          <strong>Potreban je tvoj osobni link</strong>
+          <p>Nakon uplate dobila si e-mail s linkom po kojem sustav prepoznaje tebe i tvoj paket. Otvori rezervacije preko tog linka.</p>
+          <p>Ne možeš ga naći? Javi nam se na <a href="mailto:pilatesstudiobloom@gmail.com">pilatesstudiobloom@gmail.com</a> i poslat ćemo ti ga ponovno.</p>
+          <a class="pricing-cta" href="/paketi.html">Pogledaj pakete &rarr;</a>
+        </div>
+
+        <a class="legal-back" href="/paketi.html">&larr; Natrag na pakete</a>
+
+        <header class="bk-head">
+          <img class="logo-img packages-logo" alt="Bloom Pilates Studio" />
+          <h1>Odaberi svoje termine</h1>
+          <p>Hvala na uplati! Odaberi termine koji ti odgovaraju — svaki rezervirani termin automatski se upisuje u kalendar studija.</p>
+        </header>
+
+        <div class="bk-identity">
+          <span class="bk-label">Tvoj osobni link</span>
+          <code id="bk-link">—</code>
+          <p>Ovaj link stigao ti je e-mailom nakon uplate. Po njemu sustav prepoznaje tebe i tvoj paket — broj preostalih treninga čuva se na serveru, ne u pregledniku, pa vrijedi na svim uređajima.</p>
+          <span class="bk-token-note">ID: <code id="bk-token">—</code></span>
+        </div>
+
+        <div class="bk-done" id="bk-done" hidden>
+          <strong>Iskoristila si sve treninge iz paketa.</strong>
+          <a href="/paketi.html">Odaberi novi paket &rarr;</a>
+        </div>
+
+        <div class="bk-summary">
+          <div><span class="bk-label">Tvoj paket</span><strong id="bk-pack">—</strong></div>
+          <div><span class="bk-label">Preostalo treninga</span><strong id="bk-left">—</strong></div>
+          <div><span class="bk-label">Raspored termina</span><strong id="bk-rule">—</strong></div>
+          <div><span class="bk-label">Paket vrijedi do</span><strong id="bk-expiry">—</strong><span class="bk-token-note" id="bk-weeks-left"></span></div>
+        </div>
+
+        <h2 class="bk-caltype" id="bk-caltype">—</h2>
+
+        <div class="bk-layout">
+          <div id="bk-weeks"></div>
+
+          <aside class="bk-side">
+            <h2>Moji termini</h2>
+            <ul id="bk-mine"></ul>
+            <p class="bk-sync" id="bk-sync" hidden>
+              Svaki termin upisuje se u Google kalendar studija, a tvoji podaci u evidenciju polaznika.
+            </p>
+          </aside>
+        </div>
+
+        <section class="bk-suggest">
+          <h2>Ne odgovara ti nijedan termin?</h2>
+          <p>Javi nam koji bi ti termin odgovarao — Doris prati prijedloge i prema njima otvara nove termine.</p>
+          <form id="bk-suggest-form" class="bk-suggest-form">
+            <div class="bk-suggest-row">
+              <label>Ime i prezime
+                <input type="text" name="ime" required autocomplete="name" />
+              </label>
+              <label>E-mail
+                <input type="email" name="email" required autocomplete="email" />
+              </label>
+            </div>
+            <label>Koji bi ti termin odgovarao?
+              <textarea name="poruka" rows="3" required placeholder="npr. ponedjeljkom i srijedom poslije 19:00, ili subotom ujutro"></textarea>
+            </label>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+            <input type="hidden" name="_subject" value="Prijedlog termina — Bloom Pilates" />
+            <button type="submit" class="pricing-cta" id="bk-suggest-btn">Pošalji prijedlog</button>
+            <p class="form-status" id="bk-suggest-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="bk-calendar-wrap">
+          <h2>Kako to vidi Doris</h2>
+          <p class="bk-calendar-lead">Ovo se automatski upisuje u njezin Google kalendar — jedan termin, s imenima svih polaznica i njihovim paketom.</p>
+          <div class="bk-calendar" id="bk-calendar"></div>
+          <p class="bk-empty" id="bk-cal-empty">Rezerviraj termin da vidiš kako izgleda unos u kalendaru.</p>
+        </section>
+
+      </div>
+    </main>
+    <script type="module" src="/src/booking.js"></script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 {
-  "_comment": "Transcribed from the studio's own cjenik artwork (public/7d0fd173-...JPG). Keep this file and that artwork in step. No 'vrijedi od' date by design.",
+  "_comment": "Transcribed from the studio's own cjenik artwork (public/7d0fd173-...JPG). Keep this file and that artwork in step. No 'vrijedi od' date by design. 'checkout' holds each package's Stripe Payment Link; null disables its buy button.",
   "currency": "EUR",
   "groups": [
     {
@@ -20,17 +20,20 @@
         {
           "service": "paket 4 treninga (1x tjedno)",
           "service_en": "4-session package (1x weekly)",
-          "price": 75
+          "price": 75,
+          "checkout": "https://buy.stripe.com/fZu3cva0T5VE5lI5tacwg00"
         },
         {
           "service": "paket 8 treninga (2x tjedno)",
           "service_en": "8-session package (2x weekly)",
-          "price": 130
+          "price": 130,
+          "checkout": "https://buy.stripe.com/7sY8wPc910BkcOa2gYcwg01"
         },
         {
           "service": "paket 12 treninga (3x tjedno)",
           "service_en": "12-session package (3x weekly)",
-          "price": 170
+          "price": 170,
+          "checkout": "https://buy.stripe.com/7sY3cvgph1Fo9BYf3Kcwg02"
         }
       ]
     },
@@ -41,7 +44,8 @@
         {
           "service": "pojedinačni 1:1 trening",
           "service_en": "single 1:1 session",
-          "price": 40
+          "price": 40,
+          "checkout": "https://buy.stripe.com/aFa5kD1unck28xUf3Kcwg03"
         }
       ]
     }
@@ -60,18 +64,18 @@
       "en": "A package is valid for 5 weeks from the date of payment."
     },
     {
-      "hr": "Rezervirani termin potrebno je otkazati ili promijeniti najkasnije 24 sata prije održavanja treninga.",
-      "en": "A booked session must be cancelled or rescheduled at least 24 hours in advance."
+      "hr": "Rezervirani termin potrebno je otkazati ili promijeniti najkasnije 12 sati prije održavanja treninga.",
+      "en": "A booked session must be cancelled or rescheduled at least 12 hours in advance."
     },
     {
-      "hr": "U slučaju otkazivanja unutar 24 sata ili nedolaska, termin se smatra iskorištenim.",
-      "en": "If cancelled within 24 hours, or missed, the session counts as used."
+      "hr": "U slučaju otkazivanja unutar 12 sati ili nedolaska, termin se smatra iskorištenim.",
+      "en": "If cancelled within 12 hours, or missed, the session counts as used."
     }
   ],
   "legal": {
     "name": "Bloom Pilates Studio",
     "owner": "vl. Doris Petković, obrt za usluge",
-    "address": "Istarsko Naselje 3A, 40315 Mursko Središće",
+    "address": "Istarsko naselje 3A, 40315 Mursko Središće",
     "vat_hr": "Obrt nije u sustavu PDV-a prema čl. 90. st. 2. Zakona o PDV-u.",
     "vat_en": "The business is not registered for VAT under Art. 90(2) of the Croatian VAT Act."
   }

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Odaberi svoj paket treninga u Bloom Pilates Studiju i plati online." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=switzer@300,400,500,600,700&display=swap" />
+    <title>Odaberi svoj paket | Bloom Pilates Studio</title>
+  </head>
+  <body>
+    <main class="packages-page">
+      <div class="packages-inner">
+        <a class="legal-back" href="/#cjenik">&larr; Natrag na cjenik</a>
+
+        <header class="packages-head">
+          <img class="logo-img packages-logo" alt="Bloom Pilates Studio" />
+          <h1 data-i18n="packages.title">Odaberi svoj paket</h1>
+          <p data-i18n="packages.lead">Odaberi paket koji ti odgovara i plati online. Nakon uplate javljam ti se kako bismo dogovorili termine.</p>
+        </header>
+
+        <div class="package-consent">
+          <label>
+            <input type="checkbox" id="consent" />
+            <span data-i18n="packages.consent">Pročitala sam i prihvaćam uvjete otkazivanja: rezervirani termin potrebno je otkazati ili promijeniti najkasnije 12 sati prije treninga. U slučaju otkazivanja unutar 12 sati ili nedolaska, termin se smatra iskorištenim.</span>
+          </label>
+          <a href="/uvjeti.html" target="_blank" rel="noopener" data-i18n="packages.consent.link">Pročitaj sve uvjete &rarr;</a>
+        </div>
+
+        <div class="package-grid" id="package-grid"><!-- filled from pricing.json --></div>
+
+        <p class="packages-demo-link">
+          <a href="/rezervacija.html">Pogledaj kako izgleda odabir termina nakon uplate &rarr;</a>
+        </p>
+
+        <ol class="packages-steps">
+          <li data-i18n="packages.step1">Odaberi paket i klikni na gumb.</li>
+          <li data-i18n="packages.step2">Unesi ime, prezime i e-mail te plati karticom na Stripeovoj sigurnoj stranici.</li>
+          <li data-i18n="packages.step3">Odmah nakon uplate biraš svoje termine, a potvrdu primaš na e-mail.</li>
+        </ol>
+
+        <p class="package-note">
+          <span data-i18n="packages.note">Paket vrijedi 5 tjedana od datuma uplate. Plaćanje je sigurno — kartični podaci obrađuju se kod Stripea i ne pohranjuju se na ovoj stranici.</span>
+          <a href="/uvjeti.html" data-i18n="packages.terms">Uvjeti prodaje i korištenja</a>
+        </p>
+
+        <div class="package-trial">
+          <p data-i18n="packages.trial">Prvi put u Bloomu? Uvodni individualni sat je besplatan.</p>
+          <a href="/#contact" class="btn btn-primary" data-i18n="packages.trial.cta">Prijavi se na listu čekanja</a>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/packages.js"></script>
+  </body>
+</html>
