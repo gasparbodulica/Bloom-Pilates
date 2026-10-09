@@ -58,10 +58,34 @@ const TOKEN = params.get('k') || 'demo-a7f3c91e0b24'
 // so you can see weeks fall off the top as they pass.
 const PURCHASED_AT = params.get('d') ? new Date(params.get('d') + 'T12:00:00') : new Date()
 
+// DRAFT PERSISTENCE. Bookings survive a reload so the "it remembers" behaviour is
+// visible. This is localStorage, so it only remembers in THIS browser — the real
+// version keeps state on the server, which is what makes a place taken by one
+// person show as taken to everyone else.
+const STORE = `bloom-booking-${TOKEN}`
+const load = () => {
+  try { return JSON.parse(localStorage.getItem(STORE)) || [] } catch { return [] }
+}
+const save = () => {
+  try { localStorage.setItem(STORE, JSON.stringify(state.mine)) } catch {}
+}
+
 const state = {
   packKey: params.get('p') || 'paket8',
   slots: buildSlots(),
   mine: [],                                    // slot ids this client booked
+}
+
+// replay what this client already booked onto the freshly generated slots
+const restore = () => {
+  state.mine = load().filter(id => state.slots.some(s => s.id === id))
+  state.mine.forEach(id => {
+    const slot = state.slots.find(s => s.id === id)
+    if (slot && !slot.people.some(n => n.startsWith('Ti —'))) {
+      slot.taken++
+      slot.people.push(`Ti — ${demo.packs[state.packKey].label}`)
+    }
+  })
 }
 
 const pack = () => demo.packs[state.packKey]
@@ -176,6 +200,7 @@ const render = () => {
           slot.taken++
           slot.people.push(`Ti — ${pack().label}`)
         }
+        save()
         render()
       })
       grid.appendChild(btn)
@@ -250,12 +275,51 @@ document.getElementById('bk-pack-select').addEventListener('change', (e) => {
   state.packKey = e.target.value
   state.slots = buildSlots()
   state.mine = []
+  save()
   render()
 })
 document.getElementById('bk-reset').addEventListener('click', () => {
   state.slots = buildSlots()
   state.mine = []
+  save()
   render()
 })
 
+document.getElementById('bk-pack-select').value = state.packKey
+restore()
 render()
+
+// ---------------------------------------------------------------------------
+// "None of these times suit me" — goes to the same Formspree endpoint as the
+// waiting list, tagged with its own subject so Doris can see which times people
+// are actually asking for.
+// ---------------------------------------------------------------------------
+const FORMSPREE_URL = 'https://formspree.io/f/meaqrlnb'
+const sForm = document.getElementById('bk-suggest-form')
+const sBtn = document.getElementById('bk-suggest-btn')
+const sNote = document.getElementById('bk-suggest-status')
+
+sForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  sNote.textContent = ''
+  sNote.classList.remove('is-error')
+  sBtn.disabled = true
+  sBtn.textContent = 'Slanje…'
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(sForm),
+    })
+    if (!res.ok) throw new Error(`Formspree responded ${res.status}`)
+    sForm.reset()
+    sBtn.textContent = 'Poslano ✓'
+  } catch (err) {
+    // never claim it sent when it did not
+    console.error('Suggestion submit failed:', err)
+    sNote.textContent = 'Slanje nije uspjelo. Pokušaj ponovno ili nam piši na pilatesstudiobloom@gmail.com.'
+    sNote.classList.add('is-error')
+    sBtn.disabled = false
+    sBtn.textContent = 'Pošalji prijedlog'
+  }
+})

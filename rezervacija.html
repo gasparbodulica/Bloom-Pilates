@@ -71,6 +71,28 @@
           </aside>
         </div>
 
+        <section class="bk-suggest">
+          <h2>Ne odgovara ti nijedan termin?</h2>
+          <p>Javi nam koji bi ti termin odgovarao — Doris prati prijedloge i prema njima otvara nove termine.</p>
+          <form id="bk-suggest-form" class="bk-suggest-form">
+            <div class="bk-suggest-row">
+              <label>Ime i prezime
+                <input type="text" name="ime" required autocomplete="name" />
+              </label>
+              <label>E-mail
+                <input type="email" name="email" required autocomplete="email" />
+              </label>
+            </div>
+            <label>Koji bi ti termin odgovarao?
+              <textarea name="poruka" rows="3" required placeholder="npr. ponedjeljkom i srijedom poslije 19:00, ili subotom ujutro"></textarea>
+            </label>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+            <input type="hidden" name="_subject" value="Prijedlog termina — Bloom Pilates" />
+            <button type="submit" class="pricing-cta" id="bk-suggest-btn">Pošalji prijedlog</button>
+            <p class="form-status" id="bk-suggest-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
         <section class="bk-calendar-wrap">
           <h2>Kako to vidi Doris</h2>
           <p class="bk-calendar-lead">Ovo se automatski upisuje u njezin Google kalendar — jedan termin, s imenima svih polaznica i njihovim paketom.</p>

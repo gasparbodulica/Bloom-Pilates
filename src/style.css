@@ -2149,6 +2149,40 @@ body > footer {
 }
 .bk-done a { color: #fff; font-weight: 600; }
 
+.bk-suggest {
+  margin-top: 3rem;
+  padding: 1.75rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255,255,255,0.3);
+}
+.bk-suggest h2 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.bk-suggest > p {
+  font-family: var(--font-sans); font-size: 0.88rem; line-height: 1.65;
+  color: var(--text-muted); margin-bottom: 1.25rem; max-width: 560px;
+}
+.bk-suggest-form { display: flex; flex-direction: column; gap: 0.9rem; max-width: 620px; }
+.bk-suggest-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.bk-suggest-form label {
+  display: flex; flex-direction: column; gap: 0.35rem;
+  font-family: var(--font-sans); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive);
+}
+.bk-suggest-form input[type='text'],
+.bk-suggest-form input[type='email'],
+.bk-suggest-form textarea {
+  font-family: var(--font-sans); font-size: 0.92rem;
+  padding: 0.7rem 0.9rem; border-radius: 10px;
+  border: 1.5px solid var(--border); background: #fff;
+  color: var(--text-main); outline: none;
+  text-transform: none; letter-spacing: normal; font-weight: 400;
+}
+.bk-suggest-form input:focus, .bk-suggest-form textarea:focus { border-color: var(--olive); }
+.bk-suggest-form .pricing-cta { margin-top: 0.3rem; border: none; }
+.bk-suggest-form .pricing-cta:disabled { opacity: 0.6; cursor: wait; }
+
+@media (max-width: 600px) { .bk-suggest-row { grid-template-columns: 1fr; } }
+
 /* Doris's calendar preview */
 .bk-calendar-wrap {
   margin-top: 3.5rem;
