@@ -1,5 +1,5 @@
 {
-  "_comment": "Demo occupancy and the package labels used by the booking page. The weekly schedule itself lives in api/_schedule.js, which both the page and the server import, so they cannot disagree about what a real session is.",
+  "_comment": "Package labels used by the booking page. The weekly schedule, the slot ids and the validity period all live in api/_schedule.js, which both the page and the server import, so they cannot disagree about what a real session is.",
   "packs": {
     "paket4": {
       "label": "Paket 4 treninga (1x tjedno)",
@@ -21,46 +21,5 @@
       "sessions": 1,
       "type": "individualni"
     }
-  },
-  "preBooked": [
-    {
-      "week": 0,
-      "day": 1,
-      "time": "09:15",
-      "count": 2,
-      "people": [
-        "Ana Horvat — Paket 8",
-        "Marija Novak — Paket 4"
-      ]
-    },
-    {
-      "week": 0,
-      "day": 3,
-      "time": "17:00",
-      "count": 3,
-      "people": [
-        "Ivana Kos — Paket 12",
-        "Lucija Babić — Paket 8",
-        "Petra Jurić — Paket 4"
-      ]
-    },
-    {
-      "week": 1,
-      "day": 5,
-      "time": "09:15",
-      "count": 1,
-      "people": [
-        "Ana Horvat — Paket 8"
-      ]
-    },
-    {
-      "week": 1,
-      "day": 2,
-      "time": "10:15",
-      "count": 1,
-      "people": [
-        "Sara Vidović — Pojedinačni 1:1"
-      ]
-    }
-  ]
+  }
 }

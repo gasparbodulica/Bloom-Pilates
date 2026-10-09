@@ -3,7 +3,7 @@ import logoUrl from './assets/logo.jpg'
 import demo from './data/booking-demo.json'
 // The same module the server validates against, so the page cannot offer a
 // session the server will refuse.
-import { AVAILABILITY, MAX_WEEKS, expiryFrom } from '../api/_schedule.js'
+import { AVAILABILITY, WEEKS, expiryFrom, zagrebDay, addDays, weekdayOf, zagrebInstant, slotId } from '../api/_schedule.js'
 
 document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl })
 
@@ -17,14 +17,6 @@ document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl })
 const DAYS = ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota']
 const DAYS_SHORT = ['ned', 'pon', 'uto', 'sri', 'čet', 'pet', 'sub']
 
-const startOfWeek = (d) => {
-  const x = new Date(d)
-  const shift = (x.getDay() + 6) % 7          // Monday = 0
-  x.setDate(x.getDate() - shift)
-  x.setHours(0, 0, 0, 0)
-  return x
-}
-
 // What the server knows about this client, kept outside `state` because the
 // window has to be computed while `state` itself is still being built.
 let serverClient = null
@@ -34,35 +26,33 @@ let serverClient = null
 const expiryDate = () =>
   serverClient?.expires ? new Date(serverClient.expires) : expiryFrom(PURCHASED_AT)
 
-// However many calendar weeks those 35 days touch — five if bought on a
-// Monday, six otherwise. Showing a fixed five cut days off the end of the
-// package that the client had paid for.
-const weekCount = () => {
-  const span = expiryDate() - startOfWeek(PURCHASED_AT)
-  return Math.min(MAX_WEEKS, Math.max(1, Math.ceil(span / (7 * 86400000))))
-}
-
-// Doris's availability is stored as a weekly PATTERN (weekday + time), never as
-// fixed dates — so it never goes stale. Concrete dates are generated on every
-// load, anchored to the week the client bought in, which is what makes their
-// 5-week window roll forward on its own as real weeks pass.
+// Doris's availability is a weekly PATTERN (weekday + time), never fixed dates,
+// so it never goes stale. The concrete dates are generated on every load.
+//
+// The five weeks run from the purchase DAY, not from the Monday of that week.
+// Monday-aligned blocks meant a Friday buyer saw a sixth, mostly empty week —
+// and, far worse, that a slot id referred to a different Monday for every
+// client, so two people could share one Redis key and one calendar entry for
+// two entirely different sessions.
 const buildSlots = () => {
-  const base = startOfWeek(PURCHASED_AT)
+  const firstDay = zagrebDay(PURCHASED_AT)
   const slots = []
-  for (let w = 0; w < weekCount(); w++) {
-    for (const a of AVAILABILITY) {
-      const date = new Date(base)
-      date.setDate(base.getDate() + w * 7 + (a.day - 1))
-      const [h, m] = a.time.split(':').map(Number)
-      date.setHours(h, m, 0, 0)
-      const pre = demo.preBooked.find(p => p.week === w && p.day === a.day && p.time === a.time)
-      slots.push({
-        id: `w${w}-d${a.day}-${a.time}`,
-        week: w, date, type: a.type,
-        capacity: a.capacity,
-        taken: pre ? pre.count : 0,
-        people: pre ? [...pre.people] : [],
-      })
+  for (let w = 0; w < WEEKS; w++) {
+    for (let d = 0; d < 7; d++) {
+      const day = addDays(firstDay, w * 7 + d)
+      const weekday = weekdayOf(day)
+      for (const a of AVAILABILITY) {
+        if (a.day !== weekday) continue
+        slots.push({
+          id: slotId(day, a.time),
+          week: w,
+          date: zagrebInstant(day, a.time),
+          type: a.type,
+          capacity: a.capacity,
+          taken: 0,
+          people: [],
+        })
+      }
     }
   }
   return slots
@@ -134,12 +124,9 @@ const pack = () => demo.packs[state.packKey]
 const used = () => state.mine.length
 const left = () => pack().sessions - used()
 const expiry = expiryDate
-// a week is spent once its last slot is in the past
-const weekIsPast = (w) => {
-  const end = startOfWeek(PURCHASED_AT)
-  end.setDate(end.getDate() + w * 7 + 7)
-  return end < new Date()
-}
+// a week is spent once its last day has passed
+const weekIsPast = (w) =>
+  zagrebInstant(addDays(zagrebDay(PURCHASED_AT), w * 7 + 7), '00:00') < new Date()
 // Shown per week for orientation only. There is deliberately no weekly cap:
 // a client spends their sessions however they like — four in one week if they
 // want. The "(1x tjedno)" in a package name is a suggested rhythm, not a limit.
@@ -192,7 +179,7 @@ const render = () => {
   const wrap = document.getElementById('bk-weeks')
   wrap.innerHTML = ''
   let shown = 0
-  for (let w = 0; w < weekCount(); w++) {
+  for (let w = 0; w < WEEKS; w++) {
     if (weekIsPast(w)) continue              // that week is gone, drop it
     shown++
     const week = document.createElement('section')
@@ -201,7 +188,7 @@ const render = () => {
     const head = document.createElement('div')
     head.className = 'bk-week-head'
     const n = document.createElement('h2')
-    n.textContent = `${w + 1}. tjedan od ${weekCount()}`
+    n.textContent = `${w + 1}. tjedan od ${WEEKS}`
     const c = document.createElement('span')
     const inWeek = bookedInWeek(w)
     c.className = 'bk-week-count'
@@ -292,7 +279,7 @@ const render = () => {
   }
 
   document.getElementById('bk-weeks-left').textContent =
-    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${weekCount()} tjedana`
+    shown === 0 ? 'paket je istekao' : `prikazano ${shown} od ${WEEKS} tjedana`
 
   // my bookings
   const list = document.getElementById('bk-mine')
@@ -533,7 +520,7 @@ const start = async () => {
     // The purchase date the server holds beats the one we assumed, so rebuild
     // the window around it and re-read availability for the new slot ids.
     const bought = state.serverClient?.purchasedAt && new Date(state.serverClient.purchasedAt)
-    if (bought && startOfWeek(bought).getTime() !== startOfWeek(PURCHASED_AT).getTime()) {
+    if (bought && zagrebDay(bought) !== zagrebDay(PURCHASED_AT)) {
       PURCHASED_AT = bought
       state.slots = buildSlots()
       await pullFromServer()
