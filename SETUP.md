@@ -136,17 +136,44 @@ booking.
 
 ---
 
-## Before going live
+## Done (live since 2026-10-09)
 
-- [ ] **Delete `api/seed.js`** — it grants a package to anyone who calls it. It is
-      inert unless `ALLOW_SEED=1`, but it should not exist in production.
-- [ ] Remove the yellow DEMO bar from `rezervacija.html`
-- [ ] Paste the four real Payment Links into `pricing.json`
-- [ ] Have the terms reviewed — specifically the withdrawal-right clause in
-      `uvjeti.html`
-- [ ] Merge `checkout-draft` into `main` (this is what deploys to production)
+- [x] `api/seed.js` deleted
+- [x] DEMO bar removed from `rezervacija.html`
+- [x] The four live Payment Links wired in — they live in `api/_packs.js`, not
+      `pricing.json`, because the checkout URL is assembled after the hold
+- [x] Merged to `main`, which deploys
+- [x] Redis connected and verified: a hold made in one request is visible as
+      taken to another, capacity holds at 3 for group and 1 for one-to-one
+- [x] Stripe live keys and the `checkout.session.completed` webhook in Vercel
+
+## Still needed
+
+- [ ] **`RESEND_API_KEY` and `MAIL_FROM` — treat as blocking a real sale.**
+      Without them no confirmation email is sent, and that email carries the
+      `?k=` link which is the only way back to one's own sessions.
+- [ ] `GOOGLE_SA_EMAIL`, `GOOGLE_SA_KEY`, `GOOGLE_CALENDAR_ID`, `GOOGLE_SHEET_ID`,
+      and Doris sharing the calendar ("Make changes to events") and a sheet with
+      tabs `Polaznice` and `Rezervacije` (Editor) with the service account
+- [ ] Legal review of the terms, in particular the withdrawal-right clause in
+      `uvjeti.html`. The site is live without it; the owner accepted that.
 
 ## Still to build
 
-- 24-hour reminder email (needs a scheduled job — Vercel Cron)
-- "Resend my link" form
+- A reminder email before each session (needs a scheduled job — Vercel Cron).
+  Her terms count a missed session as used, so it matters.
+- A "resend my link" form, for when someone loses the email.
+- A staff page for walk-ins. **The calendar sync is one-way:** a session Doris
+  fills in by hand in Google Calendar stays bookable on the site, and a manual
+  edit she makes to a site-created event is overwritten on the next booking.
+  Entering walk-ins through the site instead keeps the calendar a true mirror.
+
+## Notes from running this live
+
+- Vercel serves **mixed old and new code** for about a minute after a push. If a
+  test right after a deploy looks wrong, retry before believing it.
+- Deployment Protection covers **previews only**, never production.
+- Stripe is in **live mode**. A card entered on those links is really charged;
+  refund from the dashboard, and the processing fee is not returned.
+- Refunding in Stripe does **not** release the sessions on the site. The two are
+  not connected.
