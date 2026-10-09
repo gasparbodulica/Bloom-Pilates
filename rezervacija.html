@@ -21,8 +21,15 @@
         <div class="bk-nolink" id="bk-nolink" hidden>
           <strong>Potreban je tvoj osobni link</strong>
           <p>Nakon uplate dobila si e-mail s linkom po kojem sustav prepoznaje tebe i tvoj paket. Otvori rezervacije preko tog linka.</p>
-          <p>Ne možeš ga naći? Javi nam se na <a href="mailto:pilatesstudiobloom@gmail.com">pilatesstudiobloom@gmail.com</a> i poslat ćemo ti ga ponovno.</p>
-          <a class="pricing-cta" href="/paketi.html">Pogledaj pakete &rarr;</a>
+          <form class="bk-recover" id="bk-recover">
+            <label for="bk-recover-email">Ne možeš ga naći? Upiši e-mail s kojim si platila i poslat ćemo ti link.</label>
+            <div class="bk-recover-row">
+              <input type="email" id="bk-recover-email" name="email" required autocomplete="email" placeholder="tvoj@email.com" />
+              <button type="submit" class="pricing-cta" id="bk-recover-btn">Pošalji mi link</button>
+            </div>
+            <p class="form-status" id="bk-recover-status" role="status" aria-live="polite"></p>
+          </form>
+          <a class="legal-back" href="/paketi.html">Pogledaj pakete &rarr;</a>
         </div>
 
         <a class="legal-back" href="/paketi.html">&larr; Natrag na pakete</a>

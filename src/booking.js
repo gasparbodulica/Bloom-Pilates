@@ -440,6 +440,33 @@ copyBtn?.addEventListener('click', async () => {
   setTimeout(() => { copyBtn.textContent = 'Kopiraj link' }, 2500)
 })
 
+// Recovery for someone on a new device: the link goes to her mailbox, which is
+// the only thing that proves the address is hers.
+const recoverForm = document.getElementById('bk-recover')
+recoverForm?.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const btn = document.getElementById('bk-recover-btn')
+  const out = document.getElementById('bk-recover-status')
+  const email = document.getElementById('bk-recover-email').value.trim()
+  btn.disabled = true
+  out.textContent = 'Šaljem…'
+  out.className = 'form-status'
+  try {
+    const r = await api('/api/my-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    })
+    out.textContent = r.message || 'Poslali smo ti link e-mailom.'
+    out.className = 'form-status is-ok'
+    recoverForm.reset()
+  } catch (err) {
+    out.textContent = err.message || 'Nije moguće poslati link.'
+    out.className = 'form-status is-error'
+  }
+  btn.disabled = false
+})
+
 const payBar    = document.getElementById('bk-pay')
 const payBtn    = document.getElementById('bk-pay-btn')
 const payCount  = document.getElementById('bk-pay-count')

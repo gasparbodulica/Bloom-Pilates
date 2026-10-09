@@ -20,11 +20,13 @@ export const forgetBooking = () => {
   try { localStorage.removeItem(KEY) } catch {}
 }
 
-// Reveal a link to one's own reservation, if this browser knows of one.
+// Always offered, so there is a way back from any device. If this browser made
+// the booking it goes straight there; otherwise it lands on the page that asks
+// for the address and emails the link.
 export const showMyBooking = (el) => {
+  if (!el) return
   const token = savedBooking()
-  if (!el || !token) return
   const a = el.querySelector('a')
-  if (a) a.href = `/rezervacija.html?k=${encodeURIComponent(token)}`
+  if (a && token) a.href = `/rezervacija.html?k=${encodeURIComponent(token)}`
   el.hidden = false
 }

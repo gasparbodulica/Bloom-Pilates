@@ -31,6 +31,9 @@ export const redis = storeReady()
 
 export const slotKey   = (slotId) => `slot:${slotId}`
 export const clientKey = (token)  => `client:${token}`
+// One set per address, holding the tokens bought with it, so someone on a new
+// device can ask for her link by email.
+export const emailKey  = (email)  => `email:${String(email).trim().toLowerCase()}`
 
 export const json = (res, status, body) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8')

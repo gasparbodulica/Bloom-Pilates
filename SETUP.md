@@ -150,8 +150,13 @@ booking.
 ## Still needed
 
 - [ ] **`RESEND_API_KEY` and `MAIL_FROM` — treat as blocking a real sale.**
-      Without them no confirmation email is sent, and that email carries the
-      `?k=` link which is the only way back to one's own sessions.
+      Two things depend on it and nothing else does: the confirmation email
+      after payment, and `/api/my-link`, which is how someone on a new phone
+      gets her link back. Until the key is set, the recovery form says plainly
+      that email is not configured yet; it starts working with no code change.
+      The site deliberately has no way to *show* bookings for a typed-in
+      address — typing an address is not proof of owning it — so the mailbox is
+      the only route in from an unknown device.
 - [ ] `GOOGLE_SA_EMAIL`, `GOOGLE_SA_KEY`, `GOOGLE_CALENDAR_ID`, `GOOGLE_SHEET_ID`,
       and Doris sharing the calendar ("Make changes to events") and a sheet with
       tabs `Polaznice` and `Rezervacije` (Editor) with the service account

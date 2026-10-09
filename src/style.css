@@ -2161,6 +2161,26 @@ body > footer {
   text-underline-offset: 3px;
 }
 
+.bk-recover { margin: 1.25rem 0 0.5rem; text-align: left; }
+.bk-recover label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.bk-recover-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.bk-recover input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 0.7rem 1rem;
+  font: inherit;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line, #C9B79F);
+  border-radius: 100px;
+}
+.bk-recover .pricing-cta { flex: 0 0 auto; }
+
 .bk-copy {
   display: inline-block;
   margin: 0.5rem 0.75rem 0 0;

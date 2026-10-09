@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto'
-import { redis, clientKey, slotKey, storeReady, storeSource } from './_store.js'
+import { redis, clientKey, slotKey, emailKey, storeReady, storeSource } from './_store.js'
 import { appendSheetRow } from './_google.js'
 import { sendMail, wrap } from './_email.js'
 import { packByProductName } from './_packs.js'
@@ -110,6 +110,10 @@ export const grantForSession = async (stripe, session) => {
   // Published only once the row exists, so nobody can read a token that has
   // nothing behind it.
   await redis.set(sessKey(session.id), k)
+
+  // So she can ask for her link again from another device. A set, because one
+  // address may buy more than one package.
+  if (email) await redis.sadd(emailKey(email), k).catch(e => console.error('email index failed', e))
 
   const link = `${process.env.SITE_URL || 'https://bloompilates.studio'}/rezervacija.html?k=${k}`
 
