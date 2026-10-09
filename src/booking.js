@@ -308,15 +308,17 @@ const render = () => {
   document.getElementById('bk-cal-empty').hidden = booked.length > 0
 }
 
-// demo controls
-document.getElementById('bk-pack-select').addEventListener('change', (e) => {
+// Demo controls. Removed from the live page, kept working here so the draft
+// can still be driven by hand if the markup is put back for testing.
+const packSelect = document.getElementById('bk-pack-select')
+packSelect?.addEventListener('change', (e) => {
   state.packKey = e.target.value
   state.slots = buildSlots()
   state.mine = []
   save()
   render()
 })
-document.getElementById('bk-reset').addEventListener('click', () => {
+document.getElementById('bk-reset')?.addEventListener('click', () => {
   state.slots = buildSlots()
   state.mine = []
   save()
@@ -375,7 +377,7 @@ const setMode = () => {
   }
 }
 
-document.getElementById('bk-pack-select').value = state.packKey
+if (packSelect) packSelect.value = state.packKey
 
 const hideBooking = () => {
   document.querySelector('.bk-layout').hidden = true
@@ -442,7 +444,8 @@ const start = async () => {
   }
 
   // A real client has no use for the demo controls.
-  if (state.serverClient) document.querySelector('.bk-demo').hidden = true
+  const demoBar = document.querySelector('.bk-demo')
+  if (state.serverClient && demoBar) demoBar.hidden = true
 
   setMode()
   if (online || IS_DEV) render()
