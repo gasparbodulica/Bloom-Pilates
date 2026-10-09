@@ -35,12 +35,11 @@ const render = () => {
 
     const cta = document.createElement('a')
     cta.className = 'package-cta'
-    if (row.checkout) {
-      // Stripe Payment Link — Stripe hosts the checkout, so no card data
-      // and no secret key ever touches this site. The href is only attached
-      // once the cancellation policy is accepted.
-      cta.dataset.href = row.checkout
-      cta.rel = 'noopener'
+    if (row.pack) {
+      // Dates come before money: this leads to the calendar, which holds the
+      // places and only then sends her to Stripe. The href is attached once
+      // the cancellation policy is accepted.
+      cta.dataset.href = `/rezervacija.html?p=${row.pack}`
       cta.setAttribute('aria-disabled', 'true')
       cta.textContent = t('packages.consentFirst')
     } else {
@@ -53,8 +52,8 @@ const render = () => {
   })
 }
 
-// Payment is gated on accepting the 12-hour cancellation policy. Checked again
-// server-side at checkout, since a checkbox in the page proves nothing on its own.
+// Choosing dates is gated on accepting the 12-hour cancellation policy, since
+// that is the moment places start being held.
 const consent = document.getElementById('consent')
 
 const applyConsent = () => {

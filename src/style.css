@@ -2144,6 +2144,27 @@ body > footer {
 .bk-nolink p { margin: 0 0 1rem; }
 .bk-nolink .pricing-cta { margin-top: 0.5rem; }
 
+.bk-pay {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line, #C9B79F);
+}
+.bk-pay #bk-pay-count {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0.15rem 0 0.9rem;
+}
+.bk-pay .pricing-cta { width: 100%; text-align: center; }
+.bk-pay .pricing-cta[disabled] { opacity: 0.45; pointer-events: none; }
+.bk-pay-note {
+  margin: 0.8rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
 .bk-identity {
   border: 1px dashed var(--border);
   border-radius: var(--border-radius-sm);

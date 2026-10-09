@@ -1,27 +1,13 @@
 import { redis, slotKey, clientKey, json, storeReady } from './_store.js'
-import { upsertSlotEvent, appendSheetRow } from './_google.js'
+import { appendSheetRow } from './_google.js'
 import { sendMail, wrap } from './_email.js'
+import { readSlot, paidValue, syncSlot } from './_slots.js'
+import { capacityFor } from './_packs.js'
 
 // POST /api/book  { token, slotId, slotType, weekIndex, action: 'book' | 'cancel' }
 //
 // Every rule is re-checked here. The page already checks them, but a check in
 // the browser is a suggestion — anyone can edit it. This is the one that counts.
-// Rewrite the calendar entry for a slot from whoever is currently in it, so the
-// event always matches Redis rather than drifting after a cancellation.
-const syncSlot = async ({ slotId, slotType, startISO, endISO }) => {
-  if (!startISO || !endISO) return
-  try {
-    const people = Object.values(await redis.hgetall(slotKey(slotId)) || {})
-    await upsertSlotEvent({
-      slotId, startISO, endISO,
-      type: slotType,
-      people,
-      capacity: slotType === 'individualni' ? 1 : 3,
-    })
-  } catch (err) {
-    console.error('calendar sync failed', err)
-  }
-}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return json(res, 405, { error: 'method not allowed' })
@@ -65,10 +51,11 @@ export default async function handler(req, res) {
     // a client may book all of them in one week. weekIndex is kept for grouping.
 
     // Capacity, checked atomically. HSETNX only writes if this token is not
-    // already in the slot, so a retry cannot double-count the same person.
-    const capacity = slotType === 'individualni' ? 1 : 3
-    const added = await redis.hsetnx(slotKey(slotId), token, `${client.name} — ${client.pack}`)
-    const taken = await redis.hlen(slotKey(slotId))
+    // already in the slot, so a retry cannot double-count the same person. The
+    // count that follows ignores expired holds.
+    const capacity = capacityFor(slotType)
+    const added = await redis.hsetnx(slotKey(slotId), token, paidValue(`${client.name} — ${client.pack}`))
+    const taken = Object.keys(await readSlot(slotId)).length
 
     if (taken > capacity) {
       // lost the race for the last place — undo and tell them

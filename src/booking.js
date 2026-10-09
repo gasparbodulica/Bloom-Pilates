@@ -64,6 +64,12 @@ const IS_DEV = ['localhost', '127.0.0.1', '::1'].includes(location.hostname)
 // ?s= is the Stripe session the buyer is redirected back with.
 let TOKEN = params.get('k') || (IS_DEV ? 'demo-a7f3c91e0b24' : null)
 
+// Two ways to be on this page. Before paying, arriving from the cjenik with
+// ?p=<paket>, the picks are staged in the browser and only become real places
+// when /api/hold reserves them on the way to the checkout. After paying, with
+// ?k= or ?s=, every click is written straight through to the server.
+const PREPAY = Boolean(params.get('p')) && !params.get('k') && !params.get('s')
+
 // Purchase date anchors the whole window, and the server's value wins once we
 // have it — otherwise someone opening their link in week three would see five
 // fresh weeks while the server still expires them 35 days after paying.
@@ -74,7 +80,7 @@ let PURCHASED_AT = params.get('d') ? new Date(params.get('d') + 'T12:00:00') : n
 // by one person show as taken on every other device. localStorage is only a
 // fallback for running the draft under `vite dev`, where /api is not served; the
 // page says so out loud rather than pretending the state is shared.
-const STORE = () => `bloom-booking-${TOKEN}`
+const STORE = () => PREPAY ? `bloom-prepay-${state.packKey}` : `bloom-booking-${TOKEN}`
 const load = () => {
   try { return JSON.parse(localStorage.getItem(STORE())) || [] } catch { return [] }
 }
@@ -91,6 +97,10 @@ const state = {
 // replay what this client already booked onto the freshly generated slots
 const restore = () => {
   state.mine = load().filter(id => state.slots.some(s => s.id === id))
+  if (PREPAY) {                                 // nothing is reserved yet
+    state.mine = state.mine.slice(0, demo.packs[state.packKey].sessions)
+    return
+  }
   state.mine.forEach(id => {
     const slot = state.slots.find(s => s.id === id)
     if (slot && !slot.people.some(n => n.startsWith('Ti —'))) {
@@ -146,6 +156,12 @@ const render = () => {
 
   const done = left() <= 0
   document.getElementById('bk-done').hidden = !done
+  if (PREPAY) {
+    // "you have used up your package" is meaningless before she has bought one
+    document.getElementById('bk-done').hidden = true
+    payCount.textContent = `${used()} / ${p.sessions}`
+    payBtn.disabled = used() === 0
+  }
 
   // summary
   document.getElementById('bk-pack').textContent = p.label
@@ -205,7 +221,7 @@ const render = () => {
       const meta = document.createElement('span')
       meta.className = 'bk-meta'
       meta.textContent = mine
-        ? 'rezervirano ✓'
+        ? (PREPAY ? 'odabrano ✓' : 'rezervirano ✓')
         : slot.type === 'individualni'
           ? (slot.taken >= slot.capacity ? 'popunjeno' : '1:1 slobodno')
           : freeLabel(slot.capacity - slot.taken, slot.capacity)
@@ -215,6 +231,17 @@ const render = () => {
       btn.addEventListener('click', async () => {
         const action = mine ? 'cancel' : 'book'
         if (!mine && !why(slot).ok) return
+
+        // Before payment nothing is reserved yet — the places are held in one
+        // go by /api/hold when she continues to the checkout.
+        if (PREPAY) {
+          state.mine = mine
+            ? state.mine.filter(id => id !== slot.id)
+            : [...state.mine, slot.id]
+          save()
+          render()
+          return
+        }
 
         if (online) {
           btn.disabled = true
@@ -336,14 +363,16 @@ const api = async (path, opts) => {
 
 const pullFromServer = async () => {
   const ids = state.slots.map(s => s.id).join(',')
-  const data = await api(`/api/bookings?k=${encodeURIComponent(TOKEN)}&ids=${encodeURIComponent(ids)}`)
+  const data = await api(`/api/bookings?k=${encodeURIComponent(TOKEN || '')}&ids=${encodeURIComponent(ids)}`)
   state.slots.forEach(slot => {
     const row = data.slots[slot.id]
     if (!row) return
     slot.taken = row.taken
     slot.people = row.people
   })
-  state.mine = state.slots.filter(s => data.slots[s.id]?.mine).map(s => s.id)
+  // Before payment the server has no idea who she is, so her staged picks
+  // live only here and must not be wiped by what it reports.
+  if (!PREPAY) state.mine = state.slots.filter(s => data.slots[s.id]?.mine).map(s => s.id)
   if (data.client) {
     state.serverClient = data.client
     const match = Object.entries(demo.packs).find(([, v]) => v.label === data.client.pack)
@@ -378,6 +407,60 @@ const setMode = () => {
 }
 
 if (packSelect) packSelect.value = state.packKey
+
+const payBar    = document.getElementById('bk-pay')
+const payBtn    = document.getElementById('bk-pay-btn')
+const payCount  = document.getElementById('bk-pay-count')
+const payStatus = document.getElementById('bk-pay-status')
+
+// Hold the places, then hand her to Stripe. The hold id travels on the
+// checkout URL as client_reference_id, which is how the payment finds its way
+// back to these exact places.
+const payNow = async () => {
+  payBtn.disabled = true
+  payStatus.textContent = 'Rezerviram mjesta…'
+  const slots = state.mine.map(id => state.slots.find(s => s.id === id)).filter(Boolean)
+  try {
+    const { checkout } = await api('/api/hold', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        pack: state.packKey,
+        slots: slots.map(s => ({
+          id: s.id, type: s.type, week: s.week,
+          startISO: s.date.toISOString(),
+          endISO: new Date(s.date.getTime() + 60 * 60 * 1000).toISOString(),
+        })),
+      }),
+    })
+    try { localStorage.removeItem(STORE()) } catch {}
+    location.href = checkout
+  } catch (err) {
+    payStatus.textContent = err.message || 'Nije moguće rezervirati termine.'
+    payBtn.disabled = false
+    // A place may have gone while she was choosing; show the truth and drop
+    // anything she can no longer have.
+    await pullFromServer().catch(() => {})
+    state.mine = state.mine.filter(id => {
+      const s = state.slots.find(x => x.id === id)
+      return s && s.taken < s.capacity
+    })
+    save()
+    render()
+  }
+}
+payBtn?.addEventListener('click', payNow)
+
+const applyPrepayChrome = () => {
+  if (!PREPAY) return
+  document.querySelector('.bk-identity').hidden = true
+  const h1 = document.querySelector('.bk-head h1')
+  const lead = document.querySelector('.bk-head p')
+  if (h1) h1.textContent = 'Odaberi svoje termine'
+  if (lead) lead.textContent =
+    'Prvo odaberi termine koji ti odgovaraju, a zatim nastavi na plaćanje. Mjesta se drže 30 minuta dok ne dovršiš uplatu.'
+  payBar.hidden = false
+}
 
 const hideBooking = () => {
   document.querySelector('.bk-layout').hidden = true
@@ -415,7 +498,7 @@ const start = async () => {
     }
   }
 
-  if (!TOKEN) {                                 // production, arrived with no link
+  if (!TOKEN && !PREPAY) {                      // production, arrived with no link
     hideBooking()
     document.getElementById('bk-nolink').hidden = false
     document.getElementById('bk-mode').hidden = true
@@ -432,6 +515,10 @@ const start = async () => {
       state.slots = buildSlots()
       await pullFromServer()
     }
+    // Staged picks live only in this browser, so they have to be read back
+    // after the server read rather than instead of it — otherwise a reload
+    // mid-choice silently empties the basket.
+    if (PREPAY) restore()
     online = true
   } catch (err) {
     online = false
@@ -442,6 +529,8 @@ const start = async () => {
       hideBooking()
     }
   }
+
+  applyPrepayChrome()
 
   // A real client has no use for the demo controls.
   const demoBar = document.querySelector('.bk-demo')

@@ -58,9 +58,32 @@ This alone makes bookings shared across every device.
 | `STRIPE_WEBHOOK_SECRET` | the webhook's signing secret (`whsec_…`) |
 | `SITE_URL` | `https://bloompilates.studio` |
 
-**In the repo:** paste the four live Payment Link URLs into the `checkout`
-field of each row in `src/data/pricing.json`. A URL containing `test_` is test
-mode and cannot take real money.
+**In the repo:** the four Payment Link URLs live in `api/_packs.js`, not in
+`pricing.json` — the checkout URL is built server-side, after the places are
+held, so that the hold id can be attached to it. A URL containing `test_` is
+test mode and cannot take real money.
+
+### The order of the flow
+
+Dates come before money:
+
+1. The cjenik button leads to `/rezervacija.html?p=<paket>` — no payment yet.
+2. She picks her dates. Nothing is reserved while she does; the picks are
+   staged in her browser.
+3. "Nastavi na plaćanje" calls `/api/hold`, which reserves the places for
+   **30 minutes** (`HOLD_MINUTES` in `api/_slots.js`) and sends her to Stripe
+   with `?client_reference_id=<hold id>` appended.
+4. The webhook reads `client_reference_id`, converts the hold into real
+   bookings, and writes them to the calendar and the Sheet.
+
+A hold expires by itself, so an abandoned checkout frees the places again. The
+expiry is stored inside the slot value and checked on every read, so a stale
+hold is never counted as occupied even before anything sweeps it.
+
+**If a hold expires before the payment lands** — she took longer than 30
+minutes at the checkout — the package is still granted in full and the email
+tells her to pick her dates again. The money is never taken without the
+sessions being granted.
 
 ---
 
