@@ -25,6 +25,9 @@ export const tokenForSession = (id) => redis.get(sessKey(id))
 export const loadSession = (stripe, id) =>
   stripe.checkout.sessions.retrieve(id, { expand: ['line_items'] })
 
+const money = (cents, currency = 'EUR') =>
+  new Intl.NumberFormat('hr-HR', { style: 'currency', currency }).format((cents ?? 0) / 100)
+
 const fmt = (iso) => new Date(iso).toLocaleString('hr-HR', {
   weekday: 'long', day: 'numeric', month: 'long',
   hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zagreb',
@@ -149,13 +152,20 @@ export const grantForSession = async (stripe, session) => {
       <p>Hvala na uplati! Aktiviran ti je <strong>${pack.label}</strong> —
          ${pack.total} ${pack.total === 1 ? 'trening' : 'treninga'},
          vrijedi do <strong>${expires.toLocaleDateString('hr-HR')}</strong>.</p>
+      <table style="width:100%;border-collapse:collapse;margin:18px 0;font-size:14px">
+        <tr><td style="padding:6px 0;color:#7A6558">Paket</td><td style="padding:6px 0;text-align:right">${pack.label}</td></tr>
+        <tr><td style="padding:6px 0;color:#7A6558">Plaćeno</td><td style="padding:6px 0;text-align:right"><strong>${money(session.amount_total, (session.currency || 'eur').toUpperCase())}</strong></td></tr>
+        <tr><td style="padding:6px 0;color:#7A6558">Datum uplate</td><td style="padding:6px 0;text-align:right">${purchasedAt.toLocaleString('hr-HR')}</td></tr>
+        <tr><td style="padding:6px 0;color:#7A6558">Način plaćanja</td><td style="padding:6px 0;text-align:right">kartica (Stripe)</td></tr>
+      </table>
       ${booked.length
         ? `<p>Potvrđeni termini:</p><ul>${dateList}</ul>
            <p>Preostalo ti je ${pack.total - booked.length} ${pack.total - booked.length === 1 ? 'trening' : 'treninga'} za odabir.</p>`
         : `<p>Termini koje si odabrala više nisu bili dostupni u trenutku uplate, pa ih odaberi ponovno na linku ispod — paket je u cijelosti tvoj.</p>`}
       <p><a href="${link}" style="background:#484A2C;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;display:inline-block">${booked.length ? 'Pregledaj i promijeni termine' : 'Odaberi svoje termine'}</a></p>
       <p style="font-size:13px;color:#7A6558">Spremi ovaj link — po njemu se vraćaš svojim terminima.</p>
-      <p style="font-size:13px;color:#7A6558">Podsjetnik: termin otkaži najkasnije 12 sati prije treninga.</p>`),
+      <p style="font-size:13px;color:#7A6558">Podsjetnik: termin otkaži najkasnije 12 sati prije treninga.</p>
+      <p style="font-size:13px;color:#7A6558">Potvrdu o plaćanju karticom šalje Stripe zasebno. Za sve vezano uz uplatu ili povrat sredstava piši nam na <a href="mailto:pilatesstudiobloom@gmail.com" style="color:#7A6558">pilatesstudiobloom@gmail.com</a>.</p>`),
   })
 
   return { token: k, created: true, booked: booked.length }
