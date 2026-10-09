@@ -158,12 +158,18 @@ const render = () => {
     `bloompilates.studio/rezervacija.html?k=${TOKEN}`
 
   const done = left() <= 0
-  document.getElementById('bk-done').hidden = !done
+  const doneEl = document.getElementById('bk-done')
+  if (doneEl) doneEl.hidden = PREPAY || !done
+
   if (PREPAY) {
-    // "you have used up your package" is meaningless before she has bought one
-    document.getElementById('bk-done').hidden = true
     payCount.textContent = `${used()} / ${p.sessions}`
     payBtn.disabled = used() === 0
+    // Say what to do next, rather than leaving her looking for more to pick.
+    payStatus.textContent = done
+      ? (p.sessions === 1
+          ? 'Termin je odabran — nastavi na plaćanje.'
+          : 'Odabrala si sve termine iz paketa — nastavi na plaćanje.')
+      : ''
   }
 
   // summary
@@ -464,6 +470,10 @@ payBtn?.addEventListener('click', payNow)
 const applyPrepayChrome = () => {
   if (!PREPAY) return
   document.querySelector('.bk-identity').hidden = true
+  // "You have used up your package" cannot be true before one is bought. It was
+  // only hidden, and a hidden element is one stray render away from appearing,
+  // so remove it outright.
+  document.getElementById('bk-done')?.remove()
   const h1 = document.querySelector('.bk-head h1')
   const lead = document.querySelector('.bk-head p')
   if (h1) h1.textContent = 'Odaberi svoje termine'
