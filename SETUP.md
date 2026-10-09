@@ -29,11 +29,26 @@ This alone makes bookings shared across every device.
    - `Paket 12 treninga (3x tjedno)` — 170 EUR
    - `Pojedinačni 1:1 trening` — 40 EUR
 2. One Payment Link each. Turn on **Collect customers' names** (off by default),
-   add a **phone** custom field, and set the post-payment redirect to
-   `https://bloompilates.studio/rezervacija.html`
+   add a **phone** custom field, and under "After payment" choose
+   **Don't show confirmation page → redirect** to exactly:
+
+   ```
+   https://bloompilates.studio/rezervacija.html?s={CHECKOUT_SESSION_ID}
+   ```
+
+   **The `?s={CHECKOUT_SESSION_ID}` part is not optional.** Stripe replaces it
+   with the real session id, and the site trades that for the buyer's own
+   booking link, so she can pick her dates on the spot instead of waiting for
+   the email. Without it everyone lands with no identity at all and the page can
+   only tell them to go find their email.
 3. **Developers → Webhooks → Add endpoint**
    - URL: `https://bloompilates.studio/api/stripe-webhook`
    - Event: `checkout.session.completed`
+
+   The webhook and the redirect race each other, and whichever wins creates the
+   package — `api/_grant.js` is keyed on the Stripe session id, so one payment
+   can never grant two packages. The webhook still matters: it is what grants the
+   package if the buyer closes the tab before being redirected back.
 
 **Variables**
 

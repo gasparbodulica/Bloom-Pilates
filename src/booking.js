@@ -52,22 +52,34 @@ const buildSlots = () => {
 // this link; the server reads sessions used and weekly counts from that row, so
 // the limits cannot be bypassed by clearing the browser.
 const params = new URLSearchParams(location.search)
-const TOKEN = params.get('k') || 'demo-a7f3c91e0b24'
 
-// Purchase date anchors the whole window. ?d=YYYY-MM-DD simulates buying earlier,
-// so you can see weeks fall off the top as they pass.
-const PURCHASED_AT = params.get('d') ? new Date(params.get('d') + 'T12:00:00') : new Date()
+// The browser fallback and the demo identity exist so the draft is usable under
+// `vite dev`, where no serverless function runs. Neither may apply in
+// production: a booking the server never saw would leave someone turning up
+// without a place, and a shared demo token would put every buyer on the same
+// entitlement.
+const IS_DEV = ['localhost', '127.0.0.1', '::1'].includes(location.hostname)
+
+// Resolved before anything renders: ?k= is the personal link from the email,
+// ?s= is the Stripe session the buyer is redirected back with.
+let TOKEN = params.get('k') || (IS_DEV ? 'demo-a7f3c91e0b24' : null)
+
+// Purchase date anchors the whole window, and the server's value wins once we
+// have it — otherwise someone opening their link in week three would see five
+// fresh weeks while the server still expires them 35 days after paying.
+// ?d=YYYY-MM-DD simulates buying earlier, so you can watch weeks fall off.
+let PURCHASED_AT = params.get('d') ? new Date(params.get('d') + 'T12:00:00') : new Date()
 
 // Storage. The server is the source of truth — that is what makes a place taken
 // by one person show as taken on every other device. localStorage is only a
 // fallback for running the draft under `vite dev`, where /api is not served; the
 // page says so out loud rather than pretending the state is shared.
-const STORE = `bloom-booking-${TOKEN}`
+const STORE = () => `bloom-booking-${TOKEN}`
 const load = () => {
-  try { return JSON.parse(localStorage.getItem(STORE)) || [] } catch { return [] }
+  try { return JSON.parse(localStorage.getItem(STORE())) || [] } catch { return [] }
 }
 const save = () => {
-  try { localStorage.setItem(STORE, JSON.stringify(state.mine)) } catch {}
+  try { localStorage.setItem(STORE(), JSON.stringify(state.mine)) } catch {}
 }
 
 const state = {
@@ -92,6 +104,7 @@ const pack = () => demo.packs[state.packKey]
 const used = () => state.mine.length
 const left = () => pack().sessions - used()
 const expiry = () => {
+  if (state.serverClient?.expires) return new Date(state.serverClient.expires)
   const d = startOfWeek(PURCHASED_AT)
   d.setDate(d.getDate() + demo.weeks * 7 - 1)
   return d
@@ -348,12 +361,6 @@ const pushToServer = async (slot, action) =>
     }),
   })
 
-// The browser fallback exists so the draft is usable under `vite dev`, where no
-// serverless function runs. It must NEVER apply in production: a booking the
-// server never saw would leave someone turning up without a place. There, a
-// failed API is an error, not a quieter mode.
-const IS_DEV = ['localhost', '127.0.0.1', '::1'].includes(location.hostname)
-
 const setMode = () => {
   const el = document.getElementById('bk-mode')
   if (online) {
@@ -370,9 +377,59 @@ const setMode = () => {
 
 document.getElementById('bk-pack-select').value = state.packKey
 
+const hideBooking = () => {
+  document.querySelector('.bk-layout').hidden = true
+  document.querySelector('.bk-summary').hidden = true
+  document.querySelector('.bk-caltype').hidden = true
+  document.querySelector('.bk-identity').hidden = true
+}
+
+// Stripe sends the buyer back with ?s=<session>. Trading it for their own token
+// here is what lets them pick dates immediately after paying, rather than
+// waiting on the email.
+const claimFromStripe = async () => {
+  const sid = params.get('s')
+  if (!sid) return
+  const note = document.getElementById('bk-mode')
+  note.textContent = 'Potvrđujemo uplatu…'
+  note.className = 'bk-mode'
+  const { k } = await api(`/api/claim?s=${encodeURIComponent(sid)}`)
+  TOKEN = k
+  // Replace the session id with the personal link, so a reload or a bookmark
+  // keeps working and the receipt id stays out of the address bar.
+  history.replaceState({}, '', `/rezervacija.html?k=${k}`)
+}
+
 const start = async () => {
+  if (!params.get('k') && params.get('s')) {
+    try {
+      await claimFromStripe()
+    } catch (err) {
+      hideBooking()
+      const el = document.getElementById('bk-mode')
+      el.textContent = err.message || 'Nije moguće potvrditi uplatu.'
+      el.className = 'bk-mode is-down'
+      return
+    }
+  }
+
+  if (!TOKEN) {                                 // production, arrived with no link
+    hideBooking()
+    document.getElementById('bk-nolink').hidden = false
+    document.getElementById('bk-mode').hidden = true
+    return
+  }
+
   try {
     await pullFromServer()
+    // The purchase date the server holds beats the one we assumed, so rebuild
+    // the window around it and re-read availability for the new slot ids.
+    const bought = state.serverClient?.purchasedAt && new Date(state.serverClient.purchasedAt)
+    if (bought && startOfWeek(bought).getTime() !== startOfWeek(PURCHASED_AT).getTime()) {
+      PURCHASED_AT = bought
+      state.slots = buildSlots()
+      await pullFromServer()
+    }
     online = true
   } catch (err) {
     online = false
@@ -380,10 +437,13 @@ const start = async () => {
       restore()                                 // dev only: this browser's memory
     } else {
       console.error('booking API unreachable', err)
-      document.querySelector('.bk-layout').hidden = true
-      document.querySelector('.bk-summary').hidden = true
+      hideBooking()
     }
   }
+
+  // A real client has no use for the demo controls.
+  if (state.serverClient) document.querySelector('.bk-demo').hidden = true
+
   setMode()
   if (online || IS_DEV) render()
 }

@@ -2125,6 +2125,25 @@ body > footer {
 .bk-mode.is-local  { background: #FFE9A8; color: #6B4A00; }
 .bk-mode.is-down   { background: #8E2F1E; color: #fff; font-weight: 600; }
 
+.bk-nolink {
+  max-width: 560px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid var(--line, #C9B79F);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+.bk-nolink strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+.bk-nolink p { margin: 0 0 1rem; }
+.bk-nolink .pricing-cta { margin-top: 0.5rem; }
+
 .bk-identity {
   border: 1px dashed var(--border);
   border-radius: var(--border-radius-sm);
