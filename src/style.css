@@ -2151,6 +2151,30 @@ body > footer {
 }
 .bk-pay .pricing-cta { width: 100%; text-align: center; }
 .bk-pay .pricing-cta[disabled] { opacity: 0.45; pointer-events: none; }
+.my-booking {
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+}
+.my-booking a {
+  color: var(--olive);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bk-copy {
+  display: inline-block;
+  margin: 0.5rem 0.75rem 0 0;
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--text-main);
+  background: transparent;
+  border: 1px solid var(--line, #C9B79F);
+  border-radius: 100px;
+  cursor: pointer;
+}
+.bk-copy:hover { background: rgba(255,255,255,0.45); }
+
 .bk-pay-note {
   margin: 0.8rem 0 0;
   font-size: 0.82rem;

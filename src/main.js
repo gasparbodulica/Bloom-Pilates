@@ -2,6 +2,7 @@ import './style.css'
 import { currentLang, setLang, t } from './i18n.js'
 import logoUrl from './assets/logo.jpg'
 import pricing from './data/pricing.json'
+import { showMyBooking } from './mybooking.js'
 // Vercel Web Analytics + Speed Insights. These are the vanilla entry
 // points — the /next, /react etc. entries expect those frameworks, which
 // this site does not use. Both report only from a Vercel deployment and
@@ -288,3 +289,6 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 if (currentLang !== 'hr') {
   setLang(currentLang);
 }
+
+// Offer the way back to one's own reservation, if this browser made one.
+showMyBooking(document.getElementById('my-booking'))

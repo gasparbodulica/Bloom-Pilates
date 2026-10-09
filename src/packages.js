@@ -2,6 +2,7 @@ import './style.css'
 import logoUrl from './assets/logo.jpg'
 import pricing from './data/pricing.json'
 import { currentLang, setLang, t } from './i18n.js'
+import { showMyBooking } from './mybooking.js'
 
 document.querySelectorAll('.logo-img').forEach(el => { el.src = logoUrl })
 
@@ -76,3 +77,6 @@ setLang(currentLang)
 render()
 applyConsent()
 document.addEventListener('bloom:langchange', () => { render(); applyConsent() })
+
+// Offer the way back to one's own reservation, if this browser made one.
+showMyBooking(document.getElementById('my-booking'))

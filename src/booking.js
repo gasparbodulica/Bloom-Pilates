@@ -1,6 +1,7 @@
 import './style.css'
 import logoUrl from './assets/logo.jpg'
 import demo from './data/booking-demo.json'
+import { rememberBooking } from './mybooking.js'
 // The same module the server validates against, so the page cannot offer a
 // session the server will refuse.
 import { AVAILABILITY, WEEKS, expiryFrom, zagrebDay, addDays, weekdayOf, zagrebInstant, slotId } from '../api/_schedule.js'
@@ -391,6 +392,8 @@ const pullFromServer = async () => {
   if (data.client) {
     state.serverClient = data.client
     serverClient = data.client
+    // Only once the server has vouched for it: a bad link is not worth keeping.
+    rememberBooking(TOKEN)
     const match = Object.entries(demo.packs).find(([, v]) => v.label === data.client.pack)
     if (match) state.packKey = match[0]
   }
@@ -423,6 +426,19 @@ const setMode = () => {
 }
 
 if (packSelect) packSelect.value = state.packKey
+
+// Her link is the only way back to her sessions, so make it one tap to keep.
+const copyBtn = document.getElementById('bk-copy')
+copyBtn?.addEventListener('click', async () => {
+  const url = `${location.origin}/rezervacija.html?k=${TOKEN}`
+  try {
+    await navigator.clipboard.writeText(url)
+    copyBtn.textContent = 'Kopirano ✓'
+  } catch {
+    copyBtn.textContent = url                  // clipboard refused; show it to select
+  }
+  setTimeout(() => { copyBtn.textContent = 'Kopiraj link' }, 2500)
+})
 
 const payBar    = document.getElementById('bk-pay')
 const payBtn    = document.getElementById('bk-pay-btn')
