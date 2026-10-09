@@ -121,25 +121,21 @@
     "paket4": {
       "label": "Paket 4 treninga (1x tjedno)",
       "sessions": 4,
-      "perWeek": 1,
       "type": "grupni"
     },
     "paket8": {
       "label": "Paket 8 treninga (2x tjedno)",
       "sessions": 8,
-      "perWeek": 2,
       "type": "grupni"
     },
     "paket12": {
       "label": "Paket 12 treninga (3x tjedno)",
       "sessions": 12,
-      "perWeek": 3,
       "type": "grupni"
     },
     "pojedinacni": {
       "label": "Pojedinačni 1:1 trening",
       "sessions": 1,
-      "perWeek": 1,
       "type": "individualni"
     }
   },

@@ -9,10 +9,10 @@ import { sendMail, wrap } from './_email.js'
 export const config = { api: { bodyParser: false } }
 
 const PACKS = {
-  'paket 4':  { total: 4,  perWeek: 1, type: 'grupni' },
-  'paket 8':  { total: 8,  perWeek: 2, type: 'grupni' },
-  'paket 12': { total: 12, perWeek: 3, type: 'grupni' },
-  'pojedina': { total: 1,  perWeek: 1, type: 'individualni' },
+  'paket 4':  { total: 4,  type: 'grupni' },
+  'paket 8':  { total: 8,  type: 'grupni' },
+  'paket 12': { total: 12, type: 'grupni' },
+  'pojedina': { total: 1,  type: 'individualni' },
 }
 
 // Match on the Stripe product name, which is why each Payment Link must be
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
     await redis.hset(clientKey(k), {
       name, email, phone,
       pack: pack.label, type: pack.type,
-      total: pack.total, perWeek: pack.perWeek,
+      total: pack.total,
       purchasedAt: purchasedAt.toISOString(),
       expires: expires.toISOString(),
       booked: '[]',
@@ -97,7 +97,7 @@ export default async function handler(req, res) {
            vrijedi do <strong>${expires.toLocaleDateString('hr-HR')}</strong>.</p>
         <p><a href="${link}" style="background:#484A2C;color:#fff;padding:12px 22px;border-radius:100px;text-decoration:none;display:inline-block">Odaberi svoje termine</a></p>
         <p style="font-size:13px;color:#7A6558">Spremi ovaj link — po njemu se vraćaš svojim terminima.</p>
-        <p style="font-size:13px;color:#7A6558">Podsjetnik: termin otkaži najkasnije 24 sata prije treninga.</p>`),
+        <p style="font-size:13px;color:#7A6558">Podsjetnik: termin otkaži najkasnije 12 sati prije treninga.</p>`),
     })
 
     return json(res, 200, { ok: true })

@@ -53,7 +53,7 @@ const render = () => {
   })
 }
 
-// Payment is gated on accepting the 24-hour cancellation policy. Checked again
+// Payment is gated on accepting the 12-hour cancellation policy. Checked again
 // server-side at checkout, since a checkbox in the page proves nothing on its own.
 const consent = document.getElementById('consent')
 

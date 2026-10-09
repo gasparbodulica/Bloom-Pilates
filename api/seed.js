@@ -5,10 +5,10 @@ import { redis, clientKey, json } from './_store.js'
 // Stripe account exists. Must be removed, or locked behind a secret, before
 // this goes live — otherwise anyone could grant themselves a package.
 const PACKS = {
-  paket4:  { label: 'Paket 4 treninga (1x tjedno)',  total: 4,  perWeek: 1, type: 'grupni' },
-  paket8:  { label: 'Paket 8 treninga (2x tjedno)',  total: 8,  perWeek: 2, type: 'grupni' },
-  paket12: { label: 'Paket 12 treninga (3x tjedno)', total: 12, perWeek: 3, type: 'grupni' },
-  pojedinacni: { label: 'Pojedinačni 1:1 trening', total: 1, perWeek: 1, type: 'individualni' },
+  paket4:  { label: 'Paket 4 treninga (1x tjedno)',  total: 4,  type: 'grupni' },
+  paket8:  { label: 'Paket 8 treninga (2x tjedno)',  total: 8,  type: 'grupni' },
+  paket12: { label: 'Paket 12 treninga (3x tjedno)', total: 12, type: 'grupni' },
+  pojedinacni: { label: 'Pojedinačni 1:1 trening', total: 1, type: 'individualni' },
 }
 
 export default async function handler(req, res) {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
   await redis.hset(clientKey(token), {
     name, pack: p.label, type: p.type,
-    total: p.total, perWeek: p.perWeek,
+    total: p.total,
     purchasedAt: purchasedAt.toISOString(),
     expires: expires.toISOString(),
     booked: '[]',

@@ -35,7 +35,6 @@ export default async function handler(req, res) {
       return json(res, 404, { error: 'nepoznat link' })
 
     const total   = Number(client.total)
-    const perWeek = Number(client.perWeek)
     const expires = new Date(client.expires)
     const booked  = JSON.parse(client.booked || '[]')        // [{id, week}]
 
@@ -60,8 +59,8 @@ export default async function handler(req, res) {
       return json(res, 409, { error: 'paket je istekao' })
     if (slotType && client.type && slotType !== client.type)
       return json(res, 409, { error: 'paket ne vrijedi za ovu vrstu treninga' })
-    if (booked.filter(b => b.week === weekIndex).length >= perWeek)
-      return json(res, 409, { error: `paket dopušta ${perWeek}x tjedno` })
+    // No weekly cap by design — the package total is the only session limit, so
+    // a client may book all of them in one week. weekIndex is kept for grouping.
 
     // Capacity, checked atomically. HSETNX only writes if this token is not
     // already in the slot, so a retry cannot double-count the same person.
@@ -96,7 +95,7 @@ export default async function handler(req, res) {
         html: wrap(`
           <p>Bok ${client.name},</p>
           <p>Tvoj termin je rezerviran: <strong>${when}</strong>.</p>
-          <p style="font-size:13px;color:#7A6558">Otkazivanje najkasnije 24 sata prije treninga. U slučaju otkazivanja unutar 24 sata ili nedolaska, termin se smatra iskorištenim.</p>`),
+          <p style="font-size:13px;color:#7A6558">Otkazivanje najkasnije 12 sati prije treninga. U slučaju otkazivanja unutar 12 sati ili nedolaska, termin se smatra iskorištenim.</p>`),
       })
     }
 

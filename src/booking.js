@@ -102,6 +102,9 @@ const weekIsPast = (w) => {
   end.setDate(end.getDate() + w * 7 + 7)
   return end < new Date()
 }
+// Shown per week for orientation only. There is deliberately no weekly cap:
+// a client spends their sessions however they like — four in one week if they
+// want. The "(1x tjedno)" in a package name is a suggested rhythm, not a limit.
 const bookedInWeek = (w) =>
   state.mine.filter(id => state.slots.find(s => s.id === id)?.week === w).length
 
@@ -113,8 +116,6 @@ const why = (slot) => {
   // still checked here because the server must re-check it; the UI already filters
   if (slot.type !== pack().type) return { ok: false, reason: `Tvoj paket vrijedi za ${pack().type} trening` }
   if (slot.taken >= slot.capacity) return { ok: false, reason: 'Termin je popunjen' }
-  if (bookedInWeek(slot.week) >= pack().perWeek)
-    return { ok: false, reason: `Tvoj paket dopušta ${pack().perWeek}x tjedno` }
   return { ok: true }
 }
 
@@ -136,7 +137,7 @@ const render = () => {
   // summary
   document.getElementById('bk-pack').textContent = p.label
   document.getElementById('bk-left').textContent = `${left()} / ${p.sessions}`
-  document.getElementById('bk-rule').textContent = `najviše ${p.perWeek}x tjedno`
+  document.getElementById('bk-rule').textContent = 'slobodno, bez tjednog ograničenja'
   document.getElementById('bk-caltype').textContent =
     p.type === 'grupni' ? 'Raspored grupnih treninga' : 'Raspored individualnih treninga'
   document.getElementById('bk-expiry').textContent =
@@ -158,8 +159,10 @@ const render = () => {
     n.textContent = `${w + 1}. tjedan od ${demo.weeks}`
     const c = document.createElement('span')
     const inWeek = bookedInWeek(w)
-    c.className = 'bk-week-count' + (inWeek >= p.perWeek ? ' is-full' : '')
-    c.textContent = `${inWeek} / ${p.perWeek}`
+    c.className = 'bk-week-count'
+    c.textContent = inWeek === 0
+      ? ''
+      : inWeek === 1 ? '1 termin' : `${inWeek} termina`
     head.append(n, c)
 
     const grid = document.createElement('div')

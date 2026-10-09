@@ -64,12 +64,12 @@
       "en": "A package is valid for 5 weeks from the date of payment."
     },
     {
-      "hr": "Rezervirani termin potrebno je otkazati ili promijeniti najkasnije 24 sata prije održavanja treninga.",
-      "en": "A booked session must be cancelled or rescheduled at least 24 hours in advance."
+      "hr": "Rezervirani termin potrebno je otkazati ili promijeniti najkasnije 12 sati prije održavanja treninga.",
+      "en": "A booked session must be cancelled or rescheduled at least 12 hours in advance."
     },
     {
-      "hr": "U slučaju otkazivanja unutar 24 sata ili nedolaska, termin se smatra iskorištenim.",
-      "en": "If cancelled within 24 hours, or missed, the session counts as used."
+      "hr": "U slučaju otkazivanja unutar 12 sati ili nedolaska, termin se smatra iskorištenim.",
+      "en": "If cancelled within 12 hours, or missed, the session counts as used."
     }
   ],
   "legal": {

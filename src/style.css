@@ -2071,7 +2071,7 @@ body > footer {
   font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
   letter-spacing: 0.08em; color: var(--olive);
 }
-.bk-week-count.is-full { color: var(--text-muted); }
+.bk-week-count:empty { display: none; }
 
 .bk-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.65rem; }
 
